@@ -104,7 +104,7 @@ public class GUI extends PApplet{
 
 		// Sets the default graphLayout for the graph
 		graph.setGraphLayout(graphLayout);
-		graph.setGraphLayout(new CircularLayout(graph));
+		//graph.setGraphLayout(new CircularLayout(graph));
 	}
 
 	/**

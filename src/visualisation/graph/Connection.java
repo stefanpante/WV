@@ -99,13 +99,13 @@ public class Connection implements Drawable{
 	public void draw() {
 		
 		// calculate the theoretical max distance between the two end points of the connection.
-		int max = (int) Math.sqrt(gui.displayWidth*gui.displayWidth + gui.displayHeight*gui.displayHeight);
-		
+		float max = (float) Math.sqrt(gui.displayWidth*gui.displayWidth + gui.displayHeight*gui.displayHeight);
+		max *= 0.75;
 		// Map the distance between the two end nodes to a range of 0..100 to have a value for the opacity
 		float alpha =  PApplet.map(getDistance(), 0, max, 100, 0);
 		
 		// set the stroke to the color of this connection. Adjust the opacity for distance.
-		gui.stroke(color, 20 + alpha * 0.5f);
+		gui.stroke(color, 5 + alpha * 0.5f);
 		
 		// Get the positions of the two endpoints of the connection
 		PVector pos1 = node1.getTransformedPosition();
