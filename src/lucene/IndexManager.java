@@ -26,9 +26,9 @@ import org.apache.lucene.store.SimpleFSDirectory;
 import org.apache.lucene.util.BytesRef;
 import org.apache.lucene.util.Version;
 
-public class TermFrequencyManager {
+public class IndexManager {
 	
-	private static volatile TermFrequencyManager singletonInstance;
+	private static volatile IndexManager singletonInstance;
 	
 	private static final String INDEX_DIRECTORY = "data/frequencies";
     private static final String CONTENT = "content";
@@ -37,14 +37,14 @@ public class TermFrequencyManager {
 	
 	private final Directory directory;
 
-	private TermFrequencyManager() throws IOException {
+	private IndexManager() throws IOException {
 		directory = new SimpleFSDirectory(new File(INDEX_DIRECTORY));
 	}
 	
-	public static TermFrequencyManager getInstance(){
+	public static IndexManager getInstance(){
 		if(singletonInstance == null)
 			try {
-				singletonInstance = new TermFrequencyManager();
+				singletonInstance = new IndexManager();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -65,11 +65,11 @@ public class TermFrequencyManager {
 		return extractFrequencies(reader, rs.scoreDocs[0].doc);
 	}
 	
-	public void calculateTermFrequencies(String identifier, String content) throws IOException{
-		calculateTermFrequencies(identifier, null, content);
+	public void addToIndex(String identifier, String content) throws IOException{
+		addToIndex(identifier, null, content);
 	}
 	
-	public void calculateTermFrequencies(String identifier, String title, String content) throws IOException{
+	public void addToIndex(String identifier, String title, String content) throws IOException{
 		if(knowsIdentifier(identifier)) throw new IllegalArgumentException("This identifier already exists");
 		Analyzer analyzer = new EnglishAnalyzer(Version.LUCENE_42);
 		IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_42, analyzer);
@@ -103,5 +103,16 @@ public class TermFrequencyManager {
         }
         return frequencies;
     }
+	
+	public String[] extractPublicationData(int id) throws IOException{
+		IndexReader reader = DirectoryReader.open(directory);
+		TopDocs rs = queryIdentifier(id+"",reader);
+		int docID = rs.scoreDocs[0].doc;
+		String[] result = new String[2];
+		result[0] = reader.document(docID).getValues(TITLE)[0];
+		result[1] = reader.document(docID).getValues(CONTENT)[0];
+		return result;
+		
+	}
 
 }
