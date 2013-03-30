@@ -18,6 +18,12 @@ public class Transform {
 		this.parent = parent;
 	}
 	
+	public Transform(GUI parent, float translationX, float translationY){
+		this(parent);
+		this.translationX = translationX;
+		this.translationY = translationY;
+	}
+	
 	/**
 	 * transforms the given vector into another vector with the transformations
 	 * defined by this class.
@@ -26,7 +32,8 @@ public class Transform {
 	 */
 	public PVector transform(PVector original){
 		
-		float x = (original.x - parent.displayWidth/2 )*scale + translationX +parent.displayWidth/2;
+	
+		float x = (original.x - parent.displayWidth/2 )*scale + translationX+ parent.displayWidth/2;
 		float y = (original.y -parent.displayHeight/2)*scale + translationY + parent.displayHeight/2;
 		
 		return new PVector(x,y);

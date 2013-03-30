@@ -283,6 +283,10 @@ public class Node implements GUIElement{
 	public void setGUI(GUI gui){
 		this.gui =gui;
 	}
+	
+	public float getDiameter(){
+		return this.diameter;
+	}
 
 
 

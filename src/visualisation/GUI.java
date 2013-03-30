@@ -64,6 +64,7 @@ public class GUI extends PApplet{
 	public void setup(){
 
 		transform = new Transform(this);
+		
 		// sets the size of the window
 		size(displayWidth - 50,displayHeight -120);
 

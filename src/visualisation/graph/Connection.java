@@ -110,13 +110,25 @@ public class Connection implements Drawable{
 		// Get the positions of the two endpoints of the connection
 		PVector pos1 = node1.getTransformedPosition();
 		PVector pos2 = node2.getTransformedPosition();
-		
+		float x1 = pos1.x + node1.
 		// draw the connection
 		gui.line(pos1.x, pos1.y, pos2.x, pos2.y);
 	
 	}
 	
-	
+	private float getAngle(Node node1, Node node2){
+		PVector pos1 = node1.getPosition();
+		PVector pos2 = node2.getPosition();
+
+		float diffX = (pos2.x - pos1.x);
+		float diffY = (pos2.y - pos1.y);
+
+		if (diffX == 0) diffX = 0.001f;
+		if (diffY == 0) diffY = 0.001f;
+		
+		return (float) Math.atan2(diffY, diffX);
+
+	}
 	
 
 	/**
