@@ -1,5 +1,7 @@
 package visualisation.graph;
 
+import java.util.ArrayList;
+
 import processing.core.PVector;
 
 public abstract class GraphLayout {
@@ -97,6 +99,8 @@ public abstract class GraphLayout {
 		}
 	}
 
+
+	public abstract void setInitialPosition(Node node, ArrayList<Connection> conns);
 
 
 }

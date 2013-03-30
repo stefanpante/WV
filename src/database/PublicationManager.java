@@ -41,14 +41,15 @@ public class PublicationManager {
 		//for(Publication citation : publication.getCitations()) addCitation(publication, citation);
 	}
 	
-	public void expand(Publication publication){
+	public ArrayList<Connection> expand(Publication publication){
+		ArrayList<Connection> expandedConnections = new ArrayList<Connection>();
 		if(expandedPublications.contains(publication)) System.out.println("This publication has already been expanded");
 		else{
 			try {
 				HashSet<Publication> citations = CitationFactory.fromDatabaseID(publication.getID());
 				citations.removeAll(expandedPublications);
 				for(Publication citation : citations){
-					addCitation(publication, citation);
+					expandedConnections.add(addCitation(publication, citation));
 				}
 				expandedPublications.add(publication);
 			} catch (SQLException e) {
@@ -57,9 +58,25 @@ public class PublicationManager {
 			}
 			
 		}
+		return expandedConnections;
+	}
+	
+	public ArrayList<Connection> collapse(Node node){
+		ArrayList<Connection> collapsedConnections = new ArrayList<Connection>();
+		
+		for(Connection connection: connections){
+			if(connection.getNode1() == node){
+				collapsedConnections.add(connection);
+				connections.remove(connection);
+			}
+		}
+		applet.loop();
+		applet.setFixed(false);
+		return collapsedConnections;
+		
 	}
 		
-	private void addCitation(Publication from, Publication to){
+	private Connection addCitation(Publication from, Publication to){
 		addPublication(to);
 		Node firstNode;
 		if(nodes.containsKey(from.getID())) firstNode = nodes.get(from.getID());
@@ -73,6 +90,8 @@ public class PublicationManager {
 			nodes.put(firstNode.getSubject().getID(), firstNode);
 			nodes.put(secondNode.getSubject().getID(), secondNode);
 		}
+		
+		return connection;
 	}
 	
 	public ArrayList<Connection> getConnections(){

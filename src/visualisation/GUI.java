@@ -36,11 +36,6 @@ public class GUI extends PApplet{
 	private Graph graph;
 
 	/**
-	 * loads the default font
-	 */
-	//public PFont font = createFont("C:/Users/Stefan/git/WV--Visualisation-of-networks/fonts/MyriadPro-Bold.otf", 16);
-
-	/**
 	 * Controller used for input.
 	 */
 	private ControlP5 inputController;
@@ -73,7 +68,7 @@ public class GUI extends PApplet{
 		size(displayWidth - 50,displayHeight -120);
 
 		// Sets the frameRate for the animation
-		frameRate(25);
+		frameRate(60);
 
 		// Create a graph instance to display
 		try {
@@ -229,12 +224,15 @@ public class GUI extends PApplet{
 		transform.scale = zoom/100f;
 		this.ellipse(displayWidth/2 + transform.translationX, displayHeight/2 +transform.translationY,50, 50 );
 		noStroke();
+		if(!fixed){
 		graph.draw();
-		if(!pause){
-			graph.layout();
+			if(!pause){
+				graph.layout();
+			}
+			
+			updateStatusMessage();
+			graph.hit(mouseX,mouseY);
 		}
-		updateStatusMessage();
-		graph.hit(mouseX,mouseY);
 	}
 
 	/**
@@ -258,6 +256,7 @@ public class GUI extends PApplet{
 	public void fix(){
 		graph.fix();
 	}
+	
 	public void pause(){
 		if(pause){
 			pause = false;
@@ -267,7 +266,15 @@ public class GUI extends PApplet{
 			pause = true;
 		}
 	}
+	
+	boolean fixed = false;
+	public void setFixed(boolean fixed){
+		this.fixed = fixed;
+	}
 
+	public boolean getFixed(){
+		return fixed;
+	}
 	public void reset(){
 		Random random = new Random();
 		for(Node node: graph.getNodes().values()){
@@ -281,45 +288,6 @@ public class GUI extends PApplet{
 
 	public Transform getTransform(){
 		return transform;
-	}
-
-	public boolean sketchFullScreen(){
-		return true;
-	}
-
-	public ArrayList<Connection> createBinary(int size){
-		HashMap<Integer,Node> nodes = new HashMap<Integer,Node>();
-		// Create all nodes of the binary tree
-		for(int i= 0; i < size; i++){
-			IDSubject subject = new IDSubject(i+1, this);
-			Node node = new Node(subject,this, null);
-			node.setColor(this.color(6,124,134));
-			nodes.put(i+1, node);
-		}
-
-		Node node = nodes.get(1);
-		if(node == null ) System.out.println("Null");
-		// Create all the connections in the binary tree
-		ArrayList<Connection> connections = new ArrayList<Connection>();
-		for(Integer key: nodes.keySet()){
-			if(nodes.containsKey(key*2)){
-				Connection conn = new Connection(nodes.get(key), nodes.get(key*2), this);
-				connections.add(conn);
-			}
-
-			if(nodes.containsKey(key*2 +1)){
-				Connection conn2 = new Connection(nodes.get(key), nodes.get(key*2 +1), this);
-				connections.add(conn2);
-			}
-
-			//			if(nodes.containsKey(key*2) && nodes.containsKey(key*2+1)){
-			//				connections.add(new Connection(nodes.get(key*2), nodes.get(key*2+1), this));
-			//			}
-		}
-
-		return connections;
-
-
 	}
 
 }

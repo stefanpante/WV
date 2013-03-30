@@ -23,9 +23,13 @@ import visualisation.subject.Subject;
 public class Node implements GUIElement{
 	
 	/**
+	 * Boolean which shows if the Node is expanded.
+	 */
+	private boolean expanded;
+	/**
 	 * Needed to draw everything
 	 */
-	GUI gui;
+	private GUI gui;
 
 	/**
 	 * the position of this node in the graph's coordinate space
@@ -71,6 +75,7 @@ public class Node implements GUIElement{
 		this.color = 0;
 		this.diameter = 100;
 		this.movable = true;
+		this.expanded = false;
 		this.pane = new Pane(this);
 		this.position = new PVector();
 	}
@@ -116,6 +121,22 @@ public class Node implements GUIElement{
 	 */
 	public Subject getSubject(){
 		return sub;
+	}
+	
+	/**
+	 * sets expanded to true or false.
+	 * @param expanded
+	 */
+	public void setExpanded(boolean expanded){
+		this.expanded = expanded;
+	}
+	
+	/**
+	 * Returns the expanded
+	 * @return
+	 */
+	public boolean getExpanded(){
+		return expanded;
 	}
 	
 

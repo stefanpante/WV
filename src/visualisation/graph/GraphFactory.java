@@ -40,7 +40,10 @@ public class GraphFactory {
 		Graph graph = new Graph(manager.getConnections(), manager, applet);
 		for(Node n : graph.getNodes().values()){
 			Publication p = (Publication) n.getSubject();
-			if(Publication.root.equals(p)) graph.setParentNode(n);
+			if(Publication.root.equals(p)){
+				graph.setParentNode(n);
+				//TODO: set parentnode to expanded
+			}
 		}
 		return graph;
 	}

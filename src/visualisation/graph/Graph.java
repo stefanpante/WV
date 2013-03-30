@@ -45,13 +45,13 @@ public class Graph implements Drawable{
 	 */
 	//TODO: should be superclass so other things than publications can be displayed.
 	private PublicationManager manager;
-	
+
 	/**
 	 * This boolean represents if nodes are fixed when expanded or not.
 	 * fix meaning that the node cannot move when expanded. 
 	 */
 	boolean fix = false;
-	
+
 	/**
 	 * Creates an empty graph. Nodes and connections can be added later
 	 */
@@ -168,8 +168,8 @@ public class Graph implements Drawable{
 		return this.gui;
 	}
 
-	
-	
+
+
 
 	/**
 	 * Draws all the connections in this graph
@@ -195,11 +195,20 @@ public class Graph implements Drawable{
 	public void expand(int mouseX, int mouseY){
 		for(Node node: getNodes().values()){
 			if(node.hit(mouseX, mouseY)){
-				manager.expand((Publication) node.getSubject());
-				this.addConnections(manager.getConnections());
-				if(fix) node.setMovable(false);
+				
+				if(!node.getExpanded()){
+					ArrayList<Connection> conns = manager.expand((Publication) node.getSubject());
+					this.addConnections(conns);
+					getGraphLayout().setInitialPosition(node, conns);
+					if(fix) node.setMovable(false);
+					node.setExpanded(true);
+				}
+
 				break;
 			}
+
+			
+
 		}
 	}
 
@@ -218,32 +227,12 @@ public class Graph implements Drawable{
 	public int getNumberOfConnections(){
 		return this.connections.size();
 	}
-	
+
 	/**
 	 * Arranges the graph according to its layout.
 	 */
 	public void layout(){
 		graphlayout.layout();
-	}
-
-
-	public Graph buildSubGraph(int id){
-		ArrayList<Connection> connections = this.getConnections(id, 0);
-		return new Graph(connections, manager, gui);
-	}
-	
-	//TODO does not function.
-	private ArrayList<Connection> getConnections(int id, int iterationDepth){
-		ArrayList<Connection> graph = new ArrayList<Connection>();
-
-		Node node = getNodes().get(id);
-		graph.addAll(node.getConnections());
-		for(Connection connection: node.getConnections()){
-			if(iterationDepth < 0)
-				graph.addAll(this.getConnections(connection.getOther(node).getSubject().getID(), iterationDepth++));
-		}
-
-		return graph;
 	}
 
 
@@ -257,6 +246,16 @@ public class Graph implements Drawable{
 		}
 	}
 	
+	public void removeConnections(ArrayList<Connection> conns){
+		for(Connection connection: conns){
+			this.removeConnection(connection);
+		}
+	}
+	
+	public void removeConnection(Connection connection){
+		connections.remove(connection);
+	}
+
 	/**
 	 * Adds a connection to the graph
 	 * @param connection the connection to be added
@@ -284,7 +283,7 @@ public class Graph implements Drawable{
 		Connection connection = new Connection(node1,node2,gui);
 		this.connections.add(connection);
 	}
-	
+
 	/** 
 	 * returns the nodes as a hashmap. The key is the nodes identification number.
 	 * @return
@@ -293,7 +292,7 @@ public class Graph implements Drawable{
 		return manager.getNodes();
 	}
 
-	
+
 	/**
 	 * A toggle function to fix or unfix the nodes in the graph.
 	 */
