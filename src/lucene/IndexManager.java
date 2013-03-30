@@ -30,9 +30,9 @@ public class IndexManager {
 	
 	private static volatile IndexManager singletonInstance;
 	
-	private static final String INDEX_DIRECTORY = "data/frequencies";
-    private static final String CONTENT = "content";
-    private static final String IDENTIFIER = "identifier";
+	private static final String INDEX_DIRECTORY = "data/publicationIndexTermVectors";
+    private static final String CONTENT = "abstract";
+    private static final String IDENTIFIER = "id";
     private static final String TITLE = "title";
 	
 	private final Directory directory;
@@ -65,11 +65,12 @@ public class IndexManager {
 		return extractFrequencies(reader, rs.scoreDocs[0].doc);
 	}
 	
-	public void addToIndex(String identifier, String content) throws IOException{
+	public void addToIndex(String identifier, String content) throws Exception{
 		addToIndex(identifier, null, content);
 	}
 	
-	public void addToIndex(String identifier, String title, String content) throws IOException{
+	public void addToIndex(String identifier, String title, String content) throws Exception{
+		if(true) throw new Exception("Can't add to index, it is locked.");
 		if(knowsIdentifier(identifier)) throw new IllegalArgumentException("This identifier already exists");
 		Analyzer analyzer = new EnglishAnalyzer(Version.LUCENE_42);
 		IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_42, analyzer);
