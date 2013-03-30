@@ -124,13 +124,18 @@ public class IndexManager {
         return frequencies;
     }
 	
-	public String[] extractPublicationData(int id) throws IOException{
+	public String[] extractPublicationData(int databaseId) throws IOException{
 		IndexReader reader = getDirectoryReader();
-		TopDocs rs = queryIdentifier(id+"");
+		TopDocs rs = queryIdentifier(databaseId+"");
 		int docID = rs.scoreDocs[0].doc;
+		return extractPublicationDataFromDocID(docID);
+	}
+	
+	public String[] extractPublicationDataFromDocID(int docId) throws IOException{
+		IndexReader reader = getDirectoryReader();
 		String[] result = new String[2];
-		result[0] = reader.document(docID).getValues(TITLE)[0];
-		result[1] = reader.document(docID).getValues(CONTENT)[0];
+		result[0] = reader.document(docId).getValues(TITLE)[0];
+		result[1] = reader.document(docId).getValues(CONTENT)[0];
 		return result;
 		
 	}
