@@ -13,7 +13,7 @@ public class Pane implements Drawable {
 	private GUI gui;
 	private Node parentNode;
 	public static final int width = 275;
-	public int height = 200;
+	public int height;
 	private boolean focus = false;
 
 
@@ -23,6 +23,7 @@ public class Pane implements Drawable {
 	 */
 	public Pane(Node parentNode){
 		this.parentNode = parentNode;
+		
 	}
 
 	/**
@@ -33,10 +34,12 @@ public class Pane implements Drawable {
 	public Pane(Node parentNode, GUI applet){
 		this(parentNode);
 		this.gui = applet;
+		this.calculateHeight();
 	}
 
 	public void setGUI(GUI applet){
 		this.gui = applet;
+		this.calculateHeight();
 	}
 
 	/**
@@ -67,25 +70,41 @@ public class Pane implements Drawable {
 			gui.textSize(12);
 			if(!field.getContent().equals("null")){
 				gui.fill(gui.color(0,146,211));
-				gui.text(field.getName(), position.x + 20, position.y - height/2 + offset, width - 10, 30);
+				gui.text(field.getName(), position.x + 15, position.y - height/2 + offset, width - 10, 30);
 				offset += 20;
 				gui.fill(gui.color(0));
-				float lines = gui.textWidth(field.getContent()) / ( width -10);
+				float lines = gui.textWidth(field.getContent()) / ( width -25);
 				if(lines < 1){
 					lines = 1;
 				}
 				String text = "";
 				text += field.getContent();
-				gui.text(trimInput(text) , position.x +20, position.y - height/2 + offset, width - 10, 30*lines);
+				gui.text(trimInput(text) , position.x +15, position.y - height/2 + offset, width - 10, 30*lines);
 				offset += 15*lines;
 			}
 		}
 
 	}
 
-	public int calculateHeight(ArrayList<Field> fields){
-		return 0;
-
+	public void calculateHeight(){
+		ArrayList<Field> fields = parentNode.getSubject().createFields();
+		height = 0;
+		for(Field field: fields){
+			height += 20;
+			gui.textSize(12);
+			if(!field.getContent().equals("null")){
+				height+= 20;
+				gui.fill(gui.color(0));
+				float lines = gui.textWidth(trimInput(field.getContent())) / ( width -35);
+				if(lines < 1){
+					lines = 1;
+				}
+				String text = "";
+				height += 15*lines;
+			}
+		}
+		
+		height +=40;
 	}
 
 	public String trimInput(String input){
