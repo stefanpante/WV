@@ -89,10 +89,12 @@ public class Publication implements Subject{
 		Field title = new Field("title", this.title);
 		Field cited = new Field("citations", ""+this.cited);
 		Field year = new Field("year", ""+this.year);
+		Field abstr = new Field("abstract", ""+this.summary);
 		ArrayList<Field> result = new ArrayList<Field>();
 		result.add(title);
 		result.add(cited);
 		result.add(year);
+		result.add(abstr);
 		return result;
 	}
 
