@@ -35,4 +35,10 @@ public class CircularLayout extends GraphLayout{
 		
 	}
 
+	@Override
+	public void setInitialPosition(Node node, ArrayList<Connection> conns) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
