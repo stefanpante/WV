@@ -31,6 +31,11 @@ public class Connection implements Drawable{
 	private int color;
 	
 	/**
+	 * Boolean that saves if the first node is the original paper (the one that cites the other one)
+	 */
+	private boolean firstIsOriginal;
+	
+	/**
 	 * A reference to the GUI is needed to be able to draw.
 	 */
 	private GUI gui;
@@ -41,7 +46,7 @@ public class Connection implements Drawable{
 	 * @param node1		the first node of the connection.
 	 * @param node2		the second node of the connection.
 	 */
-	public Connection(Node node1, Node node2){
+	public Connection(Node node1, Node node2, boolean firstIsOriginal){
 		this.node1 = node1;
 		this.node2 = node2;
 		this.color = 0;
@@ -53,8 +58,8 @@ public class Connection implements Drawable{
 	 * @param node2		the second node of the connection.
 	 * @param gui		the gui, which will be used to draw.
 	 */
-	public Connection(Node node1, Node node2, GUI gui) {
-		this(node1, node2);
+	public Connection(Node node1, Node node2, GUI gui, boolean firstIsOriginal) {
+		this(node1, node2, firstIsOriginal);
 		this.gui = gui;
 		
 	}

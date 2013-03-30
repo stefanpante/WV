@@ -29,7 +29,7 @@ public class IndexedDocumentFactory {
 		return singletonInstance;
 	}
 	
-	public IndexedDocument fromPDF(final URI location, final String identifier) throws IOException{
+	public IndexedDocument fromPDF(final URI location, final String identifier) throws Exception{
 		FileInputStream fi = new FileInputStream(new File(location));
 		PDFParser parser = new PDFParser(fi);
 		parser.parse();
@@ -41,7 +41,7 @@ public class IndexedDocumentFactory {
 		return new IndexedDocument(identifier, termFrequencies);
 	}
 	
-	public IndexedDocument fromPublication(final Publication publication) throws IOException {
+	public IndexedDocument fromPublication(final Publication publication) throws Exception {
 		if(IndexManager.getInstance().knowsIdentifier(publication.getID()+""))
 			return new IndexedDocument(publication.getID()+"", IndexManager.getInstance().retrieveTermFrequencies(publication.getID()+""));
 		
