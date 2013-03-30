@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.core.SimpleAnalyzer;
+import org.apache.lucene.analysis.core.StopAnalyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field.Store;
@@ -17,6 +19,13 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.index.Terms;
 import org.apache.lucene.index.TermsEnum;
+import org.apache.lucene.queryparser.surround.parser.ParseException;
+import org.apache.lucene.queryparser.surround.parser.QueryParser;
+import org.apache.lucene.queryparser.surround.query.BasicQueryFactory;
+import org.apache.lucene.queryparser.surround.query.SrndQuery;
+import org.apache.lucene.search.BooleanClause;
+import org.apache.lucene.search.BooleanQuery;
+import org.apache.lucene.search.FuzzyQuery;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.TermQuery;
@@ -34,6 +43,9 @@ public class IndexManager {
     private static final String CONTENT = "abstract";
     private static final String IDENTIFIER = "id";
     private static final String TITLE = "title";
+    private static final String YEAR = "year";
+    private static final String CITED = "cited";
+    private static final String ID = "id";
 	
 	private final Directory directory;
 
@@ -59,9 +71,8 @@ public class IndexManager {
 		return rs.totalHits == 1;
 	}
 
-	private static IndexReader directoryReader;
 	private IndexReader getDirectoryReader() throws IOException {
-		directoryReader = DirectoryReader.open(directory);
+		DirectoryReader directoryReader = DirectoryReader.open(directory);
 		return directoryReader;
 	}
 
@@ -78,7 +89,8 @@ public class IndexManager {
 	public void addToIndex(String identifier, String title, String content) throws Exception{
 		if(true) throw new Exception("Can't add to index, it is locked.");
 		if(knowsIdentifier(identifier)) throw new IllegalArgumentException("This identifier already exists");
-		Analyzer analyzer = new EnglishAnalyzer(Version.LUCENE_42);
+		//negeert stopwoorden
+		Analyzer analyzer = new StopAnalyzer(Version.LUCENE_42);
 		IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_42, analyzer);
 		IndexWriter writer = new IndexWriter(directory, iwc);
 		Document doc = new Document();
@@ -104,8 +116,20 @@ public class IndexManager {
 	
 	public TopDocs searchField(String fieldName, String query, int results) throws IOException{
 		IndexSearcher searcher = getDirectorySearcher();
-		Query q = new TermQuery(new Term(fieldName, query)); 
+		Query q = new TermQuery(new Term(fieldName, query));
 		TopDocs rs = searcher.search(q, results);
+		return rs;
+	}
+	
+	public TopDocs fuzzySearchField(String fieldName, String query, int results) throws IOException, ParseException{
+		IndexSearcher searcher = getDirectorySearcher();
+		String newQuery = "";
+		BooleanQuery booleanQuery = new BooleanQuery();
+		for(String s : query.split(" ")){
+			Query q = new FuzzyQuery(new Term(fieldName, s));
+			booleanQuery.add(q, BooleanClause.Occur.SHOULD);
+		}
+		TopDocs rs = searcher.search(booleanQuery, results);
 		return rs;
 	}
 	
@@ -124,13 +148,20 @@ public class IndexManager {
         return frequencies;
     }
 	
-	public String[] extractPublicationData(int id) throws IOException{
-		IndexReader reader = getDirectoryReader();
-		TopDocs rs = queryIdentifier(id+"");
+	public String[] extractPublicationData(int databaseId) throws IOException{
+		TopDocs rs = queryIdentifier(databaseId+"");
 		int docID = rs.scoreDocs[0].doc;
-		String[] result = new String[2];
-		result[0] = reader.document(docID).getValues(TITLE)[0];
-		result[1] = reader.document(docID).getValues(CONTENT)[0];
+		return extractPublicationDataFromDocID(docID);
+	}
+	
+	public String[] extractPublicationDataFromDocID(int docId) throws IOException{
+		IndexReader reader = getDirectoryReader();
+		String[] result = new String[5];
+		result[0] = reader.document(docId).getValues(TITLE)[0];
+		result[1] = reader.document(docId).getValues(YEAR)[0];
+		result[2] = reader.document(docId).getValues(CITED)[0];
+		result[3] = (reader.document(docId).getValues(CONTENT).length > 0 ? reader.document(docId).getValues(CONTENT)[0] : "");
+		result[4] = reader.document(docId).getValues(ID)[0];
 		return result;
 		
 	}

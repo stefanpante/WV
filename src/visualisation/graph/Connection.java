@@ -50,6 +50,7 @@ public class Connection implements Drawable{
 		this.node1 = node1;
 		this.node2 = node2;
 		this.color = 0;
+		this.firstIsOriginal = firstIsOriginal;
 	}
 	
 	/**
