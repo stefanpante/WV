@@ -211,6 +211,14 @@ public class Graph implements Drawable{
 
 		}
 	}
+	
+	public void mouseHit(int mouseX, int mouseY){
+		for(Node node: getNodes().values()){
+			if(node.hit(mouseX, mouseY)){
+				node.fixPane();
+			}
+		}
+	}
 
 	/**
 	 * Returns the number of nodes in this graph.

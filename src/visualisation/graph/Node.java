@@ -181,9 +181,20 @@ public class Node implements GUIElement{
 		gui.noStroke();
 		
 		gui.ellipse(getTransformedPosition().x, getTransformedPosition().y, diameter, diameter);
-		pane.drawFocus();
+		
+		if(pane.hasFocus()){
+			pane.draw();
+		}
 	}
 
+	public void fixPane(){
+		if(pane.hasFocus()){
+			pane.setFocus(false);
+		}
+		else{
+			pane.setFocus(true);
+		}
+	}
 	public void drawSpecial(){
 		gui.fill(gui.color(0,146,211),100);
 		gui.noStroke();

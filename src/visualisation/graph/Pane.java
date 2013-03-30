@@ -117,14 +117,16 @@ public class Pane implements Drawable {
 
 		return output;
 	}
-
-	public void drawFocus(){
-
-	}
-
 	public String shortText(){
 		Field field = parentNode.getSubject().getDescription();
 		return field.getContent();
 	}
 
+	public boolean hasFocus(){
+		return focus;
+	}
+	
+	public void setFocus(boolean focus){
+		this.focus = focus;
+	}
 }

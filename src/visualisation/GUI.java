@@ -130,6 +130,9 @@ public class GUI extends PApplet{
 		if (mouseEvent.getClickCount()==2){
 			graph.expand(mouseX, mouseY);
 		}
+		if(mouseEvent.getClickCount() ==1){
+			//graph.mouseHit(mouseX, mouseY);
+		}
 		if(!locked && (mouseX < displayWidth -150)){
 			xOffset = mouseX - transform.translationX;
 			yOffset = mouseY - transform.translationY;
