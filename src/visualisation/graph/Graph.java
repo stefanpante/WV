@@ -279,8 +279,8 @@ public class Graph implements Drawable{
 	 * @param node1 the first node to be added.
 	 * @param node2 the second node to be added.
 	 */
-	public void addConnection(Node node1, Node node2){
-		Connection connection = new Connection(node1,node2,gui);
+	public void addConnection(Node node1, Node node2, boolean firstIsOriginal){
+		Connection connection = new Connection(node1,node2,gui, firstIsOriginal);
 		this.connections.add(connection);
 	}
 

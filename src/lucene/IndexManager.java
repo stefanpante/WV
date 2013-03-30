@@ -52,16 +52,22 @@ public class IndexManager {
 	}
 	
 	public boolean knowsIdentifier(String identifier) throws IOException {
-		IndexReader reader = DirectoryReader.open(directory);
-		TopDocs rs = queryIdentifier(identifier, reader);
+		IndexReader reader = getDirectoryReader();
+		TopDocs rs = queryIdentifier(identifier);
 		reader.close();
 		if(rs.totalHits>1) throw new IllegalStateException("The same identifier exists two times");
 		return rs.totalHits == 1;
 	}
 
+	private static IndexReader directoryReader;
+	private IndexReader getDirectoryReader() throws IOException {
+		directoryReader = DirectoryReader.open(directory);
+		return directoryReader;
+	}
+
 	public Map<String, Integer> retrieveTermFrequencies(String identifier) throws IOException {
-		IndexReader reader = DirectoryReader.open(directory);
-		TopDocs rs = queryIdentifier(identifier,reader);
+		IndexReader reader = getDirectoryReader();
+		TopDocs rs = queryIdentifier(identifier);
 		return extractFrequencies(reader, rs.scoreDocs[0].doc);
 	}
 	
@@ -83,10 +89,23 @@ public class IndexManager {
 		writer.close();
 	}
 
-	private TopDocs queryIdentifier(String identifier, IndexReader reader) throws IOException {
+	private TopDocs queryIdentifier(String identifier) throws IOException {
+		return searchField(IDENTIFIER, identifier, 1);
+	}
+
+	private IndexSearcher getDirectorySearcher(IndexReader reader) {
 		IndexSearcher searcher = new IndexSearcher(reader);
-		Query query = new TermQuery(new Term(IDENTIFIER, identifier)); 
-		TopDocs rs = searcher.search(query, 1);
+		return searcher;
+	}
+	
+	private IndexSearcher getDirectorySearcher() throws IOException{
+		return getDirectorySearcher(getDirectoryReader());
+	}
+	
+	public TopDocs searchField(String fieldName, String query, int results) throws IOException{
+		IndexSearcher searcher = getDirectorySearcher();
+		Query q = new TermQuery(new Term(fieldName, query)); 
+		TopDocs rs = searcher.search(q, results);
 		return rs;
 	}
 	
@@ -106,8 +125,8 @@ public class IndexManager {
     }
 	
 	public String[] extractPublicationData(int id) throws IOException{
-		IndexReader reader = DirectoryReader.open(directory);
-		TopDocs rs = queryIdentifier(id+"",reader);
+		IndexReader reader = getDirectoryReader();
+		TopDocs rs = queryIdentifier(id+"");
 		int docID = rs.scoreDocs[0].doc;
 		String[] result = new String[2];
 		result[0] = reader.document(docID).getValues(TITLE)[0];
