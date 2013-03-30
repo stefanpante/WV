@@ -91,36 +91,12 @@ public class GUI extends PApplet{
 	 * Initializes the graph.
 	 */
 	private void initGraph(){
-
-		// Gives each node in the graph a random position
-		setRandomPosition();
-
 		// Gives the parentNode its default appearance
 		initParentNode();
 
 		// Sets the default graphLayout for the graph
 		graph.setGraphLayout(graphLayout);
 		//graph.setGraphLayout(new CircularLayout(graph));
-	}
-
-	/**
-	 * Gives all nodes in the graph a random start position
-	 */
-	private void setRandomPosition(){
-
-		// Gets the nodes from the graph
-		HashMap<Integer, Node> nodes = graph.getNodes();
-
-		// New randomgenerator for the random position
-		Random random = new Random();
-
-		// Sets each nodes to a random position on the screen
-		for(Node node : nodes.values()){
-			node.setPosition(150+ random.nextInt(displayWidth-300), 75+random.nextInt(displayHeight -150 ));
-			node.setDiameter(10 + random.nextInt(20));
-		}
-
-
 	}
 
 	/**
@@ -174,7 +150,9 @@ public class GUI extends PApplet{
 	 */
 	private void setupGUI(){
 
+		
 		inputController = new ControlP5(this);
+		
 		Textfield text = inputController.addTextfield("Type here to search...");
 		CColor color = new CColor(color(0, 146, 211), color(255),color(0, 60, 255),color(0, 146, 211),color(0, 146, 211) );
 		text.setColor(color);
