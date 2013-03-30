@@ -13,10 +13,10 @@ public class Pane implements Drawable {
 	private GUI gui;
 	private Node parentNode;
 	public static final int width = 275;
-	public static final int height = 200;
+	public int height = 200;
 	private boolean focus = false;
-	
-	
+
+
 	/**
 	 * Constructs a new Pane with a given parentNode
 	 * @param parentNode
@@ -24,7 +24,7 @@ public class Pane implements Drawable {
 	public Pane(Node parentNode){
 		this.parentNode = parentNode;
 	}
-	
+
 	/**
 	 * Constructs a new pane with a corresponding node
 	 * @param parentNode the parentNode for this pane
@@ -34,11 +34,11 @@ public class Pane implements Drawable {
 		this(parentNode);
 		this.gui = applet;
 	}
-	
+
 	public void setGUI(GUI applet){
 		this.gui = applet;
 	}
-	
+
 	/**
 	 * turns off the focus if it is on and vice versa.
 	 */
@@ -53,39 +53,59 @@ public class Pane implements Drawable {
 	@Override
 	public void draw() {
 		PVector position = parentNode.getTransformedPosition();
-		
+
 		gui.stroke(0, 50);
 		gui.fill(255);
 		gui.rect(position.x + 10, position.y - height/2, width, height);
-		
+
 		gui.noStroke();
 		gui.fill(0);
 		ArrayList<Field> fields = parentNode.getSubject().createFields();
-		String text = "";
-		float offset = 20;
+		float offset = 0;
 		for(Field field: fields){
-			gui.textSize(16);
-			gui.fill(gui.color(0,146,211));
-			gui.text(field.getName(), position.x + 20, position.y - height/2 + offset, width);
-			
 			offset += 20;
-			gui.fill(gui.color(0));
-			float lines = gui.textWidth(field.getContent()) / ( width -10);
-			gui.text(field.getContent(), position.x +20, position.y - height/2 + offset, width - 10, 30*lines);
-			offset += 30*lines;
-			// Can use textWidth to calculate the width of a string in processing.
-			// Use it to dynamically alter the height of the pane.
+			gui.textSize(12);
+			if(!field.getContent().equals("null")){
+				gui.fill(gui.color(0,146,211));
+				gui.text(field.getName(), position.x + 20, position.y - height/2 + offset, width - 10, 30);
+				offset += 20;
+				gui.fill(gui.color(0));
+				float lines = gui.textWidth(field.getContent()) / ( width -10);
+				if(lines < 1){
+					lines = 1;
+				}
+				String text = "";
+				text += field.getContent();
+				gui.text(trimInput(text) , position.x +20, position.y - height/2 + offset, width - 10, 30*lines);
+				offset += 15*lines;
+			}
 		}
-		
+
 	}
-	
+
+	public int calculateHeight(ArrayList<Field> fields){
+		return 0;
+
+	}
+
+	public String trimInput(String input){
+		if(input.length() <= 200){
+			return input;
+		}
+
+		String output = input.substring(0, 197);
+		output += "...";
+
+		return output;
+	}
+
 	public void drawFocus(){
-		
+
 	}
-	
+
 	public String shortText(){
 		Field field = parentNode.getSubject().getDescription();
-		 return field.getContent();
+		return field.getContent();
 	}
 
 }
