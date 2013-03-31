@@ -125,7 +125,7 @@ public class Connection implements Drawable{
 		//gui.line(pos1.x, pos1.y, pos2.x, pos2.y);
 		
 		gui.line(x1, y1, x2, y2);
-//		if(firstIsOriginal){
+		if(firstIsOriginal){
 			x1 = (float) (x1 + 6 * Math.cos(corner));
 			y1 = (float) (y1 + 6 * Math.sin(corner));
 			float x3 = (float) (x1 + 5*Math.cos(corner + Math.PI/2));
@@ -142,8 +142,29 @@ public class Connection implements Drawable{
 			gui.triangle(x1, y1, x2, y2, x3, y3);
 			gui.fill(gui.color(0, 146, 211),85);
 			gui.triangle(x1, y1, x2, y2, x3, y3);
-//		}
-	
+			
+			
+		}
+		
+		else{
+			x1 = (float) (x2 - 6 * Math.cos(corner));
+			y1 = (float) (y2 - 6 * Math.sin(corner));
+			
+			float x3 = (float) (x1 + 3*Math.cos(corner + Math.PI/2));
+			float y3 = (float) (y1 + 3*Math.sin(corner+ Math.PI/2));
+			
+			x2 = (float) (x1 + 3*Math.cos(corner - Math.PI/2));
+			y2 = (float) (y1 + 3*Math.sin(corner -  Math.PI/2));
+			
+			x1 = (float) (x1 + 6 * Math.cos(corner));
+			y1 = (float) (y1 + 6 * Math.sin(corner));
+			
+			gui.fill(gui.color(255));
+			gui.triangle(x1, y1, x2, y2, x3, y3);
+			gui.fill(gui.color(255),85);
+			gui.triangle(x1, y1, x2, y2, x3, y3);
+		}
+		
 	
 	}
 	

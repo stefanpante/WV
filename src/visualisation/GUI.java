@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 
+import javax.swing.JFrame;
+
 import controlP5.Bang;
 import controlP5.CColor;
 import controlP5.ControlP5;
@@ -62,11 +64,11 @@ public class GUI extends PApplet{
 	 *   inits GRAPH
 	 */
 	public void setup(){
-
+		
 		transform = new Transform(this);
 		
 		// sets the size of the window
-		size(displayWidth - 50,displayHeight -120);
+		size(displayWidth,displayHeight);
 
 		// Sets the frameRate for the animation
 		frameRate(60);
@@ -80,11 +82,14 @@ public class GUI extends PApplet{
 		}
 
 		
+		
+		
 		// Initializes the GUI
 		setupGUI();
 
 		// initializes the graph
 		initGraph();
+		
 	}
 
 	/**
@@ -201,7 +206,8 @@ public class GUI extends PApplet{
 	 * The draw method. is called 25 times/second
 	 */
 	public void draw(){
-		background(255);
+
+		background(color(255));
 		fill(color(128,0,0),75);
 		transform.scale = zoom/100f;
 		this.ellipse(displayWidth/2 + transform.translationX, displayHeight/2 +transform.translationY,50, 50 );
@@ -270,6 +276,10 @@ public class GUI extends PApplet{
 
 	public Transform getTransform(){
 		return transform;
+	}
+	
+	public boolean sketchFullScreen(){
+		return true;
 	}
 
 }
