@@ -10,6 +10,7 @@ import org.owasp.esapi.ESAPI;
 import org.owasp.esapi.codecs.MySQLCodec;
 
 import com.mysql.jdbc.Statement;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 /**
  * Class which represents a connection to a mysql database. Created to make interacting
@@ -101,8 +102,9 @@ public class SQLConnector {
 		Statement stat = (Statement) connection.createStatement();
 		try{
 		stat.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
-		}catch(SQLException exc){
-			System.out.println(exc.getStackTrace());
+		}catch(MySQLIntegrityConstraintViolationException exc){
+			//exc.printStackTrace();
+			//System.out.println(exc.getStackTrace());
 		}
 		ResultSet rs = stat.getGeneratedKeys();
 		if(rs.next()) return (int) rs.getLong(1);

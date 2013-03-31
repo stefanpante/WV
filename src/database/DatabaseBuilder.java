@@ -1,8 +1,11 @@
 package database;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.owasp.esapi.ESAPI;
@@ -10,7 +13,7 @@ import org.owasp.esapi.codecs.MySQLCodec;
 public class DatabaseBuilder {
 
 	private static final String DB_NAME = "visualisation";
-	private static final String FILE = "data/DBLP-citation-Feb21.txt";
+	private static final String FILE = "C:/wamp/bin/mysql/mysql5.5.24/data/visualisation/DBLP-citation-Feb21.txt";
 	
 	public static void main(String[] args) throws SQLException{
 		connectDatabase();
@@ -26,9 +29,9 @@ public class DatabaseBuilder {
 		BufferedReader br = null;
 		try {
 			String sCurrentLine;
-			br = new BufferedReader(new FileReader(FILE));
+			br = new BufferedReader(new InputStreamReader(new FileInputStream(FILE), "UTF-8"));
 			while ((sCurrentLine = br.readLine()) != null) {
-				processReference(sCurrentLine);
+				processRelation(sCurrentLine);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -59,8 +62,6 @@ public class DatabaseBuilder {
 	private static int publicationNumber = 0;
 	
 	//65
-	private static final int SKIP = 1448400;
-	//private static final int SKIP = 00;
 	private static void processPublicationLine(String line){
 		
 		lineCounter++;
@@ -95,12 +96,12 @@ public class DatabaseBuilder {
 		
 	}
 	
-	private static String currentIndex;
+	private static int currentIndex;
 	private static void processReference(String line) throws SQLException{
 		lineCounter++;
 			if(line.indexOf(INDEX) == 0){
 				if(publicationNumber>SKIP){
-					currentIndex = line.substring(INDEX.length());
+					currentIndex = Integer.parseInt(line.substring(INDEX.length()));
 				}
 				publicationNumber++;
 				System.out.println(publicationNumber);
@@ -108,10 +109,69 @@ public class DatabaseBuilder {
 				//DO NOTHING
 			}else if(line.indexOf(REFERENCE) == 0){
 				String reference = line.substring(REFERENCE.length());
-				Relation from = new Relation("from_id", currentIndex);
+				Relation from = new Relation("from_id", ""+currentIndex);
 				Relation to = new Relation("to_id", reference);
 				SQLConnector.insert("citation", from, to);
 			}
+		
+	}
+
+	private static void processAuthorVenue(String line) throws SQLException{
+			if(line.indexOf(INDEX) == 0){
+				publicationNumber++;
+			}else if(publicationNumber<SKIP){
+				//DO NOTHING
+			}
+//			else if(line.indexOf(AUTHOR) == 0){
+//				String reference = line.substring(AUTHOR.length());
+//				for(String ref : reference.split(",")){
+//					System.out.println(ref);
+//					LogWriter.writeLine("%"+ref+"%\n");
+//				}
+//			}
+	else if(line.indexOf(VENUE) == 0){
+				String reference = line.substring(VENUE.length());
+				LogWriter.writeLine("%"+reference+"%\n");
+			}
+		
+	}
+	private static  int SKIP = 1435576;
+
+	private static void processRelation(String line) throws SQLException{
+			if(line.indexOf(INDEX) == 0){
+				if(publicationNumber>=SKIP){
+					currentIndex = Integer.parseInt(line.substring(INDEX.length()));
+					LogWriter.writeLine(currentIndex+"\n");
+				}
+
+				publicationNumber++;
+				if(publicationNumber % 100 == 0) System.out.println(publicationNumber);
+			}else if(currentIndex<SKIP){
+				//DO NOTHING
+			}
+			else if(line.indexOf(VENUE) == 0){
+				String reference = line.substring(VENUE.length());
+				//for(String ref : reference.split(",")){
+					//MySQLCodec mysql_codec = new MySQLCodec(MySQLCodec.MYSQL_MODE);
+					reference = reference.replace("\"", "\\\"");
+					//ref = ref.replaceAll('%', '\\');
+					//ref = ESAPI.encoder().encodeForSQL(mysql_codec, ref);
+					ResultSet res = null;
+					try{
+						res = SQLConnector.select("id", "venue", "venue", '"'+reference+'"');
+					}catch(Exception e){
+						System.out.println(reference);
+					}
+					if(res.next()){
+						int id = res.getInt(1);
+						LogWriter.writeLine(id+",");
+					}
+				//}
+			}
+//	else if(line.indexOf(VENUE) == 0){
+//				String reference = line.substring(VENUE.length());
+//				LogWriter.writeLine("%"+reference+"%\n");
+//			}
 		
 	}
 	
