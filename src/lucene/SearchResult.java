@@ -21,5 +21,19 @@ public class SearchResult {
 		this.venues = venues;
 		this.databaseID = databaseID;
 	}
+	
+	public String getTitle(){
+		return title;
+	}
+	
+	public String getAuthors(){
+		String authorl = "";
+		for(String author: authors){
+			authorl += author + ", ";
+		}
+		
+		authorl = authorl.substring(0, authorl.length() - 3);
+		return authorl;
+	}
 
 }
