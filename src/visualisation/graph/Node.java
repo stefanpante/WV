@@ -182,6 +182,10 @@ public class Node implements GUIElement{
 		
 		gui.ellipse(getTransformedPosition().x, getTransformedPosition().y, diameter, diameter);
 		
+		gui.fill(gui.color(0,146,211),100);
+		gui.noStroke();
+		gui.ellipse(getTransformedPosition().x, getTransformedPosition().y, diameter, diameter);
+			
 		if(pane.hasFocus()){
 			pane.draw();
 		}
@@ -195,11 +199,7 @@ public class Node implements GUIElement{
 			pane.setFocus(true);
 		}
 	}
-	public void drawSpecial(){
-		gui.fill(gui.color(0,146,211),100);
-		gui.noStroke();
-		gui.ellipse(getTransformedPosition().x, getTransformedPosition().y, diameter, diameter);
-	}
+
 	/**
 	 * Method to check if the mouse cursor is placed inside the node
 	 * 
