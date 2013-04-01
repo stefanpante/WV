@@ -31,7 +31,7 @@ public class DatabaseBuilder {
 			String sCurrentLine;
 			br = new BufferedReader(new InputStreamReader(new FileInputStream(FILE), "UTF-8"));
 			while ((sCurrentLine = br.readLine()) != null) {
-				processRelation(sCurrentLine);
+				processPublicationLine(sCurrentLine);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -60,7 +60,8 @@ public class DatabaseBuilder {
 	private static ParsedPublication publication;
 	private static int lineCounter = 0;
 	private static int publicationNumber = 0;
-	
+	private static  int SKIP = -1;
+
 	//65
 	private static void processPublicationLine(String line){
 		
@@ -69,16 +70,17 @@ public class DatabaseBuilder {
 				if(publicationNumber>SKIP){
 					if(publication != null) publication.insert();
 					String title = line.substring(TITLE.length());
-					MySQLCodec mysql_codec = new MySQLCodec(MySQLCodec.MYSQL_MODE);
-					title = ESAPI.encoder().encodeForSQL(mysql_codec, title);
+					String lastChar = title.substring(title.length()-1);
+					if(lastChar.equals(".")){
+						title = title.substring(0, title.length()-1);
+					}
 					publication = new ParsedPublication(title,lineCounter);
 				}
 				publicationNumber++;
-				System.out.println(publicationNumber);
+				if(publicationNumber%100 == 0) System.out.println(publicationNumber);
 			}else if(publicationNumber<SKIP){
 				//DO NOTHING
 			}else if(publication == null){
-				LogWriter.writeLine("nf:"+lineCounter); //not found
 			}else if(line.indexOf(YEAR) == 0){
 				publication.setYear(line.substring(YEAR.length()));
 			}else if(line.indexOf(CITATION_AMOUNT) == 0){
@@ -87,8 +89,6 @@ public class DatabaseBuilder {
 				publication.setCited(""+amount);
 			}else if(line.indexOf(ABSTRACT) == 0){
 				String abstr = line.substring(ABSTRACT.length());
-				MySQLCodec mysql_codec = new MySQLCodec(MySQLCodec.MYSQL_MODE);
-				abstr = ESAPI.encoder().encodeForSQL(mysql_codec, abstr);
 				publication.setAbstract(abstr);
 			}else if(line.indexOf(INDEX) == 0){
 				publication.setIndex(line.substring(INDEX.length()));
@@ -135,7 +135,6 @@ public class DatabaseBuilder {
 			}
 		
 	}
-	private static  int SKIP = 1435576;
 
 	private static void processRelation(String line) throws SQLException{
 			if(line.indexOf(INDEX) == 0){
