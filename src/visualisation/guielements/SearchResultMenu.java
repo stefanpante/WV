@@ -12,8 +12,8 @@ public class SearchResultMenu {
 	private PVector startPosition; 
 	private ArrayList<SearchResultGUI> items;
 	private GUI gui;
-	private int width;
-	private int height = 50;
+	private float width;
+	private float height = 50;
 	
 	
 	private SearchResultMenu() {
@@ -29,7 +29,7 @@ public class SearchResultMenu {
 			this.items.add(new SearchResultGUI(result, gui));
 		}
 		width = gui.displayWidth / 2 +1;
-		this.startPosition.x = gui.displayWidth/2 - width/2 -1;
+		this.startPosition.x = gui.displayWidth/2 - width/2;
 		this.initItems();
 	}
 	
@@ -64,6 +64,16 @@ public class SearchResultMenu {
 				break;
 			}
 		}
+	}
+
+	public int mousePressed(int mouseX, int mouseY) {
+		for(SearchResultGUI result: items){
+			if(result.hit(mouseX, mouseY)){
+				return result.getID();
+			}
+		}
+		
+		return -1;
 	}
 
 }

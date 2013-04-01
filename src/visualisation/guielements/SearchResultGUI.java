@@ -11,8 +11,8 @@ public class SearchResultGUI implements Drawable{
 	private SearchResult searchResult;
 	private int id; 
 	private GUI gui;
-	private int width;
-	private int height;
+	private float width;
+	private float height;
 	
 	public SearchResultGUI(SearchResult searchResult) {
 		this.searchResult = searchResult;
@@ -30,11 +30,11 @@ public class SearchResultGUI implements Drawable{
 		this.position = position;
 	}
 	
-	public void setWidth(int width){
+	public void setWidth(float width){
 		this.width = width;
 	}
 	
-	public void setHeight(int height){
+	public void setHeight(float height){
 		this.height = height;
 	}
 
@@ -51,7 +51,7 @@ public class SearchResultGUI implements Drawable{
 		gui.textAlign(PConstants.CENTER, PConstants.CENTER);
 		String text = searchResult.getTitle() + System.getProperty("line.separator")
 				+ searchResult.getAuthors();
-		System.out.println(searchResult.getTitle());
+		
 		gui.text(text, position.x, position.y, width, height);
 		
 	}
@@ -66,8 +66,9 @@ public class SearchResultGUI implements Drawable{
 		gui.noStroke();
 		gui.textSize(12);
 		gui.textAlign(PConstants.CENTER, PConstants.CENTER);
-		String text = searchResult.getTitle() + System.getProperty("line.separator")
+		String text = searchResult.getTitle()  + System.getProperty("line.separator")
 				+ searchResult.getAuthors();
+		
 		gui.text(text, position.x, position.y, width, height);
 		
 	}

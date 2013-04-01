@@ -203,6 +203,7 @@ public class Graph implements Drawable{
 		for(Node node: getNodes().values()){
 			node.draw();
 		}
+		parentNode.rollover();
 	}
 
 	/**
