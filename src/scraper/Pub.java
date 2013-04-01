@@ -8,11 +8,11 @@ import visualisation.subject.Field;
 import visualisation.subject.Subject;
 
 
-public class Publication implements Subject{
+public class Pub implements Subject{
 
 	private ArrayList<Author> authors;
-	private ArrayList<Publication> backwardCitations;
-	private ArrayList<Publication> forwardCitations;
+	private ArrayList<Pub> backwardCitations;
+	private ArrayList<Pub> forwardCitations;
 	private String title;
 	private int numberofPages;
 	private int publicationDate;
@@ -22,21 +22,21 @@ public class Publication implements Subject{
 	// 
 	private String citedByURL; 
 	
-	public Publication(String title){
+	public Pub(String title){
 		this.title = title;
 		this.authors = new ArrayList<Author>();
-		this.backwardCitations = new ArrayList<Publication>();
-		this.forwardCitations = new ArrayList<Publication>();
+		this.backwardCitations = new ArrayList<Pub>();
+		this.forwardCitations = new ArrayList<Pub>();
 	}
 	
-	public Publication(String title, int numberofPages, int publicationDate) {
+	public Pub(String title, int numberofPages, int publicationDate) {
 		super();
 		this.title = title;
 		this.numberofPages = numberofPages;
 		this.publicationDate = publicationDate;
 		this.authors = new ArrayList<Author>();
-		this.backwardCitations = new ArrayList<Publication>();
-		this.forwardCitations = new ArrayList<Publication>();
+		this.backwardCitations = new ArrayList<Pub>();
+		this.forwardCitations = new ArrayList<Pub>();
 	}
 	
 	public String getTitle() {
