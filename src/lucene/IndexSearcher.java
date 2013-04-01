@@ -16,7 +16,7 @@ import database.SQLConnector;
 public class IndexSearcher {
 	
 	public static void main(String[] args) throws ParseException, IOException, SQLException{
-		SQLConnector.initialize("jdbc:mysql://localhost/visualisation", "root", "");
+		SQLConnector.initialize("jdbc:mysql://localhost/visu2", "root", "");
 		SearchResult[] results = generalSearch("prolog bart demoen", 10);
 		for(SearchResult result : results){
 			System.out.println(result.title+","+result.year+","+result.citations+","+result.databaseID);

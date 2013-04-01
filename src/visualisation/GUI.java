@@ -14,6 +14,9 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
+import org.apache.lucene.queryparser.surround.parser.ParseException;
+
+import lucene.IndexSearcher;
 import lucene.SearchResult;
 
 import controlP5.Bang;
@@ -169,16 +172,12 @@ public class GUI extends PApplet{
 
 		
 		inputController = new ControlP5(this);
-		
-		text = inputController.addTextfield("Type here to search...");
-		CColor color = new CColor(color(0, 146, 211), color(255),color(0, 60, 255),color(0, 146, 211),color(0, 146, 211) );
-		text.setColor(color);
-		text.registerTooltip("Type here to search for a paper");
-		fill(0);
 		int width = displayWidth/2;
-		text.setWidth(width);
-		text.setHeight(30);
-		text.setPosition(displayWidth/2 - width/2, 15);
+		inputField = inputController.addTextfield("search",  displayWidth/2 - width/2, 15, width, 30 );
+		CColor color = new CColor(color(0, 146, 211), color(255),color(0, 60, 255),color(0, 146, 211),color(0, 146, 211) );
+
+		inputField.setColor(color);
+		inputField.registerTooltip("Type here to search for a paper");
 	
 		Bang pause = inputController.addBang("pause");
 
@@ -202,9 +201,19 @@ public class GUI extends PApplet{
 		slider.getValueLabel().setColor(this.color(255));
 
 	}
-	Textfield text;
+	Textfield inputField;
 	Slider slider;
 	float zoom = 100;
+	boolean menuEnabled = false;
+	SearchResultMenu menu2;
+	public void search(String search) throws ParseException, IOException, SQLException{
+		SearchResult[] results = IndexSearcher.generalSearch(search, 10);
+		if(results.length > 0){
+			menuEnabled = true;
+			menu2 = new SearchResultMenu(results, this);
+		}
+		
+	}
 	/**
 	 * The draw method. is called 25 times/second
 	 */
@@ -222,10 +231,14 @@ public class GUI extends PApplet{
 			}
 			
 			updateStatusMessage();
-				//menu.draw();
-				//text.setLabel("");
+			if(menuEnabled){
+				menu2.draw();
+				inputField.setLabel("");
+				menu.hit(mouseX, mouseY);
+			}
+			else{
 				graph.hit(mouseX,mouseY);
-				//menu.hit(mouseX, mouseY);
+			}
 		}
 		
 	
