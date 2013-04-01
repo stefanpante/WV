@@ -162,4 +162,10 @@ public class Pub implements Subject{
 		return 0;
 	}
 
+	@Override
+	public String getSearchTerm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
