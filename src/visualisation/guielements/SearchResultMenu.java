@@ -28,8 +28,8 @@ public class SearchResultMenu {
 		for(SearchResult result: searchResults){
 			this.items.add(new SearchResultGUI(result, gui));
 		}
-		width = gui.displayWidth / 2;
-		this.startPosition.x = gui.displayWidth/2 - width/2;
+		width = gui.displayWidth / 2 +1;
+		this.startPosition.x = gui.displayWidth/2 - width/2 -1;
 		this.initItems();
 	}
 	

@@ -49,7 +49,9 @@ public class SearchResultGUI implements Drawable{
 		gui.noStroke();
 		gui.textSize(12);
 		gui.textAlign(PConstants.CENTER, PConstants.CENTER);
-		String text = searchResult.getTitle() + System.getProperty("line.separator") + "E. Duval";
+		String text = searchResult.getTitle() + System.getProperty("line.separator")
+				+ searchResult.getAuthors();
+		System.out.println(searchResult.getTitle());
 		gui.text(text, position.x, position.y, width, height);
 		
 	}
@@ -64,7 +66,8 @@ public class SearchResultGUI implements Drawable{
 		gui.noStroke();
 		gui.textSize(12);
 		gui.textAlign(PConstants.CENTER, PConstants.CENTER);
-		String text = searchResult.getTitle() + System.getProperty("line.separator") + "E. Duval";
+		String text = searchResult.getTitle() + System.getProperty("line.separator")
+				+ searchResult.getAuthors();
 		gui.text(text, position.x, position.y, width, height);
 		
 	}
@@ -84,7 +87,6 @@ public class SearchResultGUI implements Drawable{
 	public boolean hit(int mouseX, int mouseY){
 		if(mouseX >= this.position.x && mouseX <= this.position.x + width){
 			if(mouseY >= this.position.y && mouseY <= this.position.y + height){
-				System.out.println(true);
 				return true;
 				
 			}

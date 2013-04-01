@@ -10,7 +10,7 @@ import visualisation.subject.Subject;
 public class Author implements Subject,Queryable {
 	
 	public static void main(String[] args) throws UnsupportedOperationException, SQLException{
-		SQLConnector.initialize("jdbc:mysql://localhost/visualisation", "root", "");
+		SQLConnector.initialize("jdbc:mysql://localhost/visu2", "root", "");
 		Author test = new Author("Kobe", "Kris", "Vrancken");
 		int index = test.insert();
 		System.out.println(index);

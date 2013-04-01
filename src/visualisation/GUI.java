@@ -210,7 +210,9 @@ public class GUI extends PApplet{
 		SearchResult[] results = IndexSearcher.generalSearch(search, 10);
 		if(results.length > 0){
 			menuEnabled = true;
+			System.out.println(results.length);
 			menu2 = new SearchResultMenu(results, this);
+			menu2.setStartPositionY(44);
 		}
 		
 	}

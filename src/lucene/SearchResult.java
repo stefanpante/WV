@@ -48,7 +48,7 @@ public class SearchResult {
 			authorl += author + ", ";
 		}
 		
-		authorl = authorl.substring(0, authorl.length() - 3);
+		//authorl = authorl.substring(0, authorl.length() - 3);
 		return authorl;
 	}
 	
