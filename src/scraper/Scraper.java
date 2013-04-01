@@ -41,15 +41,15 @@ public class Scraper{
 	
 	/* Returns all papers written by a given author by doing a full scholar search */
 	//TODO Middle name (SL Weibel)
-	public static ArrayList<Publication> searchAuthor(String fname, String lname) throws Exception{
+	public static ArrayList<Pub> searchAuthor(String fname, String lname) throws Exception{
 		String data = getScholarPage("author:"+'"'+fname+"+"+lname+'"', 0);
 		int amountOfPapers = parsePaperAmount(data);
-		ArrayList<Publication> result = new ArrayList<Publication>();
+		ArrayList<Pub> result = new ArrayList<Pub>();
 		for(int i=0;i<amountOfPapers;i+=100){
 			if(i>0) data = getScholarPage("author:"+'"'+fname+"+"+lname+'"', i);
 			String[] rawList = getRawResultList(data);
 			for(String raw:rawList){
-				Publication pub = new Publication(parseTitle(raw));
+				Pub pub = new Pub(parseTitle(raw));
 				pub.setCitedByURL(parseCitedBy(raw));
 				String pdfURL = findPDF(parseVersions(raw));
 				String localPDF = "";

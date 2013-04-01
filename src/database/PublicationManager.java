@@ -36,8 +36,7 @@ public class PublicationManager {
 	}
 	
 	public void addPublication(Publication publication){
-		if(hasPublication(publication)) System.out.println("not adding");
-		else openPublications.put(publication.getID(),publication);		
+		if(!hasPublication(publication)) openPublications.put(publication.getID(),publication);		
 		//for(Publication citation : publication.getCitations()) addCitation(publication, citation);
 	}
 	

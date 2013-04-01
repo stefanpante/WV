@@ -24,7 +24,7 @@ import database.Author;
 
 public class PublicatiesPersoneel {
 
-	public static ArrayList<Publication> pubs;
+	public static ArrayList<Pub> pubs;
 	
 	public static void getPublicationsByID() throws Exception{
 		BufferedReader reader = new BufferedReader(new FileReader(new File("userid_name.csv")));
@@ -80,7 +80,7 @@ public class PublicatiesPersoneel {
 			if(titles.size() != 0){
 				String title = titles.get(0).text();
 	
-				Publication publication = new Publication(title);
+				Pub publication = new Pub(title);
 				publication.setPublicationDate(publicationDate);
 				publication.setAuthors(as);
 	
@@ -95,14 +95,14 @@ public class PublicatiesPersoneel {
 	}
 
 	public static void main(String args[]) throws Exception{
-		pubs = new ArrayList<Publication>();
+		pubs = new ArrayList<Pub>();
 		getPublicationsByID();
 		File papers = new File("Papers.txt");
 		FileWriter fw = new FileWriter(papers.getAbsoluteFile());
 		BufferedWriter bw =  new BufferedWriter(fw);
 		//testLoadURL();
 		
-		for(Publication p: pubs){
+		for(Pub p: pubs){
 			bw.write(p.getTitle());
 			bw.newLine();
 			bw.write(p.authorsToString());
@@ -115,10 +115,10 @@ public class PublicatiesPersoneel {
 	}
 
 	public static void testLoadURL() throws Exception{
-		pubs = new ArrayList<Publication>();
+		pubs = new ArrayList<Pub>();
 		loadURL("https://lirias.kuleuven.be/cv?u=u0063907");
 		int i = 1;
-		for(Publication publication : pubs){
+		for(Pub publication : pubs){
 			System.out.println( i +". "+ publication.toString());
 			i++;
 		}

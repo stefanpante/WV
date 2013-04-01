@@ -2,7 +2,7 @@ package database;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import scraper.Publication;
+import scraper.Pub;
 import visualisation.subject.Field;
 import visualisation.subject.Subject;
 
@@ -22,13 +22,13 @@ public class Author implements Subject,Queryable {
 	private  String mname;
 	private int h_index;
 	
-	private ArrayList<Publication> publications;
+	private ArrayList<Pub> publications;
 	//private String institution;
 	
 
 	public Author(String fname, String mname, String lname) {
 		super();
-		this.publications = new ArrayList<Publication>();
+		this.publications = new ArrayList<Pub>();
 		this.setFname(fname);
 		this.setLname(lname);
 		this.setMname(mname);
