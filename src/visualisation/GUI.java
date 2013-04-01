@@ -124,7 +124,7 @@ public class GUI extends PApplet{
 			graph.expand(mouseX, mouseY);
 		}
 		if(mouseEvent.getClickCount() ==1){
-			//graph.mouseHit(mouseX, mouseY);
+			graph.mouseHit(mouseX, mouseY);
 		}
 		if(!locked && (mouseX < displayWidth -150)){
 			xOffset = mouseX - transform.translationX;
@@ -246,6 +246,7 @@ public class GUI extends PApplet{
 
 		textSize(15);
 		fill(color(0, 146, 211));
+		textAlign(this.LEFT);
 		//textFont(font);
 		text(paused, displayWidth / 2 + displayWidth / 4 + 10, 35);
 	}

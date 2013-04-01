@@ -14,5 +14,6 @@ public interface Subject extends Comparable<Subject>{
 	public int getID();
 	public abstract ArrayList<Field> createFields();
 	public abstract Field getDescription();
+	public abstract String getSearchTerm();
 	
 }

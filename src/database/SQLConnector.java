@@ -213,6 +213,7 @@ public class SQLConnector {
 	 */
 	public static ResultSet select(String selectedcolumn, String tablename, String where, String value) throws SQLException{
 		String query="SELECT " + selectedcolumn + " FROM " + tablename + " WHERE " + where + "=" + value; 
+
 		Statement statement = (Statement) connection.createStatement();
 		return statement.executeQuery(query);
 	}

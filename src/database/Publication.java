@@ -14,32 +14,25 @@ public class Publication implements Subject{
 	private String title;
 	private int cited;
 	private int year;
+	private ArrayList<String> authors;
 	private String summary;
 	
-	private HashSet<Publication> citations = new HashSet<Publication>();
 	
 	
-	public Publication(int id, String title, int year, int cited, String summary){
+	public Publication(int id, String title, int year, int cited, String summary, ArrayList<String> authors){
 		if(root == null) root = this;
 		this.id = id;
 		this.year = year;
 		this.cited = cited;
 		this.summary = summary;
 		this.title = title;
+		this.authors = authors;
 	}
 	
-/*	public void addCitation(Publication citation){
-		citations.add(citation);
+	public ArrayList<String> getAuthors(){
+		return this.authors;
 	}
 	
-	public void addCitations(HashSet<Publication> citations){
-		this.citations.addAll(citations);
-	}
-	
-	public HashSet<Publication> getCitations(){
-		return citations;
-	}
-*/
 	@Override
 	public int compareTo(Subject arg0) {
 		return getScore()-arg0.getScore();
@@ -101,6 +94,11 @@ public class Publication implements Subject{
 	@Override
 	public Field getDescription() {
 		return new Field("Title", this.title);
+	}
+
+	@Override
+	public String getSearchTerm() {
+		return title;
 	}
 
 }

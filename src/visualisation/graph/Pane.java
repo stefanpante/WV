@@ -1,10 +1,13 @@
 package visualisation.graph;
 import java.util.ArrayList;
 
+import database.Publication;
+
 import processing.core.PApplet;
 import processing.core.PVector;
 import visualisation.GUI;
 import visualisation.guielements.Drawable;
+import visualisation.guielements.GUIButton;
 import visualisation.subject.Field;
 
 
@@ -16,7 +19,8 @@ public class Pane implements Drawable {
 	public int height;
 	private boolean focus = false;
 	private static int X_OFFSET = 10;
-	private static int CORNER_RADIUS = 10;
+	public static int CORNER_RADIUS = 10;
+	private GUIButton button;
 
 	/**
 	 * Constructs a new Pane with a given parentNode
@@ -36,11 +40,13 @@ public class Pane implements Drawable {
 		this(parentNode);
 		this.gui = applet;
 		this.calculateHeight();
+		this.button = new GUIButton("Search on Scholar", this.buildSearchString(), gui);
 	}
 
 	public void setGUI(GUI applet){
 		this.gui = applet;
 		this.calculateHeight();
+		this.button = new GUIButton("Search on Scholar", this.buildSearchString(), gui);
 	}
 
 	/**
@@ -57,14 +63,14 @@ public class Pane implements Drawable {
 	@Override
 	public void draw() {
 		PVector position = parentNode.getTransformedPosition();
-
+		gui.textAlign(GUI.LEFT);
 		gui.stroke(0, 50);
 		
 		gui.fill(gui.color(0,146,211));
 		gui.rect(position.x+ X_OFFSET, position.y - height/2 -40, width, 40, CORNER_RADIUS, CORNER_RADIUS, 0, 0);
 		gui.textSize(20);
 		gui.fill(255);
-		gui.text("Description", position.x + X_OFFSET +2, position.y - height/2 - 10);
+		gui.text("Description", position.x + X_OFFSET + 5, position.y - height/2 - 10);
 		
 		gui.fill(255);
 		gui.rect(position.x + X_OFFSET, position.y - height/2, width, height, 0, 0, CORNER_RADIUS, CORNER_RADIUS);
@@ -81,7 +87,7 @@ public class Pane implements Drawable {
 				gui.text(field.getName(), position.x + X_OFFSET + 5, position.y - height/2 + offset, width - 10, 30);
 				offset += 20;
 				gui.fill(gui.color(0));
-				float lines = gui.textWidth(field.getContent()) / ( width -25);
+				float lines = gui.textWidth(trimInput(field.getContent())) / ( width -25);
 				if(lines < 1){
 					lines = 1;
 				}
@@ -91,6 +97,8 @@ public class Pane implements Drawable {
 				offset += 15*lines;
 			}
 		}
+		button.setPosition(position.x + X_OFFSET*2, position.y - height/2 + offset + 40);
+		button.draw();
 
 	}
 
@@ -112,7 +120,8 @@ public class Pane implements Drawable {
 			}
 		}
 		
-		height +=40;
+		// 40 + 50 pixels for the button
+		height +=90;
 	}
 
 	public String trimInput(String input){
@@ -156,6 +165,25 @@ public class Pane implements Drawable {
 	
 	public Node getParentNode(){
 		return parentNode;
+	}
+	
+	private String buildSearchString(){
+
+		String searchString = "http://scholar.google.com/scholar?q=" + parentNode.getSubject().getSearchTerm() + " ";
+		Publication pub = (Publication) parentNode.getSubject();
+		for(String s : pub.getAuthors()){
+			
+			searchString += s.split(" ")[1] + " ";
+		}
+		
+		searchString = searchString.replace(" ", "+");
+		
+		return searchString;
+	}
+	
+	
+	public GUIButton getGUIButton(){
+		return this.button;
 	}
 
 }
