@@ -1,5 +1,6 @@
 package visualisation.guielements;
 
+import processing.core.PConstants;
 import processing.core.PVector;
 import visualisation.GUI;
 import lucene.SearchResult;
@@ -41,10 +42,33 @@ public class SearchResultGUI implements Drawable{
 	public void draw() {
 		//TODO: draw text.
 		gui.fill(255);
-		gui.stroke(0);
+		gui.stroke(gui.color(0, 146, 211) );
 		gui.rect(position.x, position.y, width, height);
 		
+		gui.fill(gui.color(0, 146, 211));
+		gui.noStroke();
+		gui.textSize(12);
+		gui.textAlign(PConstants.CENTER, PConstants.CENTER);
+		String text = searchResult.getTitle() + System.getProperty("line.separator") + "E. Duval";
+		gui.text(text, position.x, position.y, width, height);
+		
 	}
+	
+	public void rollover() {
+		//TODO: draw text.
+		gui.fill(gui.color(142, 220, 211));
+		gui.stroke(gui.color(0, 146, 211) );
+		gui.rect(position.x, position.y, width, height);
+		
+		gui.fill(gui.color(0,146,211));
+		gui.noStroke();
+		gui.textSize(12);
+		gui.textAlign(PConstants.CENTER, PConstants.CENTER);
+		String text = searchResult.getTitle() + System.getProperty("line.separator") + "E. Duval";
+		gui.text(text, position.x, position.y, width, height);
+		
+	}
+	
 	
 	public void setPosition(float x, float y){
 		this.position.x = x;
@@ -60,7 +84,9 @@ public class SearchResultGUI implements Drawable{
 	public boolean hit(int mouseX, int mouseY){
 		if(mouseX >= this.position.x && mouseX <= this.position.x + width){
 			if(mouseY >= this.position.y && mouseY <= this.position.y + height){
+				System.out.println(true);
 				return true;
+				
 			}
 		}
 		

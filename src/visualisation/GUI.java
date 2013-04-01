@@ -98,7 +98,7 @@ public class GUI extends PApplet{
 				new SearchResult(),new SearchResult(), 
 				new SearchResult(), new SearchResult(),
 				new SearchResult(), new SearchResult(), new SearchResult()}, this);
-		menu.setStartPositionY(60);
+		menu.setStartPositionY(44);
 		
 	}
 	
@@ -170,7 +170,7 @@ public class GUI extends PApplet{
 		
 		inputController = new ControlP5(this);
 		
-		Textfield text = inputController.addTextfield("Type here to search...");
+		text = inputController.addTextfield("Type here to search...");
 		CColor color = new CColor(color(0, 146, 211), color(255),color(0, 60, 255),color(0, 146, 211),color(0, 146, 211) );
 		text.setColor(color);
 		text.registerTooltip("Type here to search for a paper");
@@ -202,7 +202,7 @@ public class GUI extends PApplet{
 		slider.getValueLabel().setColor(this.color(255));
 
 	}
-
+	Textfield text;
 	Slider slider;
 	float zoom = 100;
 	/**
@@ -222,10 +222,13 @@ public class GUI extends PApplet{
 			}
 			
 			updateStatusMessage();
-			graph.hit(mouseX,mouseY);
+				//menu.draw();
+				//text.setLabel("");
+				graph.hit(mouseX,mouseY);
+				//menu.hit(mouseX, mouseY);
 		}
 		
-		menu.draw();
+	
 		
 	}
 
