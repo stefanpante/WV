@@ -96,11 +96,10 @@ public class Graph implements Drawable{
 			if(activePane.hit(mouseX, mouseY)){
 				activePane.getParentNode().rollover();
 				activePane.getParentNode().showPane();
+				if(activePane.getGUIButton().hit(mouseX, mouseY)){
+					activePane.getGUIButton().rollover();
+				}
 			}
-			if(activePane.getGUIButton().hit(mouseX, mouseY)){
-				activePane.getGUIButton().rollover();
-			}
-
 			else{
 				activePane = null;
 			}

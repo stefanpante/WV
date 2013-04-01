@@ -30,7 +30,7 @@ public class GraphFactory {
 	
 	
 	public Graph fromDatabaseID(int id, int expansionDegree, GUI applet) throws SQLException{
-		SQLConnector.initialize("jdbc:mysql://localhost/visualisation", "root", "");
+		SQLConnector.initialize("jdbc:mysql://localhost/visu2", "root", "");
 		PublicationManager manager = new PublicationManager(applet);
 		
 		Publication root = PublicationFactory.fromDatabaseID(id);
