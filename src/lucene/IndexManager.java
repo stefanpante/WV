@@ -234,7 +234,7 @@ public class IndexManager {
 		return Integer.parseInt(reader.document(authorId).getValues("id")[0]);
 	}
 
-	public TopDocs authorSearch(
+	public TopDocs combinedSearch(
 			ArrayList<Integer> publications, String query, int results) throws IOException {
 		IndexSearcher searcher = getDirectorySearcher();
 		HashMap<Integer, Float> result = new HashMap<Integer, Float>();

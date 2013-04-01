@@ -22,13 +22,11 @@ public class Author implements Subject,Queryable {
 	private  String mname;
 	private int h_index;
 	
-	private ArrayList<Pub> publications;
 	//private String institution;
 	
 
 	public Author(String fname, String mname, String lname) {
 		super();
-		this.publications = new ArrayList<Pub>();
 		this.setFname(fname);
 		this.setLname(lname);
 		this.setMname(mname);
