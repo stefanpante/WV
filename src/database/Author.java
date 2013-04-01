@@ -153,5 +153,11 @@ public class Author implements Subject,Queryable {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public String getSearchTerm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

@@ -62,6 +62,12 @@ public class IDSubject implements Subject{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public String getSearchTerm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	
