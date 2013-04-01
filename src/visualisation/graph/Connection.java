@@ -111,7 +111,7 @@ public class Connection implements Drawable{
 		float alpha =  PApplet.map(getDistance(), 0, max, 100, 0);
 		
 		// set the stroke to the color of this connection. Adjust the opacity for distance.
-		gui.stroke(color, 5 + alpha * 0.5f);
+		gui.stroke(color, 15 + alpha * 0.5f);
 		
 		// Get the positions of the two endpoints of the connection
 		PVector pos1 = node1.getTransformedPosition();
