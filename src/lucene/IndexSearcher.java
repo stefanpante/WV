@@ -29,10 +29,8 @@ public class IndexSearcher {
 		if(author >= 0){
 			String name = IndexManager.getInstance().extractAuthorNameFromDB(author);
 			query = removeFromQuery(name, query);
-			System.out.println(query);
 			ArrayList<Integer> publications = Authorship.findPublicationsBy(author);
-			rs = IndexManager.getInstance().authorSearch(publications, query, results);
-			
+			rs = IndexManager.getInstance().combinedSearch(publications, query, results);
 		}else{
 			rs = IndexManager.getInstance().fuzzySearchField("title", query, results);
 		}
