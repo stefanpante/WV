@@ -40,6 +40,8 @@ public class SearchResultGUI implements Drawable{
 	@Override
 	public void draw() {
 		//TODO: draw text.
+		gui.fill(255);
+		gui.stroke(0);
 		gui.rect(position.x, position.y, width, height);
 		
 	}

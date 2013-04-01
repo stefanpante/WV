@@ -14,6 +14,8 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
+import lucene.SearchResult;
+
 import controlP5.Bang;
 import controlP5.CColor;
 import controlP5.ControlP5;
@@ -28,6 +30,7 @@ import visualisation.graph.GraphFactory;
 import visualisation.graph.GraphLayout;
 import visualisation.graph.Node;
 import visualisation.graph.RegularForceBasedLayout;
+import visualisation.guielements.SearchResultMenu;
 
 public class GUI extends PApplet{
 
@@ -90,7 +93,16 @@ public class GUI extends PApplet{
 		// initializes the graph
 		initGraph();
 		
+		menu = new SearchResultMenu(new SearchResult[]{new SearchResult(), new SearchResult(), 
+				new SearchResult(),new SearchResult(), new SearchResult(), 
+				new SearchResult(),new SearchResult(), 
+				new SearchResult(), new SearchResult(),
+				new SearchResult(), new SearchResult(), new SearchResult()}, this);
+		menu.setStartPositionY(60);
+		
 	}
+	
+	SearchResultMenu menu;
 
 	/**
 	 * Initializes the graph.
@@ -197,7 +209,7 @@ public class GUI extends PApplet{
 	 * The draw method. is called 25 times/second
 	 */
 	public void draw(){
-
+		
 		background(color(255));
 		fill(color(128,0,0),75);
 		transform.scale = zoom/100f;
@@ -212,6 +224,8 @@ public class GUI extends PApplet{
 			updateStatusMessage();
 			graph.hit(mouseX,mouseY);
 		}
+		
+		menu.draw();
 		
 	}
 

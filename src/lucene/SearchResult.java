@@ -12,6 +12,15 @@ public class SearchResult {
 	public final String[] venues;
 	
 
+	public SearchResult(){
+		databaseID = -1;
+		title = "test";
+		abstr = "test";
+		year = "test";
+		citations = "test";
+		authors = new String[2];
+		venues = new String[2];
+	}
 	public SearchResult(final String title, final String abstr, final String citations, final String year, final String[] authors, final String[] venues, final int databaseID){
 		this.title = title;
 		this.abstr = abstr;
