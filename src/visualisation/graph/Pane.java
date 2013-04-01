@@ -15,7 +15,8 @@ public class Pane implements Drawable {
 	public static final int width = 275;
 	public int height;
 	private boolean focus = false;
-
+	private static int X_OFFSET = 10;
+	private static int CORNER_RADIUS = 10;
 
 	/**
 	 * Constructs a new Pane with a given parentNode
@@ -58,8 +59,15 @@ public class Pane implements Drawable {
 		PVector position = parentNode.getTransformedPosition();
 
 		gui.stroke(0, 50);
+		
+		gui.fill(gui.color(0,146,211));
+		gui.rect(position.x+ X_OFFSET, position.y - height/2 -40, width, 40, CORNER_RADIUS, CORNER_RADIUS, 0, 0);
+		gui.textSize(20);
 		gui.fill(255);
-		gui.rect(position.x + 10, position.y - height/2, width, height);
+		gui.text("Description", position.x + X_OFFSET +2, position.y - height/2 - 10);
+		
+		gui.fill(255);
+		gui.rect(position.x + X_OFFSET, position.y - height/2, width, height, 0, 0, CORNER_RADIUS, CORNER_RADIUS);
 
 		gui.noStroke();
 		gui.fill(0);
@@ -70,7 +78,7 @@ public class Pane implements Drawable {
 			gui.textSize(12);
 			if(!field.getContent().equals("null")){
 				gui.fill(gui.color(0,146,211));
-				gui.text(field.getName(), position.x + 15, position.y - height/2 + offset, width - 10, 30);
+				gui.text(field.getName(), position.x + X_OFFSET + 5, position.y - height/2 + offset, width - 10, 30);
 				offset += 20;
 				gui.fill(gui.color(0));
 				float lines = gui.textWidth(field.getContent()) / ( width -25);
@@ -79,7 +87,7 @@ public class Pane implements Drawable {
 				}
 				String text = "";
 				text += field.getContent();
-				gui.text(trimInput(text) , position.x +15, position.y - height/2 + offset, width - 10, 30*lines);
+				gui.text(trimInput(text) , position.x + X_OFFSET + 5, position.y - height/2 + offset, width - 10, 30*lines);
 				offset += 15*lines;
 			}
 		}
@@ -129,4 +137,25 @@ public class Pane implements Drawable {
 	public void setFocus(boolean focus){
 		this.focus = focus;
 	}
+
+	public boolean hit(int mouseX, int mouseY) {
+		
+		if(!this.focus){
+			return false;
+		}
+		
+		PVector position = parentNode.getTransformedPosition();
+		if(mouseX >= position.x && mouseX <= position.x + X_OFFSET + width ){
+			if(mouseY >= (position.y -height/2) && mouseY <= (position.y + height/2)){
+				return true;
+			}
+		}
+		this.setFocus(false);
+		return false;
+	}
+	
+	public Node getParentNode(){
+		return parentNode;
+	}
+
 }

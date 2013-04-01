@@ -83,6 +83,8 @@ public class Graph implements Drawable{
 		this.setGraphLayout(graphlayout);
 	}
 
+	// XXX: Dont know how to solve it otherwise for now
+	private Pane activePane;
 	/**
 	 * checks whether there are nodes in the graph which are hit by the mouse.
 	 * if a node is hit, it calls the appropiate methods on the node. 
@@ -90,12 +92,29 @@ public class Graph implements Drawable{
 	 * @param mouseY	the y position of the mouse on the screen
 	 */
 	public void hit(int mouseX, int mouseY){
-		for(Node node: getNodes().values()){
-			if(node.hit(mouseX, mouseY)){
-				node.rollover();
-				node.showPane();
-				break;
+		if(activePane != null){
+			if(activePane.hit(mouseX, mouseY)){
+				activePane.getParentNode().rollover();
+				activePane.getParentNode().showPane();
+			}
 
+			else{
+				activePane = null;
+			}
+		}
+
+		if(activePane == null){
+			for(Node node: getNodes().values()){
+				if(node.hit(mouseX, mouseY)){
+					node.rollover();
+					activePane = node.getPane();
+					node.showPane();
+					break;
+
+				}
+				else{
+					node.getPane().setFocus(false);
+				}
 			}
 		}
 	}
@@ -194,7 +213,7 @@ public class Graph implements Drawable{
 	public void expand(int mouseX, int mouseY){
 		for(Node node: getNodes().values()){
 			if(node.hit(mouseX, mouseY)){
-				
+
 				if(!node.getExpanded()){
 					ArrayList<Connection> conns = manager.expand((Publication) node.getSubject());
 					this.addConnections(conns);
@@ -206,11 +225,11 @@ public class Graph implements Drawable{
 				break;
 			}
 
-			
+
 
 		}
 	}
-	
+
 	public void mouseHit(int mouseX, int mouseY){
 		for(Node node: getNodes().values()){
 			if(node.hit(mouseX, mouseY)){
@@ -252,13 +271,13 @@ public class Graph implements Drawable{
 			this.addConnection(connection);
 		}
 	}
-	
+
 	public void removeConnections(ArrayList<Connection> conns){
 		for(Connection connection: conns){
 			this.removeConnection(connection);
 		}
 	}
-	
+
 	public void removeConnection(Connection connection){
 		connections.remove(connection);
 	}

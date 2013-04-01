@@ -209,14 +209,18 @@ public class Node implements GUIElement{
 	 */
 	@Override
 	public boolean hit(int mouseX, int mouseY){
-		if(this.getTransformedPosition().dist(new PVector(mouseX,mouseY)) <= diameter/2){
+		if(this.getTransformedPosition().dist(new PVector(mouseX,mouseY)) <= diameter/2 || pane.hit(mouseX, mouseY)){
+			pane.setFocus(true);
 			return true;
 		}
-		
+		pane.setFocus(false);
 		return false;
 		
 	}
 
+	public Pane getPane(){
+		return this.pane;
+	}
 	/**
 	 * Draws the pane associated with this node. 
 	 */

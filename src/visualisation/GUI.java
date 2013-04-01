@@ -167,40 +167,31 @@ public class GUI extends PApplet{
 		text.setWidth(width);
 		text.setHeight(30);
 		text.setPosition(displayWidth/2 - width/2, 15);
+	
 		Bang pause = inputController.addBang("pause");
-		Bang reset = inputController.addBang("reset");
-		Bang fixed = inputController.addBang("fix");
 
-		fixed.setColor(color);
-		fixed.setHeight(30);
-		fixed.setWidth(30);
-		fixed.setPosition(displayWidth/2 - displayWidth/4  -120, 15);
-		fixed.registerTooltip("Use this button if you don't want the nodes that you are going to expand to move.");
 
 		pause.setColor(color);
 		pause.registerTooltip("With this button you can pause the animation of the graph");
-		reset.setColor(color);
-		reset.setHeight(30);
-		reset.setWidth(30);
-		reset.registerTooltip("With this button, you can reset the layout of the graph");
-		reset.setPosition(displayWidth/2 - displayWidth/4 -80, 15);
 		pause.setHeight(30);
 		pause.setWidth(30);
 		pause.setPosition(displayWidth/2 - displayWidth/4 - 40, 15);
 
 
 		CColor col = new CColor(color(0, 146, 211), color(0, 60, 255),color(0, 146, 211),color(0, 146, 211),color(0, 146, 211) );
-		Slider slider = inputController.addSlider("zoom");
+		slider = inputController.addSlider("zoom");
 		slider.setHeight(displayHeight/2);
 		slider.setWidth(10);
-		slider.setPosition(displayWidth -100, displayHeight/2 - displayHeight/4 -30);
+		slider.setPosition(displayWidth -50, displayHeight/2 - displayHeight/4 );
 		slider.setColor(col);
 		slider.setValue(100f);
 		slider.setRange(5f, 200f);
 		slider.registerTooltip("Use this slider to zoom in or out");
+		slider.getValueLabel().setColor(this.color(255));
 
 	}
 
+	Slider slider;
 	float zoom = 100;
 	/**
 	 * The draw method. is called 25 times/second
@@ -221,6 +212,7 @@ public class GUI extends PApplet{
 			updateStatusMessage();
 			graph.hit(mouseX,mouseY);
 		}
+		
 	}
 
 	/**
@@ -241,10 +233,6 @@ public class GUI extends PApplet{
 		text(paused, displayWidth / 2 + displayWidth / 4 + 10, 35);
 	}
 
-	public void fix(){
-		graph.fix();
-	}
-	
 	public void pause(){
 		if(pause){
 			pause = false;
@@ -263,16 +251,7 @@ public class GUI extends PApplet{
 	public boolean getFixed(){
 		return fixed;
 	}
-	public void reset(){
-		Random random = new Random();
-		for(Node node: graph.getNodes().values()){
-			node.setPosition(150+ random.nextInt(displayWidth-300), 75+random.nextInt(displayHeight -150));
-		}
-		transform.translationX = 0;
-		transform.translationY = 0;
-		transform.scale = 1.0f;
-		zoom = 100;
-	}
+
 
 	public Transform getTransform(){
 		return transform;

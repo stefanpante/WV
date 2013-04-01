@@ -86,10 +86,10 @@ public class Publication implements Subject{
 
 	@Override
 	public ArrayList<Field> createFields() {
-		Field title = new Field("title", this.title);
-		Field cited = new Field("citations", ""+this.cited);
-		Field year = new Field("year", ""+this.year);
-		Field abstr = new Field("abstract", ""+this.summary);
+		Field title = new Field("Title", this.title);
+		Field cited = new Field("Citations", ""+this.cited);
+		Field year = new Field("Year", ""+this.year);
+		Field abstr = new Field("Abstract", ""+this.summary);
 		ArrayList<Field> result = new ArrayList<Field>();
 		result.add(title);
 		result.add(cited);
