@@ -47,21 +47,17 @@ public class GUIButton implements GUIElement{
 		gui.textSize(12);
 		gui.text(term, position.x, position.y, width, height);
 	}
+	
 	@Override
 	public boolean hittable() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean hit(int mouseX, int mouseY) {
 		if(mouseX >= position.x && mouseX <= position.x + width){
 			if(mouseY >= position.y && mouseY <= position.y + height){
-				try {
-					java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
-				} catch (IOException e) {
-					System.out.println("Cannot open the webbrowser.");
-				}
 				return true;
 			}
 		}
@@ -71,7 +67,11 @@ public class GUIButton implements GUIElement{
 	
 	public void action(int mouseX, int mouseY){
 		if(hit(mouseX,mouseY)){
-			
+			try {
+				java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+			} catch (IOException e) {
+				System.out.println("Cannot open the webbrowser.");
+			}
 		}
 	}
 

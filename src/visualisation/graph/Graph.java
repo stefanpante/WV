@@ -97,6 +97,9 @@ public class Graph implements Drawable{
 				activePane.getParentNode().rollover();
 				activePane.getParentNode().showPane();
 			}
+			if(activePane.getGUIButton().hit(mouseX, mouseY)){
+				activePane.getGUIButton().rollover();
+			}
 
 			else{
 				activePane = null;
@@ -233,8 +236,8 @@ public class Graph implements Drawable{
 	public void mouseHit(int mouseX, int mouseY){
 		if(activePane != null){
 			
-			activePane.getGUIButton().hit(mouseX, mouseY);
-		}
+			activePane.getGUIButton().action(mouseX, mouseY);
+			}
 	}
 
 	/**

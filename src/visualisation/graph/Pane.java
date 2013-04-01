@@ -156,6 +156,9 @@ public class Pane implements Drawable {
 		PVector position = parentNode.getTransformedPosition();
 		if(mouseX >= position.x && mouseX <= position.x + X_OFFSET + width ){
 			if(mouseY >= (position.y -height/2) && mouseY <= (position.y + height/2)){
+				if(button.hit(mouseX, mouseY)){
+					button.rollover();
+				}
 				return true;
 			}
 		}
