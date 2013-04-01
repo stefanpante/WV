@@ -97,7 +97,7 @@ public class Pane implements Drawable {
 				offset += 15*lines;
 			}
 		}
-		button.setPosition(position.x + X_OFFSET*2, position.y - height/2 + offset + 40);
+		button.setPosition(position.x + X_OFFSET*2 +2, position.y - height/2 + offset + 40);
 		button.draw();
 
 	}
@@ -121,7 +121,7 @@ public class Pane implements Drawable {
 		}
 		
 		// 40 + 50 pixels for the button
-		height +=90;
+		height +=82;
 	}
 
 	public String trimInput(String input){

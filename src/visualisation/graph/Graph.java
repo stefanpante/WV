@@ -1,6 +1,7 @@
 package visualisation.graph;
 
 import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -83,6 +84,7 @@ public class Graph implements Drawable{
 		this.setGraphLayout(graphlayout);
 	}
 
+	
 	// XXX: Dont know how to solve it otherwise for now
 	private Pane activePane;
 	/**
@@ -188,8 +190,6 @@ public class Graph implements Drawable{
 	public GUI getGUI(){
 		return this.gui;
 	}
-
-
 
 
 	/**
