@@ -175,8 +175,10 @@ public class Pane implements Drawable {
 		String searchString = "http://scholar.google.com/scholar?q=" + parentNode.getSubject().getSearchTerm() + " ";
 		Publication pub = (Publication) parentNode.getSubject();
 		for(String s : pub.getAuthors()){
-			
-			searchString += "author:"+s.split(" ")[1] + " ";
+			String[] st = s.split(" ");
+			if(st[1] != null){
+				searchString += "author:"+st[1] + " ";
+			}
 		}
 		
 		searchString = searchString.replace(" ", "+");
