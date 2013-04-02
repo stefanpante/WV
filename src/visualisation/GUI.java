@@ -159,7 +159,7 @@ public class GUI extends PApplet{
 					this.resetTransform();
 				}
 				else{
-					warning = "The Paper does not have enough citations in the database to display";
+					warning = "This Paper does not have citations in our database... \n The graph cannot be displayed.";
 					currentFrameWarning = 0;
 				}
 			} catch (SQLException e) {
@@ -208,9 +208,9 @@ public class GUI extends PApplet{
 
 	public void mouseWheel(int delta){
 		delta *= 4;
-		zoom += delta;
+		zoom -= delta;
 		slider.setValue(zoom);
-		transform.scale += delta/100;
+		transform.scale -= delta/100;
 	}
 
 	/**
