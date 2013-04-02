@@ -159,7 +159,7 @@ public class GUI extends PApplet{
 					this.resetTransform();
 				}
 				else{
-					warning = "This Paper does not have citations in our database... \n The graph cannot be displayed.";
+					warning = "This Paper does not have citations in our database. \n The graph cannot be displayed.";
 					currentFrameWarning = 0;
 				}
 			} catch (SQLException e) {
@@ -360,12 +360,12 @@ public class GUI extends PApplet{
 		if(currentFrameWarning < endFrameWarning){
 			fill(color(255));
 			stroke(0, 50);
-			rect( displayWidth/2 - 150, displayHeight/2 - 40,300,80);
+			rect( displayWidth/2 - 200, displayHeight/2 - 40,400,80);
 			textSize(15);
 			fill(color(0, 60, 255));
 			noStroke();
 			textAlign(CENTER, CENTER);
-			text(warning, displayWidth/2 - 150, displayHeight/2 - 40, 300, 80);
+			text(warning, displayWidth/2 - 200, displayHeight/2 - 40, 400, 80);
 			currentFrameWarning++;
 		}
 	}
