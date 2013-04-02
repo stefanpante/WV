@@ -3,17 +3,20 @@ package lucene;
 public class SearchResult {
 	
 	
-	public final int databaseID;
-	public final String title;
-	public final String abstr;
-	public final String year;
-	public final String citations;
-	public final String[] authors;
-	public final String[] venues;
-	
+	public  int databaseID;
+	public  String title;
+	public  String abstr;
+	public  String year;
+	public  String citations;
+	public  String[] authors;
+	public  String[] venues;
+	public static SearchResult loading = new SearchResult("Processing your query, please wait...");
 
+	public SearchResult(String title){
+		this.title = title;
+	}
 
-	public SearchResult(final String title, final String abstr, final String citations, final String year, final String[] authors, final String[] venues, final int databaseID){
+	public SearchResult( String title,  String abstr,  String citations,  String year,  String[] authors,  String[] venues,  int databaseID){
 		this.title = title;
 		this.abstr = abstr;
 		this.year = year;

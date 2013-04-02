@@ -153,6 +153,7 @@ public class GUI extends PApplet{
 				if(newGraph.getNodes().size() > 0){
 					graph = newGraph;
 					this.graph.setGraphLayout(new RegularForceBasedLayout(graph));
+					this.resetTransform();
 				}
 				else{
 					warning = "The Paper does not have enough citations in the database to display";
@@ -166,6 +167,12 @@ public class GUI extends PApplet{
 		menuEnabled = false;
 	}
 
+	private void resetTransform(){
+		this.transform.translationX = 0;
+		this.transform.translationY = 0;
+		this.transform.scale = 1f;
+		slider.setValue(100);
+	}
 
 	public void mouseReleased(){
 		locked = false;
@@ -240,6 +247,7 @@ public class GUI extends PApplet{
 	boolean menuEnabled = false;
 	SearchResultMenu menu2;
 	public void search(String search) throws ParseException, IOException, SQLException{
+		menuEnabled = true;
 		SearchResult[] results = IndexSearcher.generalSearch(search, 10);
 		if(results.length > 0){
 			menuEnabled = true;
