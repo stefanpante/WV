@@ -1,5 +1,7 @@
 package visualisation;
 
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -139,6 +141,7 @@ public class GUI extends PApplet{
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	private void processMenuPressed(int id){
 		System.out.println(id);
 		if(id == -1){
@@ -203,13 +206,23 @@ public class GUI extends PApplet{
 
 
 
-	private boolean guiIsSet = false;
+	public void mouseWheel(int delta){
+		delta *= 4;
+		zoom += delta;
+		slider.setValue(zoom);
+		transform.scale += delta/100;
+	}
+
 	/**
 	 * Setups the gui for this application
 	 */
 	private void setupGUI(){
 
 
+		addMouseWheelListener(new MouseWheelListener() { 
+			public void mouseWheelMoved(MouseWheelEvent mwe) { 
+				mouseWheel(mwe.getWheelRotation());
+			}}); 
 		inputController = new ControlP5(this);
 		int width = displayWidth/2;
 		inputField = inputController.addTextfield("search",  displayWidth/2 - width/2, 15, width, 30 );
@@ -230,6 +243,7 @@ public class GUI extends PApplet{
 
 		CColor col = new CColor(color(0, 146, 211), color(0, 60, 255),color(0, 146, 211),color(0, 146, 211),color(0, 146, 211) );
 		slider = inputController.addSlider("zoom");
+		slider.scrolled(2);
 		slider.setHeight(displayHeight/2);
 		slider.setWidth(10);
 		slider.setPosition(displayWidth -50, displayHeight/2 - displayHeight/4 );
@@ -238,7 +252,7 @@ public class GUI extends PApplet{
 		slider.setRange(5f, 200f);
 		slider.registerTooltip("Use this slider to zoom in or out");
 		slider.getValueLabel().setColor(this.color(255));
-		guiIsSet = true;
+
 
 	}
 	Textfield inputField;
@@ -262,6 +276,7 @@ public class GUI extends PApplet{
 	/**
 	 * The draw method. is called 25 times/second
 	 */
+	@SuppressWarnings("deprecation")
 	public void draw(){
 		background(color(255));
 		fill(color(128,0,0),75);
@@ -286,7 +301,7 @@ public class GUI extends PApplet{
 					graph.hit(mouseX,mouseY);
 			}
 		}
-		
+
 		displayWarning();
 	}
 
@@ -306,7 +321,7 @@ public class GUI extends PApplet{
 
 		textSize(15);
 		fill(color(0, 146, 211));
-		textAlign(this.LEFT);
+		textAlign(PConstants.LEFT);
 		//textFont(font);
 		text(paused, displayWidth / 2 + displayWidth / 4 + 10, 35);
 	}
