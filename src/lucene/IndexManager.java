@@ -13,6 +13,7 @@ import java.util.TreeMap;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.core.SimpleAnalyzer;
 import org.apache.lucene.analysis.core.StopAnalyzer;
+import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field.Store;
@@ -107,7 +108,7 @@ public class IndexManager {
 		if(true) throw new Exception("Can't add to index, it is locked.");
 		if(knowsIdentifier(identifier)) throw new IllegalArgumentException("This identifier already exists");
 		//negeert stopwoorden
-		Analyzer analyzer = new StopAnalyzer(Version.LUCENE_42);
+		Analyzer analyzer = new WhitespaceAnalyzer(Version.LUCENE_42);
 		IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_42, analyzer);
 		IndexWriter writer = new IndexWriter(publication_directory, iwc);
 		Document doc = new Document();
@@ -244,9 +245,10 @@ public class IndexManager {
 		for(Integer index : publications){
 			outerQuery.add(new TermQuery(new Term("id", index+"")), Occur.SHOULD);			
 		}
-		
-		BooleanQuery innerQuery = buildFuzzyQuery("title", query);
-		outerQuery.add(innerQuery, Occur.MUST);		
+		if(query.replaceAll(" ", "").length() > 0){
+			BooleanQuery innerQuery = buildFuzzyQuery("title", query);
+			outerQuery.add(innerQuery, Occur.MUST);		
+		}
 		
 		results = publications.size()>results ? results : publications.size();
 		TopDocs rs = searcher.search(outerQuery, results);
