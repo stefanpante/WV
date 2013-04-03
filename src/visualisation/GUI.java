@@ -261,7 +261,7 @@ public class GUI extends PApplet{
 	boolean menuEnabled = false;
 	SearchResultMenu menu2;
 	public void search(String search) throws ParseException, IOException, SQLException{
-		menuEnabled = true;
+
 		SearchResult[] results = IndexSearcher.generalSearch(search, 10);
 		if(results.length > 0){
 			menuEnabled = true;
