@@ -176,7 +176,7 @@ public class Pane implements Drawable {
 		Publication pub = (Publication) parentNode.getSubject();
 		for(String s : pub.getAuthors()){
 			String[] st = s.split(" ");
-			if(st[1] != null){
+			if(st.length>1 && st[1] != null){
 				searchString += "author:"+st[1] + " ";
 			}
 		}

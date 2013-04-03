@@ -85,7 +85,7 @@ public class GUI extends PApplet{
 
 		// Create a graph instance to display
 		try {
-			graph = GraphFactory.getInstance().fromDatabaseID(4, 1, this);
+			graph = GraphFactory.getInstance().fromDatabaseID(95483, 1, this);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
