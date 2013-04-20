@@ -3,6 +3,8 @@ package visualisation;
 import processing.core.PApplet;
 
 public class Application {
+	
+	public static boolean live = true;
 
 	public Application() {
 		// TODO Auto-generated constructor stub

@@ -5,9 +5,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 
-import database.Publication;
-import database.PublicationFactory;
-import database.SQLConnector;
+import data.Publication;
+import data.PublicationFactory;
+import data.SQLConnector;
 
 public class Test {
 

@@ -1,7 +1,7 @@
 package visualisation.graph;
 import java.util.ArrayList;
 
-import database.Publication;
+import data.Publication;
 
 import processing.core.PApplet;
 import processing.core.PVector;

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import database.Publication;
-import database.PublicationManager;
+import data.Publication;
+import data.PublicationManager;
 
 import processing.core.PApplet;
 import processing.core.PVector;

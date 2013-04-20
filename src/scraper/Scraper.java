@@ -15,7 +15,7 @@ import java.util.regex.Matcher;
 import java.io.Reader;
 import java.lang.StringBuilder;
 
-import database.Author;
+import data.Author;
 
 
 public class Scraper{
@@ -114,7 +114,7 @@ public class Scraper{
 			return buf.toString();
 		}catch(Exception e){
 			System.out.println("Scraper: Failed to load web page");
-			//e.printStackTrace();
+			e.printStackTrace();
 			return "";
 		}
 	}

@@ -1,4 +1,4 @@
-package database;
+package data;
 /**
  * 
  * Stelt een field value relatie voor voor insert in een database

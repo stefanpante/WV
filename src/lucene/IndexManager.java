@@ -44,7 +44,7 @@ import org.apache.lucene.store.SimpleFSDirectory;
 import org.apache.lucene.util.BytesRef;
 import org.apache.lucene.util.Version;
 
-import database.SQLConnector;
+import data.SQLConnector;
 
 public class IndexManager {
 	

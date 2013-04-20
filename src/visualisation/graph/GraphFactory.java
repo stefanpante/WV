@@ -5,13 +5,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import database.CitationFactory;
-import database.Publication;
-import database.PublicationFactory;
-import database.PublicationManager;
-import database.SQLConnector;
+import data.CitationFactory;
+import data.Publication;
+import data.PublicationFactory;
+import data.PublicationManager;
+import data.SQLConnector;
 
 import processing.core.PApplet;
+import visualisation.Application;
 import visualisation.GUI;
 import visualisation.IDSubject;
 
@@ -33,7 +34,10 @@ public class GraphFactory {
 		SQLConnector.initialize("jdbc:mysql://localhost/visualisation", "root", "");
 		PublicationManager manager = new PublicationManager(applet);
 		
-		Publication root = PublicationFactory.fromDatabaseID(id);
+		Publication root;
+		try {
+			root = Application.live ? PublicationFactory.fromAcademicsID(id) : PublicationFactory.fromDatabaseID(id);
+		
 		manager.addPublication(root);
 		manager.expand(root);
 
@@ -47,6 +51,11 @@ public class GraphFactory {
 			}
 		}
 		return graph;
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	

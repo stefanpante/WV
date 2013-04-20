@@ -13,7 +13,7 @@ import org.apache.pdfbox.util.PDFTextStripper;
 
 import visualisation.subject.Field;
 
-import database.Publication;
+import data.Publication;
 
 public class IndexedDocumentFactory {
 

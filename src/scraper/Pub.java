@@ -2,7 +2,7 @@ package scraper;
 import java.util.ArrayList;
 import java.util.Date;
 
-import database.Author;
+import data.Author;
 
 import visualisation.subject.Field;
 import visualisation.subject.Subject;

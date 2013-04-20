@@ -10,8 +10,8 @@ import org.apache.lucene.queryparser.surround.parser.ParseException;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 
-import database.Authorship;
-import database.SQLConnector;
+import data.Authorship;
+import data.SQLConnector;
 
 public class IndexSearcher {
 	

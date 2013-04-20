@@ -1,4 +1,4 @@
-package database;
+package data;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -7,6 +7,7 @@ import java.util.HashSet;
 
 import processing.core.PApplet;
 
+import visualisation.Application;
 import visualisation.GUI;
 import visualisation.graph.Connection;
 import visualisation.graph.Node;
@@ -44,24 +45,28 @@ public class PublicationManager {
 		ArrayList<Connection> expandedConnections = new ArrayList<Connection>();
 		if(expandedPublications.contains(publication)) System.out.println("This publication has already been expanded");
 		else{
-			try {
-				HashSet<Publication> citations = CitationFactory.forwardCitations(publication.getID());
-				citations.removeAll(expandedPublications);
-				for(Publication citation : citations){
-					expandedConnections.add(addCitation(publication, citation, false));
+			
+				HashSet<Publication> citations;
+				try {
+					citations = Application.live ? CitationFactory.forwardCitationsFromAcademics(publication.getID()) : CitationFactory.forwardCitationsFromDatabase(publication.getID());
+					
+					citations.removeAll(expandedPublications);
+					for(Publication citation : citations){
+						expandedConnections.add(addCitation(publication, citation, false));
+					}
+					expandedPublications.add(publication);
+					
+					citations = Application.live ? CitationFactory.backwardCitationsFromAcademics(publication.getID()) : CitationFactory.backwardCitationsFromDatabase(publication.getID());
+					citations.removeAll(expandedPublications);
+					for(Publication citation : citations){
+						expandedConnections.add(addCitation(publication, citation, true));
+					}
+					expandedPublications.add(publication);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				expandedPublications.add(publication);
-				
-				citations = CitationFactory.backwardCitations(publication.getID());
-				citations.removeAll(expandedPublications);
-				for(Publication citation : citations){
-					expandedConnections.add(addCitation(publication, citation, true));
-				}
-				expandedPublications.add(publication);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		
 			
 		}
 		return expandedConnections;
