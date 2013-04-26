@@ -201,6 +201,7 @@ public class GUI extends PApplet{
 		//graph.getParentNode().setDiameter(50);
 
 		// Sets the color of the parent node to red.
+		System.out.println(graph == null);
 		graph.getParentNode().setColor(color(255,0,0));
 	}
 
