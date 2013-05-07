@@ -4,7 +4,7 @@ import processing.core.PApplet;
 
 public class Application {
 	
-	public static boolean live = true;
+	public static boolean live = false;
 
 	public Application() {
 		// TODO Auto-generated constructor stub

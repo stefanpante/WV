@@ -84,8 +84,9 @@ public class GUI extends PApplet{
 		frameRate(60);
 
 		// Create a graph instance to display
+		int id = Application.live ? 777102 : 4;
 		try {
-			graph = GraphFactory.getInstance().fromDatabaseID(777102, 1, this);
+			graph = GraphFactory.getInstance().fromDatabaseID(id, 1, this);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
