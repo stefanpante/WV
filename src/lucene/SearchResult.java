@@ -1,5 +1,7 @@
 package lucene;
 
+import java.util.ArrayList;
+
 public class SearchResult {
 	
 	
@@ -8,7 +10,7 @@ public class SearchResult {
 	public  String abstr;
 	public  String year;
 	public  String citations;
-	public  String[] authors;
+	public  ArrayList<String> authors;
 	public  String[] venues;
 	public static SearchResult loading = new SearchResult("Processing your query, please wait...");
 
@@ -16,7 +18,7 @@ public class SearchResult {
 		this.title = title;
 	}
 
-	public SearchResult( String title,  String abstr,  String citations,  String year,  String[] authors,  String[] venues,  int databaseID){
+	public SearchResult( String title,  String abstr,  String citations,  String year,  ArrayList<String> authors,  String[] venues,  int databaseID){
 		this.title = title;
 		this.abstr = abstr;
 		this.year = year;

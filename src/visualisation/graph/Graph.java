@@ -65,24 +65,16 @@ public class Graph implements Drawable{
 	 * Creates a new graph based on a given list of connections.
 	 * Uses the nodes specified in the connections
 	 * @param connections	List of connections between nodes
+	 * @param regularForceBasedLayout 
 	 */
-	public Graph(ArrayList<Connection> connections, PublicationManager manager, GUI gui){
+	public Graph(ArrayList<Connection> connections, PublicationManager manager, GUI gui, Node parentNode){
 		this.connections = connections;
 		this.manager = manager;
 		this.gui = gui;
+		this.parentNode = parentNode;
+		parentNode.setMovable(false);
+	}
 
-	}
-	/**
-	 * Creates new graph based on the given connections, gui and graphlayout
-	 * @param connections	the connections of the graph
-	 * @param gui		the gui of the graph
-	 * @param graphlayout	the layout for the graph
-	 */
-	public Graph(ArrayList<Connection> connections, GUI gui, GraphLayout graphlayout){
-		this.connections = connections;
-		this.gui = gui;
-		this.setGraphLayout(graphlayout);
-	}
 
 	
 	// XXX: Dont know how to solve it otherwise for now
@@ -204,6 +196,7 @@ public class Graph implements Drawable{
 			node.draw();
 		}
 		parentNode.rollover();
+		System.out.println(parentNode.getPosition());
 	}
 
 	/**
@@ -218,11 +211,8 @@ public class Graph implements Drawable{
 			if(node.hit(mouseX, mouseY)){
 
 				if(!node.getExpanded()){
-					ArrayList<Connection> conns = manager.expand((Publication) node.getSubject());
-					this.addConnections(conns);
-					getGraphLayout().setInitialPosition(node, conns);
-					if(fix) node.setMovable(false);
-					node.setExpanded(true);
+					NodeExpandThread expandThread = new NodeExpandThread(manager, node, this);
+					expandThread.run();
 				}
 
 				break;
@@ -231,6 +221,13 @@ public class Graph implements Drawable{
 
 
 		}
+	}
+
+	public void addNodes(Node parentNode, ArrayList<Connection> conns) {
+		this.addConnections(conns);
+		getGraphLayout().setInitialPosition(parentNode, conns);
+		if(fix) parentNode.setMovable(false);
+		parentNode.setExpanded(true);
 	}
 
 	public void mouseHit(int mouseX, int mouseY){

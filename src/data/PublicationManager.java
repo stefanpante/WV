@@ -10,6 +10,7 @@ import processing.core.PApplet;
 import visualisation.Application;
 import visualisation.GUI;
 import visualisation.graph.Connection;
+import visualisation.graph.Graph;
 import visualisation.graph.Node;
 
 /**
@@ -41,7 +42,7 @@ public class PublicationManager {
 		//for(Publication citation : publication.getCitations()) addCitation(publication, citation);
 	}
 	
-	public ArrayList<Connection> expand(Publication publication){
+	public void expand(Publication publication, Graph graph, Node node){
 		ArrayList<Connection> expandedConnections = new ArrayList<Connection>();
 		if(expandedPublications.contains(publication)) System.out.println("This publication has already been expanded");
 		else{
@@ -69,7 +70,7 @@ public class PublicationManager {
 		
 			
 		}
-		return expandedConnections;
+		graph.addNodes(node, expandedConnections);
 	}
 	
 	public ArrayList<Connection> collapse(Node node){

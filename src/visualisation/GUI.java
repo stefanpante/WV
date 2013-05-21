@@ -19,6 +19,7 @@ import javax.swing.JFrame;
 import org.apache.lucene.queryparser.surround.parser.ParseException;
 
 import lucene.IndexSearcher;
+import lucene.PublicationSearcher;
 import lucene.SearchResult;
 
 import controlP5.Bang;
@@ -26,6 +27,7 @@ import controlP5.CColor;
 import controlP5.ControlP5;
 import controlP5.Slider;
 import controlP5.Textfield;
+import data.AcademicsSearcher;
 
 import processing.core.*;
 import tutorial.Tutorial;
@@ -117,7 +119,6 @@ public class GUI extends PApplet{
 		initParentNode();
 
 		// Sets the default graphLayout for the graph
-		graph.setGraphLayout(graphLayout);
 		//graph.setGraphLayout(new CircularLayout(graph));
 	}
 
@@ -262,16 +263,18 @@ public class GUI extends PApplet{
 	float zoom = 100;
 	boolean menuEnabled = false;
 	SearchResultMenu menu2;
-	public void search(String search) throws ParseException, IOException, SQLException{
-
-		SearchResult[] results = IndexSearcher.generalSearch(search, 10);
-		if(results.length > 0){
-			menuEnabled = true;
-			System.out.println(results.length);
-			menu2 = new SearchResultMenu(results, this);
-			menu2.setStartPositionY(44);
-		}
-
+	SearchThread trd;
+	public void search(String search) throws Exception{
+		trd = new SearchThread(search, this);
+		trd.start();
+	}
+	
+	public void startSearchAnimation(){
+		System.out.println("Searching");
+	}
+	
+	public void stopSearchAnimation(){
+		System.out.println("Stopping search");
 	}
 
 

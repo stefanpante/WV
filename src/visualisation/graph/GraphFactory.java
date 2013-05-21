@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import data.CitationFactory;
 import data.Publication;
@@ -37,19 +38,12 @@ public class GraphFactory {
 		Publication root;
 		try {
 			root = Application.live ? PublicationFactory.fromAcademicsID(id) : PublicationFactory.fromDatabaseID(id);
-		
+		System.out.println(root);
 		manager.addPublication(root);
-		manager.expand(root);
-
-		Graph graph = new Graph(manager.getConnections(), manager, applet);
-		for(Node n : graph.getNodes().values()){
-			Publication p = (Publication) n.getSubject();
-			if(root.equals(p)){
-				graph.setParentNode(n);
-				System.out.println("Parent Node set");
-				//TODO: set parentnode to expanded
-			}
-		}
+		Node n = new Node(root, applet,manager);
+		Graph graph = new Graph(manager.getConnections(), manager, applet, n);
+		graph.setGraphLayout( new RegularForceBasedLayout());
+		manager.expand(root, graph, n);
 		return graph;
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
