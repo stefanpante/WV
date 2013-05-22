@@ -59,6 +59,7 @@ public class Graph implements Drawable{
 	public Graph() {
 		//this.nodes = new HashMap<Integer, Node>();
 		this.connections = new ArrayList<Connection>();
+		
 	}
 
 	/**
@@ -196,7 +197,6 @@ public class Graph implements Drawable{
 			node.draw();
 		}
 		parentNode.rollover();
-		System.out.println(parentNode.getPosition());
 	}
 
 	/**

@@ -2,41 +2,17 @@ package visualisation;
 
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Queue;
-import java.util.Random;
-
-import javax.swing.JFrame;
-
-import org.apache.lucene.queryparser.surround.parser.ParseException;
-
-import lucene.IndexSearcher;
-import lucene.PublicationSearcher;
-import lucene.SearchResult;
-
 import controlP5.Bang;
 import controlP5.CColor;
 import controlP5.ControlP5;
 import controlP5.Slider;
 import controlP5.Textfield;
-import data.AcademicsSearcher;
 
 import processing.core.*;
-import tutorial.Tutorial;
-import visualisation.graph.CircularLayout;
-import visualisation.graph.Connection;
 import visualisation.graph.Graph;
 import visualisation.graph.GraphFactory;
 import visualisation.graph.GraphLayout;
-import visualisation.graph.Node;
 import visualisation.graph.RegularForceBasedLayout;
 import visualisation.guielements.SearchResultMenu;
 
