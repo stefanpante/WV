@@ -42,7 +42,6 @@ public class SQLConnector {
 			SQLConnector.open = open();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Connectie met de database mislukt, mogelijk foute gegevens gebruikt?");
 		}
 	}
 
@@ -104,7 +103,6 @@ public class SQLConnector {
 		stat.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
 		}catch(MySQLIntegrityConstraintViolationException exc){
 			//exc.printStackTrace();
-			//System.out.println(exc.getStackTrace());
 		}
 		ResultSet rs = stat.getGeneratedKeys();
 		if(rs.next()) return (int) rs.getLong(1);

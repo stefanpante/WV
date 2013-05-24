@@ -32,14 +32,13 @@ public class GraphFactory {
 	
 	
 	public Graph fromDatabaseID(int id, int expansionDegree, GUI applet) throws SQLException{
-		SQLConnector.initialize("jdbc:mysql://localhost/visualisation", "root", "");
+		if(!Application.live) SQLConnector.initialize("jdbc:mysql://localhost/visualisation", "root", "");
 		PublicationManager manager = new PublicationManager(applet);
 		
 		Publication root;
 		try {
 			root = Application.live ? PublicationFactory.fromAcademicsID(id) : PublicationFactory.fromDatabaseID(id);
-		System.out.println(root);
-		manager.addPublication(root);
+		//manager.addPublication(root);
 		Node n = new Node(root, applet,manager);
 		Graph graph = new Graph(manager.getConnections(), manager, applet, n);
 		graph.setGraphLayout( new RegularForceBasedLayout());

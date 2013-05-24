@@ -35,7 +35,6 @@ public class DatabaseBuilder {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.out.println("Crashed at line "+lineCounter);
 		} finally {
 			try {
 				if (br != null)
@@ -77,7 +76,6 @@ public class DatabaseBuilder {
 					publication = new ParsedPublication(title,lineCounter);
 				}
 				publicationNumber++;
-				if(publicationNumber%100 == 0) System.out.println(publicationNumber);
 			}else if(publicationNumber<SKIP){
 				//DO NOTHING
 			}else if(publication == null){
@@ -104,7 +102,6 @@ public class DatabaseBuilder {
 					currentIndex = Integer.parseInt(line.substring(INDEX.length()));
 				}
 				publicationNumber++;
-				System.out.println(publicationNumber);
 			}else if(publicationNumber<SKIP){
 				//DO NOTHING
 			}else if(line.indexOf(REFERENCE) == 0){
@@ -125,7 +122,6 @@ public class DatabaseBuilder {
 //			else if(line.indexOf(AUTHOR) == 0){
 //				String reference = line.substring(AUTHOR.length());
 //				for(String ref : reference.split(",")){
-//					System.out.println(ref);
 //					LogWriter.writeLine("%"+ref+"%\n");
 //				}
 //			}
@@ -144,7 +140,6 @@ public class DatabaseBuilder {
 				}
 
 				publicationNumber++;
-				if(publicationNumber % 100 == 0) System.out.println(publicationNumber);
 			}else if(currentIndex<SKIP){
 				//DO NOTHING
 			}
@@ -159,7 +154,6 @@ public class DatabaseBuilder {
 					try{
 						res = SQLConnector.select("id", "venue", "venue", '"'+reference+'"');
 					}catch(Exception e){
-						System.out.println(reference);
 					}
 					if(res.next()){
 						int id = res.getInt(1);

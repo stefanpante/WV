@@ -245,7 +245,6 @@ public class ProxyListGenerator implements Runnable {
 		return IPList.size() > 0;
 	}
 
-	@Override
 	public void run() {
 		populateIPList();
 	}

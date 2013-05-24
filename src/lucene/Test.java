@@ -22,7 +22,6 @@ public class Test {
 
 		System.out.println(firstDoc.compareContent(secondDoc, new CosineSimilarity()));
 		
-		//System.out.println(IndexManager.getInstance().extractPublicationData(25)[1]);
 	}
 
 }

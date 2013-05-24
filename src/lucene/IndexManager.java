@@ -190,7 +190,7 @@ public class IndexManager {
         Terms vector = reader.getTermVector(docId, CONTENT);
         TermsEnum termsEnum = null;
         termsEnum = vector.iterator(termsEnum);
-        Map<String, Integer> frequencies = new HashMap<>();
+        Map<String, Integer> frequencies = new HashMap<String, Integer>();
         BytesRef text = null;
         while ((text = termsEnum.next()) != null) {
             String term = text.utf8ToString();

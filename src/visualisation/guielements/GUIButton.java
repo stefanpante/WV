@@ -24,7 +24,6 @@ public class GUIButton implements GUIElement{
 		this.position = new PVector();
 	}
 
-	@Override
 	public void draw() {
 		gui.fill(gui.color(0,146,211));
 		gui.stroke(gui.color(0), 50);
@@ -48,13 +47,11 @@ public class GUIButton implements GUIElement{
 		gui.text(term, position.x, position.y, width, height);
 	}
 	
-	@Override
 	public boolean hittable() {
 		// TODO Auto-generated method stub
 		return true;
 	}
 
-	@Override
 	public boolean hit(int mouseX, int mouseY) {
 		if(mouseX >= position.x && mouseX <= position.x + width){
 			if(mouseY >= position.y && mouseY <= position.y + height){
@@ -75,7 +72,6 @@ public class GUIButton implements GUIElement{
 		}
 	}
 
-	@Override
 	public boolean isVisible() {
 		return true;
 	}
@@ -84,19 +80,16 @@ public class GUIButton implements GUIElement{
 		this.position.x = x;
 		this.position.y = y;
 	}
-	@Override
 	public int getColor() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
 	public PVector getTransformedPosition() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public PVector getPosition() {
 		return position;
 	}

@@ -60,7 +60,6 @@ public class Pane implements Drawable {
 	/**
 	 * Draws the pane onto the screen
 	 */
-	@Override
 	public void draw() {
 		PVector position = parentNode.getTransformedPosition();
 		gui.textAlign(GUI.LEFT);

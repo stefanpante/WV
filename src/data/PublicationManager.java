@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import processing.core.PApplet;
 
@@ -30,8 +32,8 @@ public class PublicationManager {
 
 	private HashMap<Integer, Publication> openPublications = new HashMap<Integer, Publication>();
 	private HashSet<Publication> expandedPublications = new HashSet<Publication>();
-	private ArrayList<Connection> connections = new ArrayList<Connection>();
-	private HashMap<Integer, Node> nodes = new HashMap<Integer, Node>();
+	private CopyOnWriteArrayList<Connection> connections = new CopyOnWriteArrayList<Connection>();
+	private ConcurrentHashMap<Integer, Node> nodes = new  ConcurrentHashMap<Integer, Node>();
 	
 	public boolean hasPublication(Publication publication){
 		return openPublications.containsKey(publication.getID());
@@ -107,11 +109,11 @@ public class PublicationManager {
 		return connection;
 	}
 	
-	public ArrayList<Connection> getConnections(){
+	public CopyOnWriteArrayList<Connection> getConnections(){
 		return connections;
 	}
 	
-	public HashMap<Integer, Node> getNodes(){
+	public ConcurrentHashMap<Integer, Node> getNodes(){
 		return nodes;
 	}
 

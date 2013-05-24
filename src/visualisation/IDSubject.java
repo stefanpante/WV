@@ -23,7 +23,6 @@ public class IDSubject implements Subject{
 	/**
 	 * Compares this instance to another instance of IDSubject.
 	 */
-	@Override
 	public int compareTo(Subject o) {
 		IDSubject ro = (IDSubject) o;
 		if(this.getID() <ro.getID())
@@ -39,31 +38,26 @@ public class IDSubject implements Subject{
 			return true;
 		else return false;
 	}
-	@Override
 	public int getScore() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
 	public ArrayList<Field> createFields() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public Field getDescription() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public int getScore2() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
 	public String getSearchTerm() {
 		// TODO Auto-generated method stub
 		return null;

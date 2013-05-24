@@ -33,7 +33,6 @@ public class Publication implements Subject{
 		return this.authors;
 	}
 	
-	@Override
 	public int compareTo(Subject arg0) {
 		return getScore()-arg0.getScore();
 	}
@@ -62,22 +61,18 @@ public class Publication implements Subject{
 
 
 
-	@Override
 	public int getScore() {
 		return cited;
 	}
 
-	@Override
 	public int getScore2() {
 		return 0;
 	}
 
-	@Override
 	public int getID() {
 		return id;
 	}
 
-	@Override
 	public ArrayList<Field> createFields() {
 		Field title = new Field("Title", this.title);
 		Field cited = new Field("Citations", ""+this.cited);
@@ -91,12 +86,10 @@ public class Publication implements Subject{
 		return result;
 	}
 
-	@Override
 	public Field getDescription() {
 		return new Field("Title", this.title);
 	}
 
-	@Override
 	public String getSearchTerm() {
 		return title;
 	}
