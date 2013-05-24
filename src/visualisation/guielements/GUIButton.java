@@ -67,7 +67,6 @@ public class GUIButton implements GUIElement{
 			try {
 				java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
 			} catch (IOException e) {
-				System.out.println("Cannot open the webbrowser.");
 			}
 		}
 	}

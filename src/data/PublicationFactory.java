@@ -32,8 +32,8 @@ public class PublicationFactory {
 		ResultSet results = SQLConnector.select("title,year,cited,abstract", "publication", "id", ""+id);
 		results.next();
 		
-		Publication pub = new Publication(id, results.getString("title"), results.getInt("year"), results.getInt("cited"), results.getString("abstract"), getAuthors(id));
-		return pub;
+		//Publication pub = new Publication(id, results.getString("title"), results.getInt("year"), results.getInt("cited"), results.getString("abstract"), getAuthors(id));
+		return null /*pub*/;
 	}
 	
 	private static ArrayList<String> getAuthors(int id) throws SQLException{

@@ -214,7 +214,6 @@ public class Graph implements Drawable{
 					ExecutorService executor = Executors.newCachedThreadPool();
 					executor.execute( new NodeExpandThread(manager, node, this));
 				}
-				System.out.println("Continue normal exectution");
 				break;
 			}
 
@@ -224,8 +223,9 @@ public class Graph implements Drawable{
 	}
 
 	public void addNodes(Node parentNode, ArrayList<Connection> conns) {
-		this.addConnections(conns);
 		getGraphLayout().setInitialPosition(parentNode, conns);
+		this.addConnections(conns);
+		
 		if(fix) parentNode.setMovable(false);
 		parentNode.setExpanded(true);
 	}

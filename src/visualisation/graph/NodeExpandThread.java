@@ -1,9 +1,5 @@
 package visualisation.graph;
 
-import java.util.ArrayList;
-
-import visualisation.subject.Subject;
-
 
 import data.Publication;
 import data.PublicationManager;
@@ -21,10 +17,9 @@ public class NodeExpandThread implements Runnable{
 	}
 
 	public void run() {
-		System.out.println("Running expand thread");
 		
-		manager.expand((Publication) node.getSubject(), graph, node);
-		System.out.println("completing expand thread");
+		boolean success = manager.expand((Publication) node.getSubject(), graph, node);
+		if(!success) manager.collapse(node);
 	}
 
 	

@@ -46,11 +46,12 @@ public class PublicationManager {
 		// addCitation(publication, citation);
 	}
 
-	public void expand(Publication publication, Graph graph, Node node) {
+	public boolean expand(Publication publication, Graph graph, Node node) {
 		ArrayList<Connection> expandedConnections = new ArrayList<Connection>();
-		if (expandedPublications.contains(publication))
+		if (expandedPublications.contains(publication)){
 			System.out.println("This publication has already been expanded");
-		else {
+			return false;
+		}else {
 
 			HashSet<Publication> citations;
 			try {
@@ -85,6 +86,7 @@ public class PublicationManager {
 
 		}
 		graph.addNodes(node, expandedConnections);
+		return true;
 	}
 
 	public ArrayList<Connection> expand(Publication publication) {
