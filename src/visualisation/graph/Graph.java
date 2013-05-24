@@ -71,12 +71,10 @@ public class Graph implements Drawable{
 	 * @param connections	List of connections between nodes
 	 * @param regularForceBasedLayout 
 	 */
-	public Graph(CopyOnWriteArrayList<Connection> connections, PublicationManager manager, GUI gui, Node parentNode){
+	public Graph(CopyOnWriteArrayList<Connection> connections, PublicationManager manager, GUI gui){
 		this.connections = connections;
 		this.manager = manager;
 		this.gui = gui;
-		this.parentNode = parentNode;
-		parentNode.setMovable(false);
 	}
 
 
