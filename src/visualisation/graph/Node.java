@@ -76,8 +76,8 @@ public class Node implements GUIElement{
 		this.diameter = 100;
 		this.movable = true;
 		this.expanded = false;
-		this.pane = new Pane(this);
 		this.position = new PVector();
+		this.pane = new Pane(this);
 	}
 	
 	/**
@@ -260,6 +260,9 @@ public class Node implements GUIElement{
 		if(movable){
 			position.x = (float) d;
 			position.y = (float) e;
+			if(pane != null){
+				pane.setPosition(d,e);
+			}
 		}
 		
 	}

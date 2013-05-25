@@ -15,6 +15,7 @@ public class Pane implements Drawable {
 
 	private GUI gui;
 	private Node parentNode;
+	private PVector position;
 	public static final int width = 275;
 	public int height;
 	private boolean focus = false;
@@ -28,7 +29,7 @@ public class Pane implements Drawable {
 	 */
 	public Pane(Node parentNode){
 		this.parentNode = parentNode;
-		
+		this.position = parentNode.getPosition();
 	}
 
 	/**
@@ -39,6 +40,7 @@ public class Pane implements Drawable {
 	public Pane(Node parentNode, GUI applet){
 		this(parentNode);
 		this.gui = applet;
+		this.position = parentNode.getPosition();
 		this.calculateHeight();
 		this.button = new GUIButton("View publication", this.buildSearchString(), gui);
 	}
@@ -61,7 +63,7 @@ public class Pane implements Drawable {
 	 * Draws the pane onto the screen
 	 */
 	public void draw() {
-		PVector position = parentNode.getTransformedPosition();
+		PVector position = gui.getTransform().transform(this.position);
 		gui.textAlign(GUI.LEFT);
 		gui.stroke(0, 50);
 		
@@ -152,7 +154,7 @@ public class Pane implements Drawable {
 			return false;
 		}
 		
-		PVector position = parentNode.getTransformedPosition();
+		PVector position = gui.getTransform().transform(this.position);
 		if(mouseX >= position.x && mouseX <= position.x + X_OFFSET + width ){
 			if(mouseY >= (position.y -height/2) && mouseY <= (position.y + height/2)){
 				if(button.hit(mouseX, mouseY)){
@@ -184,7 +186,14 @@ public class Pane implements Drawable {
 		return searchString;
 	}
 	
-	
+	public void setPosition(double d, double e){
+		System.out.println("Position set");
+		sysout
+		if(Math.abs(this.position.x - d) > 15 || Math.abs(this.position.y - e) > 15){
+			this.position.x = (float) d;
+			this.position.y = (float) e;
+		}
+	}
 	public GUIButton getGUIButton(){
 		return this.button;
 	}
