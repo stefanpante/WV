@@ -73,19 +73,16 @@ public class Author implements Subject,Queryable {
 		return fname+" "+mname+" "+lname; 
 	}
 
-	@Override
 	public int getScore() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
 	public ArrayList<Field> createFields() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public Field getDescription() {
 		// TODO Auto-generated method stub
 		return null;
@@ -98,7 +95,6 @@ public class Author implements Subject,Queryable {
 		return h_index;
 	}
 
-	@Override
 	public int insert() throws UnsupportedOperationException, SQLException {
 		Relation firstName = new Relation("first_name", getFname());
 		Relation middleName = new Relation("middle_name", getMname());
@@ -109,13 +105,10 @@ public class Author implements Subject,Queryable {
 		return index;
 	}
 
-	@Override
 	public boolean existsInDatabase() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public int getIndex() {
 		return recordIndex;
 	}
@@ -124,37 +117,31 @@ public class Author implements Subject,Queryable {
 		this.recordIndex = index;
 	}
 
-	@Override
 	public boolean select(int index) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public boolean remove() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public int compareTo(Subject arg0) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
 	public int getScore2() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
 	public int getID() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
 	public String getSearchTerm() {
 		// TODO Auto-generated method stub
 		return null;

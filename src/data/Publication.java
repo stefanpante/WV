@@ -6,8 +6,8 @@ import java.util.HashSet;
 import visualisation.subject.Field;
 import visualisation.subject.Subject;
 
-public class Publication implements Subject{
-	
+public class Publication implements Subject {
+
 	public static Publication root;
 
 	private int id;
@@ -16,26 +16,44 @@ public class Publication implements Subject{
 	private int year;
 	private ArrayList<String> authors;
 	private String summary;
-	
-	
-	
-	public Publication(int id, String title, int year, int cited, String summary, ArrayList<String> authors){
-		if(root == null) root = this;
+	private String conference;
+	private String journal;
+	private String pdf;
+
+	public Publication(int id, String title, int year, int cited,
+			String summary, ArrayList<String> authors, String conference,
+			String journal, String pdf) {
+		if (root == null)
+			root = this;
 		this.id = id;
 		this.year = year;
 		this.cited = cited;
 		this.summary = summary;
 		this.title = title;
 		this.authors = authors;
+		this.conference = conference;
+		this.journal = journal;
+		this.pdf = pdf;
 	}
-	
-	public ArrayList<String> getAuthors(){
+
+	public String getConference() {
+		return conference;
+	}
+
+	public String getJournal() {
+		return journal;
+	}
+
+	public String getPdf() {
+		return pdf;
+	}
+
+	public ArrayList<String> getAuthors() {
 		return this.authors;
 	}
-	
-	@Override
+
 	public int compareTo(Subject arg0) {
-		return getScore()-arg0.getScore();
+		return getScore() - arg0.getScore();
 	}
 
 	@Override
@@ -60,29 +78,23 @@ public class Publication implements Subject{
 		return true;
 	}
 
-
-
-	@Override
 	public int getScore() {
 		return cited;
 	}
 
-	@Override
 	public int getScore2() {
 		return 0;
 	}
 
-	@Override
 	public int getID() {
 		return id;
 	}
 
-	@Override
 	public ArrayList<Field> createFields() {
 		Field title = new Field("Title", this.title);
-		Field cited = new Field("Citations", ""+this.cited);
-		Field year = new Field("Year", ""+this.year);
-		Field abstr = new Field("Abstract", ""+this.summary);
+		Field cited = new Field("Citations", "" + this.cited);
+		Field year = new Field("Year", "" + this.year);
+		Field abstr = new Field("Abstract", "" + this.summary);
 		ArrayList<Field> result = new ArrayList<Field>();
 		result.add(title);
 		result.add(cited);
@@ -91,12 +103,10 @@ public class Publication implements Subject{
 		return result;
 	}
 
-	@Override
 	public Field getDescription() {
 		return new Field("Title", this.title);
 	}
 
-	@Override
 	public String getSearchTerm() {
 		return title;
 	}

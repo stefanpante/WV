@@ -175,7 +175,6 @@ public class Node implements GUIElement{
 	 * (non-Javadoc)
 	 * @see visualisation.guielements.GUIElement#draw()
 	 */
-	@Override
 	public void draw() {
 		gui.fill(color,85);
 		gui.noStroke();
@@ -207,7 +206,6 @@ public class Node implements GUIElement{
 	 * @param mouseY the Y-coordinate for the mouse pointer
 	 * @return true if the mouse is inside the node
 	 */
-	@Override
 	public boolean hit(int mouseX, int mouseY){
 		if(this.getTransformedPosition().dist(new PVector(mouseX,mouseY)) <= diameter/2 || pane.hit(mouseX, mouseY)){
 			pane.setFocus(true);
@@ -254,7 +252,6 @@ public class Node implements GUIElement{
 	/**
 	 * returns whether the node is hittable, always true.
 	 */
-	@Override
 	public boolean hittable() {
 		return true;
 	}
@@ -278,7 +275,6 @@ public class Node implements GUIElement{
 	/**
 	 * returns the color of the node.
 	 */
-	@Override
 	public int getColor() {
 		return color;
 	}
@@ -286,7 +282,6 @@ public class Node implements GUIElement{
 	/**
 	 * returns whether the node is visible
 	 */
-	@Override
 	public boolean isVisible() {
 		return true;
 	}

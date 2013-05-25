@@ -121,15 +121,12 @@ public class GUI extends PApplet{
 
 	@SuppressWarnings("deprecation")
 	private void processMenuPressed(int id){
-		System.out.println(id);
 		if(id == -1){
 			inputField.setLabel("Search");
 
 		}
 		else{
 			try {
-				System.out.println("Build graph");
-				System.out.println(id);
 				Graph newGraph = GraphFactory.getInstance().fromDatabaseID(id, 1, this);
 				if(newGraph.getNodes().size() > 0){
 					graph = newGraph;
@@ -179,7 +176,6 @@ public class GUI extends PApplet{
 		//graph.getParentNode().setDiameter(50);
 
 		// Sets the color of the parent node to red.
-		System.out.println(graph == null);
 		graph.getParentNode().setColor(color(255,0,0));
 	}
 

@@ -32,10 +32,25 @@ public class JSONParser {
 	    int year = gson.fromJson(publication.get("Year"), Integer.class);
 	    int id = gson.fromJson(publication.get("ID"), Integer.class);
 	    int cited = gson.fromJson(publication.get("CitationCount"), Integer.class);
+	    String conference = gson.fromJson(publication.get("conference"), String.class);
+	    String journal = gson.fromJson(publication.get("journal"), String.class);
+	   JsonArray pdfObject = publication.getAsJsonArray("FullVersionURL");
+	   String pdf = null;
+	   String first = null;
+	   for(JsonElement element : pdfObject){
+			pdf = element.getAsString();
+			if(first == null) first = pdf;
+			if(pdf.endsWith(".pdf")){
+				break;
+			}
+		}
+	   
+	   if(pdf == null || !pdf.endsWith(".pdf")) pdf = first;
+	   	
 	    
 	    JsonArray authorObject = publication.getAsJsonArray("Author");
 	    ArrayList<String> authors = extractAuthors(authorObject);
-		return new Publication(id, title, year, cited, abstr, authors);
+		return new Publication(id, title, year, cited, abstr, authors, conference, journal, pdf);
 	}
 
 	private static ArrayList<String> extractAuthors(JsonArray authorObject) {

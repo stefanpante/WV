@@ -38,7 +38,6 @@ public class SearchResultGUI implements Drawable{
 		this.height = height;
 	}
 
-	@Override
 	public void draw() {
 		//TODO: draw text.
 		gui.fill(255);

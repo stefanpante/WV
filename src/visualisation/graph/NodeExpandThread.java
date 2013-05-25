@@ -1,14 +1,10 @@
 package visualisation.graph;
 
-import java.util.ArrayList;
-
-import visualisation.subject.Subject;
-
 
 import data.Publication;
 import data.PublicationManager;
 
-public class NodeExpandThread extends Thread{
+public class NodeExpandThread implements Runnable{
 	
 	PublicationManager manager;
 	Node node;
@@ -20,9 +16,10 @@ public class NodeExpandThread extends Thread{
 		this.graph = graph;
 	}
 
-	@Override
 	public void run() {
-		manager.expand((Publication) node.getSubject(), graph, node);
+		
+		boolean success = manager.expand((Publication) node.getSubject(), graph, node);
+		if(!success) manager.collapse(node);
 	}
 
 	

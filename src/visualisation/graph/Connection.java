@@ -101,7 +101,6 @@ public class Connection implements Drawable{
 	 * Draws the connections. The opacity of the line which represents the connection is determined by
 	 * the distance between the two end points of the connection.
 	 */
-	@Override
 	public void draw() {
 		
 		// calculate the theoretical max distance between the two end points of the connection.

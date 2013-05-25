@@ -95,7 +95,6 @@ public class Pub implements Subject{
 	 * combined h_index score of all the authors
 	 * Can be used to determine size of node?
 	 */
-	@Override
 	public int getScore() {
 		int h = 0;
 		for(Author a: authors){
@@ -144,25 +143,21 @@ public class Pub implements Subject{
 		return authorsToString() + title + ", " + publicationDate;	
 	}
 
-	@Override
 	public int compareTo(Subject o) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
 	public int getScore2() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
 	public int getID() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
 	public String getSearchTerm() {
 		// TODO Auto-generated method stub
 		return null;

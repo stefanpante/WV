@@ -40,13 +40,13 @@ public class Pane implements Drawable {
 		this(parentNode);
 		this.gui = applet;
 		this.calculateHeight();
-		this.button = new GUIButton("Search on Scholar", this.buildSearchString(), gui);
+		this.button = new GUIButton("View publication", this.buildSearchString(), gui);
 	}
 
 	public void setGUI(GUI applet){
 		this.gui = applet;
 		this.calculateHeight();
-		this.button = new GUIButton("Search on Scholar", this.buildSearchString(), gui);
+		this.button = new GUIButton("View publication", this.buildSearchString(), gui);
 	}
 
 	/**
@@ -60,7 +60,6 @@ public class Pane implements Drawable {
 	/**
 	 * Draws the pane onto the screen
 	 */
-	@Override
 	public void draw() {
 		PVector position = parentNode.getTransformedPosition();
 		gui.textAlign(GUI.LEFT);
@@ -171,17 +170,16 @@ public class Pane implements Drawable {
 	}
 	
 	private String buildSearchString(){
-
-		String searchString = "http://scholar.google.com/scholar?q=" + parentNode.getSubject().getSearchTerm() + " ";
 		Publication pub = (Publication) parentNode.getSubject();
-		for(String s : pub.getAuthors()){
+		String searchString = pub.getPdf();
+		/*for(String s : pub.getAuthors()){
 			String[] st = s.split(" ");
 			if(st.length>1 && st[1] != null){
 				searchString += "author:"+st[1] + " ";
 			}
 		}
 		
-		searchString = searchString.replace(" ", "+");
+		searchString = searchString.replace(" ", "+");*/
 		
 		return searchString;
 	}

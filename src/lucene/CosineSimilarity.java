@@ -10,7 +10,6 @@ public class CosineSimilarity implements CompareStrategy {
 
 	private HashSet<String> terms;
 
-	@Override
 	public double compare(IndexedDocument first, IndexedDocument second) {
 		terms = new HashSet<String>();
 		terms.addAll(first.termFrequencies.keySet());

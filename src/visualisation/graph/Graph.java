@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import data.Publication;
 import data.PublicationManager;
@@ -23,7 +27,7 @@ public class Graph implements Drawable{
 	/*
 	 * The connections which make up the node.
 	 */
-	private ArrayList<Connection> connections;
+	private CopyOnWriteArrayList<Connection> connections;
 
 	/**
 	 * The gui which will be drawn upon.
@@ -58,8 +62,8 @@ public class Graph implements Drawable{
 	 */
 	public Graph() {
 		//this.nodes = new HashMap<Integer, Node>();
-		this.connections = new ArrayList<Connection>();
-		
+		this.connections = new CopyOnWriteArrayList<Connection>();
+
 	}
 
 	/**
@@ -68,12 +72,10 @@ public class Graph implements Drawable{
 	 * @param connections	List of connections between nodes
 	 * @param regularForceBasedLayout 
 	 */
-	public Graph(ArrayList<Connection> connections, PublicationManager manager, GUI gui, Node parentNode){
+	public Graph(CopyOnWriteArrayList<Connection> connections, PublicationManager manager, GUI gui){
 		this.connections = connections;
 		this.manager = manager;
 		this.gui = gui;
-		this.parentNode = parentNode;
-		parentNode.setMovable(false);
 	}
 
 
@@ -150,32 +152,6 @@ public class Graph implements Drawable{
 		return parentNode;
 	}
 
-
-
-	/**
-	 * Extracts all nodes from a list of connections and saves them.
-	 * @param connections 	the list of connections
-	 */
-	/*private void initializeNodes(ArrayList<Connection> connections){
-
-		//TODO: for testing purposes
-		for(Connection connection: connections){
-			Node node1 = connection.getNode1();
-			Node node2 = connection.getNode2();
-			if(!nodes.containsValue(node1)){
-				this.nodes.put(node1.getSubject().getID(), node1);
-				//node1.addConnection(connection);
-			}
-			if(!nodes.containsValue(node2)){
-				this.nodes.put(node2.getSubject().getID(),node2);
-				//node2.addConnection(connection);
-			}
-		}
-
-	}*/
-
-
-
 	/**
 	 * returns the gui of this graph.
 	 * @return
@@ -188,7 +164,6 @@ public class Graph implements Drawable{
 	/**
 	 * Draws all the connections in this graph
 	 */
-	@Override
 	public void draw() {
 		for(Connection connection: connections){
 			connection.draw();
@@ -211,10 +186,9 @@ public class Graph implements Drawable{
 			if(node.hit(mouseX, mouseY)){
 
 				if(!node.getExpanded()){
-					NodeExpandThread expandThread = new NodeExpandThread(manager, node, this);
-					expandThread.run();
+					ExecutorService executor = Executors.newCachedThreadPool();
+					executor.execute( new NodeExpandThread(manager, node, this));
 				}
-
 				break;
 			}
 
@@ -224,8 +198,9 @@ public class Graph implements Drawable{
 	}
 
 	public void addNodes(Node parentNode, ArrayList<Connection> conns) {
-		this.addConnections(conns);
 		getGraphLayout().setInitialPosition(parentNode, conns);
+		this.addConnections(conns);
+		
 		if(fix) parentNode.setMovable(false);
 		parentNode.setExpanded(true);
 	}
@@ -313,7 +288,7 @@ public class Graph implements Drawable{
 	 * returns the nodes as a hashmap. The key is the nodes identification number.
 	 * @return
 	 */
-	public HashMap<Integer, Node> getNodes(){
+	public ConcurrentHashMap<Integer, Node> getNodes(){
 		return manager.getNodes();
 	}
 

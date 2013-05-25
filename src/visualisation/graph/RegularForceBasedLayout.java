@@ -4,6 +4,7 @@ package visualisation.graph;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 
 import processing.core.PApplet;
 import processing.core.PVector;
@@ -58,7 +59,7 @@ public class RegularForceBasedLayout extends GraphLayout {
 	 * @return
 	 */
 	private PVector calculateRepulsionForce(Node currentNode){
-		HashMap<Integer, Node> nodes = graph.getNodes();
+		ConcurrentHashMap<Integer, Node> nodes = graph.getNodes();
 		PVector repulsion = new PVector();
 		for(Node other: nodes.values()){
 			if(other != currentNode){
@@ -79,7 +80,7 @@ public class RegularForceBasedLayout extends GraphLayout {
 	private void forceBased(){
 		if(!stop){
 			
-			HashMap<Integer, Node> nodes = graph.getNodes();
+			ConcurrentHashMap<Integer, Node> nodes = graph.getNodes();
 			ArrayList<NodeLayoutInfo> nodelayoutInfo = new ArrayList<NodeLayoutInfo>();
 			
 			for(Node node: nodes.values()){
