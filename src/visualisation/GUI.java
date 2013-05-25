@@ -44,6 +44,8 @@ public class GUI extends PApplet{
 	 * Used for panning and zooming.
 	 */
 	public Transform transform;
+	
+	private PShape loadingAnimation;
 
 
 	/**
@@ -61,6 +63,8 @@ public class GUI extends PApplet{
 		// Sets the frameRate for the animation
 		frameRate(60);
 
+		loadingAnimation = this.loadShape(getClass().getResource("/res/loading.svg").getPath());
+		isLoading = true;
 		// Create a graph instance to display
 		int id = Application.live ? 777102 : 4;
 		try {
@@ -241,12 +245,13 @@ public class GUI extends PApplet{
 		trd.start();
 	}
 	
+	private boolean isLoading = false;
 	public void startSearchAnimation(){
-		System.out.println("Searching");
+		isLoading = true;
 	}
 	
 	public void stopSearchAnimation(){
-		System.out.println("Stopping search");
+		isLoading = false;
 	}
 
 
@@ -280,9 +285,18 @@ public class GUI extends PApplet{
 		}
 
 		displayWarning();
+		isLoading = true;
+		showLoadingAnimation();
 	}
 
 
+
+	private void showLoadingAnimation() {
+		if(isLoading){
+			loadingAnimation.rotate(TWO_PI/this.frameRate);
+			this.shape(loadingAnimation, displayWidth/2, displayHeight/2);
+		}
+	}
 
 	/**
 	 * Updates the status message of this application
