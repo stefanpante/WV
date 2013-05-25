@@ -3,7 +3,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="200px" height="200px" viewBox="0 0 200 200" enable-background="new 0 0 200 200" xml:space="preserve">
-<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-21.334" y1="0" x2="91.6689" y2="0">
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-3.6699" y1="0" x2="15.7686" y2="0">
 	<stop  offset="0.2688" style="stop-color:#FFFFFF;stop-opacity:0"/>
 	<stop  offset="0.2944" style="stop-color:#EDEDED;stop-opacity:0.0412"/>
 	<stop  offset="0.3906" style="stop-color:#AFAFAF;stop-opacity:0.1957"/>
@@ -14,7 +14,7 @@
 	<stop  offset="0.8269" style="stop-color:#050505;stop-opacity:0.8972"/>
 	<stop  offset="0.8908" style="stop-color:#000000"/>
 </linearGradient>
-<path fill="url(#SVGID_1_)" d="M72.667,0c0,40.133-32.534,72.666-72.667,72.666S-72.667,40.133-72.667,0S-40.133-72.666,0-72.666
-	S72.667-40.133,72.667,0z M-2.686-61.963c-34.231,0-61.981,27.75-61.981,61.981S-36.917,62-2.686,62
-	c34.232,0,61.982-27.75,61.982-61.981S31.547-61.963-2.686-61.963z"/>
+<path fill="url(#SVGID_1_)" d="M12.5,0c0,6.903-5.597,12.5-12.5,12.5S-12.5,6.903-12.5,0S-6.903-12.5,0-12.5S12.5-6.903,12.5,0z
+	 M-0.462-10.659c-5.889,0-10.662,4.773-10.662,10.662c0,5.889,4.773,10.662,10.662,10.662S10.2,5.892,10.2,0.003
+	C10.2-5.885,5.427-10.659-0.462-10.659z"/>
 </svg>

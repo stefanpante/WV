@@ -272,7 +272,6 @@ public class GUI extends PApplet{
 					graph.layout();
 			}
 
-			updateStatusMessage();
 			if(menuEnabled){
 				menu2.draw();
 				inputField.setLabel("");
@@ -294,27 +293,8 @@ public class GUI extends PApplet{
 	private void showLoadingAnimation() {
 		if(isLoading){
 			loadingAnimation.rotate(TWO_PI/this.frameRate);
-			this.shape(loadingAnimation, displayWidth/2, displayHeight/2);
+			this.shape(loadingAnimation, 3*displayWidth/4 + 35,  30);
 		}
-	}
-
-	/**
-	 * Updates the status message of this application
-	 */
-	private void updateStatusMessage(){
-		// The basic string
-		String paused = "Program status: ";
-		if(pause){
-			paused += "Paused";
-		}else{
-			paused += "Running";
-		}
-
-		textSize(15);
-		fill(color(0, 146, 211));
-		textAlign(PConstants.LEFT);
-		//textFont(font);
-		text(paused, displayWidth / 2 + displayWidth / 4 + 10, 35);
 	}
 
 	public void pause(){
