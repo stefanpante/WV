@@ -123,57 +123,22 @@ public class Connection implements Drawable{
 		// draw the connection
 		//gui.line(pos1.x, pos1.y, pos2.x, pos2.y);
 		
-		gui.line(x1, y1, x2, y2);
+		//gui.line(x1, y1, x2, y2);
 		if(!firstIsOriginal){
-
-			
-			x1 = (float) (pos1.x + node1.getDiameter()/2 * Math.cos(corner));
-			y1 = (float) (pos1.y + node1.getDiameter()/2 * Math.sin(corner));
-			x2 = (float) (pos2.x + node2.getDiameter()/2 * -Math.cos(corner));
-			y2 = (float) (pos2.y + node2.getDiameter()/2 * -Math.sin(corner));
-			
-			x1 = (float) (x2 - 14 * Math.cos(corner));
-			y1 = (float) (y2 - 14 * Math.sin(corner));
-			float x3 = (float) (x1 + 5*Math.cos(corner + Math.PI/2));
-			float y3 = (float) (y1 + 5*Math.sin(corner+ Math.PI/2));
-
-			x2 = (float) (x1 + 5*Math.cos(corner - Math.PI/2));
-			y2 = (float) (y1 + 5*Math.sin(corner -  Math.PI/2));
-
-			x1 = (float) (x1 - 6 * Math.cos(corner));
-			y1 = (float) (y1 - 6 * Math.sin(corner));
-
-
-			gui.fill(gui.color(255));
+			float x3 = (float) (x2 + node1.getDiameter()/8 * Math.cos(corner + Math.PI/2));
+			float y3 = (float) (y2 + node1.getDiameter()/8 * Math.sin(corner + Math.PI/2));
+			x2 = (float) (x2 + node1.getDiameter()/8 * Math.cos(corner - Math.PI/2));
+			y2 = (float) (y2 + node1.getDiameter()/8 * Math.sin(corner - Math.PI/2));
+			gui.noStroke();
+			gui.fill(color, 15 + alpha * 0.5f);
 			gui.triangle(x1, y1, x2, y2, x3, y3);
-			
-			
-			
-			
 		}
 		
 		else{
 
 			
-			x1 = (float) (pos1.x + node1.getDiameter()/2 * Math.cos(corner));
-			y1 = (float) (pos1.y + node1.getDiameter()/2 * Math.sin(corner));
-			x2 = (float) (pos2.x + node2.getDiameter()/2 * -Math.cos(corner));
-			y2 = (float) (pos2.y + node2.getDiameter()/2 * -Math.sin(corner));
-			
-			x1 = (float) (x1 + 20 * Math.cos(corner));
-			y1 = (float) (y1 + 20 * Math.sin(corner));
-			float x3 = (float) (x1 + 5*Math.cos(corner + Math.PI/2));
-			float y3 = (float) (y1 + 5*Math.sin(corner+ Math.PI/2));
-
-			x2 = (float) (x1 + 5*Math.cos(corner - Math.PI/2));
-			y2 = (float) (y1 + 5*Math.sin(corner -  Math.PI/2));
-
-			x1 = (float) (x1 + 6 * Math.cos(corner));
-			y1 = (float) (y1 + 6 * Math.sin(corner));
-
-			
 			gui.fill(gui.color(255));
-			gui.triangle(x1, y1, x2, y2, x3, y3);
+			//gui.triangle(x1, y1, x2, y2, x3, y3);
 			
 		}
 		
