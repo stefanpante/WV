@@ -8,6 +8,7 @@ import controlP5.CColor;
 import controlP5.ControlP5;
 import controlP5.Slider;
 import controlP5.Textfield;
+import data.HTTP;
 
 import processing.core.*;
 import visualisation.graph.Graph;
@@ -55,6 +56,7 @@ public class GUI extends PApplet{
 	 *   inits GRAPH
 	 */
 	public void setup(){
+		HTTP.gui = this;
 
 		transform = new Transform(this);
 
@@ -150,8 +152,7 @@ public class GUI extends PApplet{
 					this.resetTransform();
 				}
 				else{
-					warning = "This Paper does not have citations in our database. \n The graph cannot be displayed.";
-					currentFrameWarning = 0;
+					showWarning("This Paper does not have citations in our database. \n The graph cannot be displayed.");
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -330,6 +331,13 @@ public class GUI extends PApplet{
 	private String warning;
 	private int currentFrameWarning = 180;
 	private int endFrameWarning = 180;
+	
+	
+	public void showWarning(String message){
+		this.warning = message;
+		this.currentFrameWarning = 0;
+	}
+	
 	public void displayWarning(){
 		if(currentFrameWarning < endFrameWarning){
 			fill(color(255));

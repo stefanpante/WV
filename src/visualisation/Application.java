@@ -14,7 +14,7 @@ public class Application {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		GUI gui = new GUI();
+		//GUI gui = new GUI();
 		
 		PApplet.main(new String[] {  "visualisation.GUI" });
 	}
