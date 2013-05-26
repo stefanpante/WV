@@ -59,12 +59,6 @@ public class Graph implements Drawable{
 		this.gui = gui;
 	}
 	
-	public CopyOnWriteArrayList<Connection> getConnections(){
-		return manager.getConnections();
-	}
-
-
-	
 	// XXX: Dont know how to solve it otherwise for now
 	private Pane activePane;
 	/**
@@ -219,23 +213,7 @@ public class Graph implements Drawable{
 			node.mouseReleased();
 		}
 	}
-
-	/**
-	 * Returns the number of nodes in this graph.
-	 * @return
-	 */
-	public int getNumberOfNodes(){
-		return this.getNodes().size();
-	}
-
-	/**
-	 * returns the number of connections in this graph.
-	 * @return
-	 */
-	public int getNumberOfConnections(){
-		return this.getConnections().size();
-	}
-
+	
 	/**
 	 * Arranges the graph according to its layout.
 	 */
