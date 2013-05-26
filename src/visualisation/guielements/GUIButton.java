@@ -10,16 +10,14 @@ import visualisation.graph.Pane;
 public class GUIButton implements GUIElement{
 
 	private String term;
-	private String url;
 	private GUI gui;
 	
 	private int width = 250;
 	private int height = 30;
 	private PVector position;
 	
-	public GUIButton(String term, String URL, GUI gui) {
+	public GUIButton(String term, GUI gui) {
 		this.term = term;
-		this.url = URL;
 		this.gui = gui;
 		this.position = new PVector();
 	}
@@ -61,15 +59,6 @@ public class GUIButton implements GUIElement{
 		
 		return false;
 	}
-	
-	public void action(int mouseX, int mouseY){
-		if(hit(mouseX,mouseY)){
-			try {
-				java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
-			} catch (IOException e) {
-			}
-		}
-	}
 
 	public boolean isVisible() {
 		return true;
@@ -84,13 +73,13 @@ public class GUIButton implements GUIElement{
 		return 0;
 	}
 
+	public PVector getPosition() {
+		return position;
+	}
+
 	public PVector getTransformedPosition() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	public PVector getPosition() {
-		return position;
 	}
 
 

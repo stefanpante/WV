@@ -40,7 +40,7 @@ public class ShapeButton implements GUIElement{
 
 	public boolean hit(int mouseX, int mouseY) {
 		if(mouseX > this.position.x && mouseX < (this.position.x + normal.getWidth())){
-			if(mouseY > this.position.y || mouseY < (this.position.y + normal.getHeight())){
+			if(mouseY > this.position.y && mouseY < (this.position.y + normal.getHeight())){
 				return true;
 			}
 		}

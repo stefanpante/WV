@@ -1,6 +1,7 @@
 package visualisation.subject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public interface Subject extends Comparable<Subject>{
@@ -12,7 +13,7 @@ public interface Subject extends Comparable<Subject>{
 	public abstract int getScore();
 	public abstract int getScore2();
 	public int getID();
-	public abstract ArrayList<Field> createFields();
+	public abstract HashMap<String, Field> createFields();
 	public abstract Field getDescription();
 	public abstract String getSearchTerm();
 	

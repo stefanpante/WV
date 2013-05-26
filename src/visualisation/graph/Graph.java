@@ -79,8 +79,8 @@ public class Graph implements Drawable {
 			if (activePane.hit(mouseX, mouseY)) {
 				activePane.getParentNode().rollover();
 				activePane.getParentNode().showPane();
-				if (activePane.getGUIButton().hit(mouseX, mouseY)) {
-					activePane.getGUIButton().rollover();
+				if (activePane.getShowPublicationsButton().hit(mouseX, mouseY)) {
+					activePane.getShowPublicationsButton().rollover();
 				}
 			} else {
 				activePane = null;
@@ -182,6 +182,11 @@ public class Graph implements Drawable {
 
 		}
 	}
+	
+	public void expand(Node node){
+		ExecutorService executor = Executors.newCachedThreadPool();
+		executor.execute(new NodeExpandThread(manager, node, this));		
+	}
 
 	public void positionNodes(Node parentNode, ArrayList<Connection> conns) {
 		getGraphLayout().setInitialPosition(parentNode, conns);
@@ -192,8 +197,7 @@ public class Graph implements Drawable {
 
 	public void mouseHit(int mouseX, int mouseY) {
 		if (activePane != null) {
-
-			activePane.getGUIButton().action(mouseX, mouseY);
+			activePane.getShowPublicationsButton().action(mouseX, mouseY);
 		}
 	}
 

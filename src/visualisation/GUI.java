@@ -243,6 +243,9 @@ public class GUI extends PApplet{
 
 	}
 	
+	public Graph getGraph(){
+		return this.graph;
+	}
 	Textfield inputField;
 	Slider slider;
 	float zoom = 100;

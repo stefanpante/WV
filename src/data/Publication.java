@@ -1,6 +1,7 @@
 package data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import visualisation.subject.Field;
@@ -8,6 +9,15 @@ import visualisation.subject.Subject;
 
 public class Publication implements Subject {
 
+	
+	public static String TITLE ="Title";
+	public static String CITED = "Cited";
+	public static String YEAR = "Year";
+	public static String ABSTRACT = "Abstract";
+	public static String AUTHORS = "Authors";	
+	public static String CONFERENCE = "Conference";
+	public static String JOURNAL = "journal";
+	public static String PDF = "pdf";
 	public static Publication root;
 
 	private int id;
@@ -90,16 +100,29 @@ public class Publication implements Subject {
 		return id;
 	}
 
-	public ArrayList<Field> createFields() {
+	private String getAuthorsString(){
+		String result = "";
+		for(String author: authors){
+			result += author +", ";
+		}
+		
+		return result.substring(0, result.length() - 3);
+	}
+	
+	public HashMap<String, Field> createFields() {
 		Field title = new Field("Title", this.title);
 		Field cited = new Field("Citations", "" + this.cited);
+		Field authors = new Field("Authors", this.getAuthorsString());
 		Field year = new Field("Year", "" + this.year);
 		Field abstr = new Field("Abstract", "" + this.summary);
-		ArrayList<Field> result = new ArrayList<Field>();
-		result.add(title);
-		result.add(cited);
-		result.add(year);
-		result.add(abstr);
+		
+		HashMap<String, Field> result = new HashMap<String, Field>();
+		result.put(TITLE, title);
+		result.put(CITED, cited);
+		result.put(YEAR,year);
+		result.put(AUTHORS, authors);
+		result.put(ABSTRACT, abstr);
+		
 		return result;
 	}
 
