@@ -65,7 +65,7 @@ public class GUI extends PApplet{
 		frameRate(60);
 
 		loadingAnimation = this.loadShape(getClass().getResource("/res/loading.svg").getPath());
-		isLoading = true;
+		isLoading = false;
 		
 		// Create a graph instance to display
 		int id = Application.live ? 777102 : 4;
@@ -98,7 +98,6 @@ public class GUI extends PApplet{
 			try {
 				this.search(search);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -168,7 +167,6 @@ public class GUI extends PApplet{
 					currentFrameWarning = 0;
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -272,6 +270,7 @@ public class GUI extends PApplet{
 	}
 	
 	private boolean isLoading = false;
+	
 	public void startSearchAnimation(){
 		isLoading = true;
 	}
@@ -292,10 +291,14 @@ public class GUI extends PApplet{
 		this.ellipse(displayWidth/2 + transform.translationX, displayHeight/2 +transform.translationY,50, 50 );
 		noStroke();
 		if(!fixed){
+			
+			if(graph != null){
+				graph.draw();
+			}
 			if(!pause){
 				if(graph != null){
 					graph.layout();
-					graph.draw();
+					
 				}
 			}
 

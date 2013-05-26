@@ -187,12 +187,13 @@ public class Pane implements Drawable {
 	}
 	
 	public void setPosition(double d, double e){
-		System.out.println("Position set");
-		System.out.println(Math.abs(this.position.x - d));
-		if(Math.abs(this.position.x - d) > 15 || Math.abs(this.position.y - e) > 15){
-			this.position.x = (float) d;
-			this.position.y = (float) e;
+		float x = (float) d;
+		float y = (float) e;
+		if(Math.abs(this.position.x - x) > 40f || Math.abs(this.position.y - y) > 40f){
+			this.position.x = x;
+			this.position.y = y;
 		}
+		
 	}
 	public GUIButton getGUIButton(){
 		return this.button;
