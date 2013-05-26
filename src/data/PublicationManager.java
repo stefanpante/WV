@@ -95,9 +95,12 @@ public class PublicationManager {
 	public void collapse(Node node) {
 		System.out.println("collapse");
 		for (Connection connection : getConnectionsWith(node)) {
-			connections.remove(connection);
 			Node other = connection.getNode1().equals(node) ? connection.getNode2() : connection.getNode1();
-			this.nodes.remove(other.getSubject().getID());
+			if(other.getExpanded() == false){
+				this.nodes.remove(other.getSubject().getID());
+				connections.remove(connection);
+			}
+			node.setExpanded(false);
 		}
 		applet.loop();
 		applet.setFixed(false);

@@ -42,6 +42,7 @@ public class GraphFactory {
 				Publication p = (Publication) n.getSubject();
 				if (root.equals(p)) {
 					graph.setParentNode(n);
+					n.setExpanded(true);
 					// TODO: set parentnode to expanded
 				}
 			}
