@@ -188,7 +188,7 @@ public class Pane implements Drawable {
 	
 	public void setPosition(double d, double e){
 		System.out.println("Position set");
-		sysout
+		System.out.println(Math.abs(this.position.x - d));
 		if(Math.abs(this.position.x - d) > 15 || Math.abs(this.position.y - e) > 15){
 			this.position.x = (float) d;
 			this.position.y = (float) e;
