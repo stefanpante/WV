@@ -1,5 +1,7 @@
 package visualisation;
 
+import java.util.ArrayList;
+
 import visualisation.guielements.SearchResultMenu;
 import lucene.IndexSearcher;
 import lucene.PublicationSearcher;
@@ -23,11 +25,13 @@ class SearchThread extends Thread{
 		if(Application.live) searcher = new AcademicsSearcher();
 		else searcher = new IndexSearcher();
 		try {
-			SearchResult[] results = searcher.generalSearch(search, 10);
-			if(results.length > 0){
+			ArrayList<SearchResult> results = searcher.generalSearch(search, 10);
+			if(results.size() > 0){
 				gui.menuEnabled = true;
 				gui.menu2 = new SearchResultMenu(results, gui);
 				gui.menu2.setStartPositionY(44);
+			}else{
+				gui.showWarning("No results found for this query.");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
