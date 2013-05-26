@@ -15,6 +15,7 @@ import visualisation.graph.GraphFactory;
 import visualisation.graph.GraphLayout;
 import visualisation.graph.RegularForceBasedLayout;
 import visualisation.guielements.SearchResultMenu;
+import visualisation.guielements.ShapeButton;
 
 public class GUI extends PApplet{
 
@@ -65,6 +66,7 @@ public class GUI extends PApplet{
 
 		loadingAnimation = this.loadShape(getClass().getResource("/res/loading.svg").getPath());
 		isLoading = true;
+		
 		// Create a graph instance to display
 		int id = Application.live ? 777102 : 4;
 //		try {
@@ -73,18 +75,38 @@ public class GUI extends PApplet{
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-
-
-
-
+		
 		// Initializes the GUI
 		setupGUI();
 
 		// initializes the graph
 		initGraph();
-
-
-
+	}
+	
+	private ShapeButton play;
+	private ShapeButton search;
+	
+	public void checkButtons(){
+		if(play.hit(mouseX, mouseY)){
+			if(pause) pause = false;
+			else pause = true;
+		}
+		
+		if(search.hit(mouseX, mouseY)){
+			String search = inputField.getText();
+			try {
+				this.search(search);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void drawButtons(){
+		this.play.draw();
+		this.search.draw();
+		
 	}
 
 
@@ -116,6 +138,7 @@ public class GUI extends PApplet{
 		if(mouseEvent.getClickCount() ==1){
 			if(graph != null)
 				graph.mouseHit(mouseX, mouseY);
+			checkButtons();
 		}
 		if(!locked && (mouseX < displayWidth -150)){
 			xOffset = mouseX - transform.translationX;
@@ -209,16 +232,16 @@ public class GUI extends PApplet{
 		CColor color = new CColor(color(0, 146, 211), color(255),color(0, 60, 255),color(0, 146, 211),color(0, 146, 211) );
 
 		inputField.setColor(color);
+		inputField.setColorCursor(color(0));
 		inputField.registerTooltip("Type here to search for a paper");
 
-		Bang pause = inputController.addBang("pause");
 
-
-		pause.setColor(color);
-		pause.registerTooltip("With this button you can pause the animation of the graph");
-		pause.setHeight(30);
-		pause.setWidth(30);
-		pause.setPosition(displayWidth/2 - displayWidth/4 - 40, 15);
+		PShape play = this.loadShape(getClass().getResource("/res/play.svg").getPath());
+		PShape pause = this.loadShape(getClass().getResource("/res/pause.svg").getPath());
+		PShape search = this.loadShape(getClass().getResource("/res/search.svg").getPath());
+		
+		this.play = new ShapeButton(play, pause, new PVector(displayWidth/4 - 40, 15), this);
+		this.search = new ShapeButton(search,search, new PVector(3*displayWidth/4 + 15,  15), this);
 
 
 		CColor col = new CColor(color(0, 146, 211), color(0, 60, 255),color(0, 146, 211),color(0, 146, 211),color(0, 146, 211) );
@@ -287,6 +310,7 @@ public class GUI extends PApplet{
 
 		displayWarning();
 		isLoading = true;
+		drawButtons();
 		showLoadingAnimation();
 	}
 
@@ -295,7 +319,7 @@ public class GUI extends PApplet{
 	private void showLoadingAnimation() {
 		if(isLoading){
 			loadingAnimation.rotate(TWO_PI/this.frameRate);
-			this.shape(loadingAnimation, 3*displayWidth/4 + 35,  30);
+			this.shape(loadingAnimation, 3*displayWidth/4 + 75,  30);
 		}
 	}
 
