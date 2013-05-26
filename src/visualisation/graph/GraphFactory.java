@@ -1,21 +1,13 @@
 package visualisation.graph;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-
-import data.CitationFactory;
 import data.Publication;
 import data.PublicationFactory;
 import data.PublicationManager;
 import data.SQLConnector;
 
-import processing.core.PApplet;
 import visualisation.Application;
 import visualisation.GUI;
-import visualisation.IDSubject;
 
 public class GraphFactory {
 
@@ -45,7 +37,7 @@ public class GraphFactory {
 			manager.addPublication(root);
 			manager.expand(root);
 
-			Graph graph = new Graph(manager.getConnections(), manager, applet);
+			Graph graph = new Graph(manager, applet);
 			graph.setGraphLayout(new RegularForceBasedLayout());
 			for (Node n : graph.getNodes().values()) {
 				Publication p = (Publication) n.getSubject();

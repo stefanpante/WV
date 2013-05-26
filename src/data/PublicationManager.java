@@ -49,6 +49,7 @@ public class PublicationManager {
 	public boolean expand(Publication publication, Graph graph, Node node) {
 		ArrayList<Connection> expandedConnections = new ArrayList<Connection>();
 		if (expandedPublications.contains(publication)){
+			this.collapse(node);
 			System.out.println("This publication has already been expanded");
 			return false;
 		}else {
@@ -78,14 +79,14 @@ public class PublicationManager {
 					expandedConnections.add(addCitation(publication, citation,
 							true));
 				}
-				expandedPublications.add(publication);
+				//expandedPublications.add(publication);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
 		}
-		graph.addNodes(node, expandedConnections);
+		graph.positionNodes(node, expandedConnections);
 		return true;
 	}
 
@@ -137,6 +138,7 @@ public class PublicationManager {
 			if (connection.getNode1() == node) {
 				collapsedConnections.add(connection);
 				connections.remove(connection);
+				
 			}
 		}
 		applet.loop();

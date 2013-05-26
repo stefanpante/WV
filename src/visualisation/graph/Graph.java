@@ -2,18 +2,13 @@ package visualisation.graph;
 
 import java.util.ArrayList;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import data.Publication;
 import data.PublicationManager;
 
-import processing.core.PApplet;
-import processing.core.PVector;
 import visualisation.GUI;
 import visualisation.guielements.Drawable;
 
@@ -23,11 +18,6 @@ import visualisation.guielements.Drawable;
  *
  */
 public class Graph implements Drawable{
-
-	/*
-	 * The connections which make up the node.
-	 */
-	private CopyOnWriteArrayList<Connection> connections;
 
 	/**
 	 * The gui which will be drawn upon.
@@ -57,14 +47,6 @@ public class Graph implements Drawable{
 	 */
 	boolean fix = false;
 
-	/**
-	 * Creates an empty graph. Nodes and connections can be added later
-	 */
-	public Graph() {
-		//this.nodes = new HashMap<Integer, Node>();
-		this.connections = new CopyOnWriteArrayList<Connection>();
-
-	}
 
 	/**
 	 * Creates a new graph based on a given list of connections.
@@ -72,10 +54,13 @@ public class Graph implements Drawable{
 	 * @param connections	List of connections between nodes
 	 * @param regularForceBasedLayout 
 	 */
-	public Graph(CopyOnWriteArrayList<Connection> connections, PublicationManager manager, GUI gui){
-		this.connections = connections;
+	public Graph(PublicationManager manager, GUI gui){
 		this.manager = manager;
 		this.gui = gui;
+	}
+	
+	public CopyOnWriteArrayList<Connection> getConnections(){
+		return manager.getConnections();
 	}
 
 
@@ -165,10 +150,10 @@ public class Graph implements Drawable{
 	 * Draws all the connections in this graph
 	 */
 	public void draw() {
-		for(Connection connection: connections){
+		for(Connection connection: manager.getConnections()){
 			connection.draw();
 		}
-		for(Node node: getNodes().values()){
+		for(Node node: manager.getNodes().values()){
 			node.draw();
 		}
 		parentNode.rollover();
@@ -197,10 +182,8 @@ public class Graph implements Drawable{
 		}
 	}
 
-	public void addNodes(Node parentNode, ArrayList<Connection> conns) {
-		getGraphLayout().setInitialPosition(parentNode, conns);
-		this.addConnections(conns);
-		
+	public void positionNodes(Node parentNode, ArrayList<Connection> conns) {
+		getGraphLayout().setInitialPosition(parentNode, conns);		
 		if(fix) parentNode.setMovable(false);
 		parentNode.setExpanded(true);
 	}
@@ -250,7 +233,7 @@ public class Graph implements Drawable{
 	 * @return
 	 */
 	public int getNumberOfConnections(){
-		return this.connections.size();
+		return this.getConnections().size();
 	}
 
 	/**
@@ -260,54 +243,6 @@ public class Graph implements Drawable{
 		graphlayout.layout();
 	}
 
-
-	/**
-	 * adds a list of connections to this graph.
-	 * @param conns
-	 */
-	public void addConnections(ArrayList<Connection> conns){
-		for(Connection connection: conns ){
-			this.addConnection(connection);
-		}
-	}
-
-	public void removeConnections(ArrayList<Connection> conns){
-		for(Connection connection: conns){
-			this.removeConnection(connection);
-		}
-	}
-
-	public void removeConnection(Connection connection){
-		connections.remove(connection);
-	}
-
-	/**
-	 * Adds a connection to the graph
-	 * @param connection the connection to be added
-	 */
-	public void addConnection(Connection connection){
-		if(!connections.contains(connection)){
-			this.connections.add(connection);
-			if(!getNodes().containsValue(connection.getNode1())){
-				Node node1 = connection.getNode1();
-				getNodes().put(node1.getSubject().getID(), node1);
-			}
-			if(!getNodes().containsValue(connection.getNode2())){
-				Node node2 = connection.getNode2();
-				getNodes().put(node2.getSubject().getID(), node2);
-			}
-		}
-	}
-
-	/**
-	 * Adds a connection to the graph, based on two nodes.
-	 * @param node1 the first node to be added.
-	 * @param node2 the second node to be added.
-	 */
-	public void addConnection(Node node1, Node node2, boolean firstIsOriginal){
-		Connection connection = new Connection(node1,node2,gui, firstIsOriginal);
-		this.connections.add(connection);
-	}
 
 	/** 
 	 * returns the nodes as a hashmap. The key is the nodes identification number.
