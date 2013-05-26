@@ -71,6 +71,7 @@ public class JSONParser {
 			result.add(pub);
 		}
 		return result;
+		
 	}
 
 }

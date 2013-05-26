@@ -9,11 +9,14 @@ import controlP5.ControlP5;
 import controlP5.Slider;
 import controlP5.Textfield;
 import data.HTTP;
+import data.Publication;
+import data.PublicationManager;
 
 import processing.core.*;
 import visualisation.graph.Graph;
 import visualisation.graph.GraphFactory;
 import visualisation.graph.GraphLayout;
+import visualisation.graph.Node;
 import visualisation.graph.RegularForceBasedLayout;
 import visualisation.guielements.SearchResultMenu;
 import visualisation.guielements.ShapeButton;
@@ -48,6 +51,8 @@ public class GUI extends PApplet{
 	public Transform transform;
 	
 	private PShape loadingAnimation;
+	
+	public boolean startDrawing;
 
 
 	/**
@@ -56,9 +61,12 @@ public class GUI extends PApplet{
 	 *   inits GRAPH
 	 */
 	public void setup(){
+		stopDrawing();
 		HTTP.gui = this;
 
 		transform = new Transform(this);
+		graph = new Graph(new PublicationManager(this), this);
+		graph.setParentNode(new Node(new Publication(0, "",0,0,"",null,"","","")));
 
 		// sets the size of the window
 		size(displayWidth,displayHeight);
@@ -71,11 +79,7 @@ public class GUI extends PApplet{
 		
 		// Create a graph instance to display
 		int id = Application.live ? 777102 : 4;
-		try {
-			graph = GraphFactory.getInstance().fromDatabaseID(id, 1, this);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+			GraphFactory.getInstance().fromDatabaseID(id, 1, this);
 		
 		// Initializes the GUI
 		setupGUI();
@@ -151,21 +155,21 @@ public class GUI extends PApplet{
 
 		}
 		else{
-			try {
-				Graph newGraph = GraphFactory.getInstance().fromDatabaseID(id, 1, this);
-				if(newGraph.getNodes().size() > 0){
+				GraphFactory.getInstance().fromDatabaseID(id, 1, this);
+				/*if(newGraph.getNodes().size() > 0){
 					graph = newGraph;
 					this.graph.setGraphLayout(new RegularForceBasedLayout(graph));
 					this.resetTransform();
 				}
 				else{
 					showWarning("This Paper does not have citations in our database. \n The graph cannot be displayed.");
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+				}*/
 		}
 		menuEnabled = false;
+	}
+	
+	public void setGraph(Graph graph){
+		this.graph = graph;
 	}
 
 	private void resetTransform(){
@@ -274,29 +278,31 @@ public class GUI extends PApplet{
 	 */
 	@SuppressWarnings("deprecation")
 	public void draw(){
-		background(color(255));
-		transform.scale = zoom/100f;
-		noStroke();
-		if(!fixed){
-			
-			if(graph != null){
-				graph.draw();
-			}
-			if(!pause){
+		if(startDrawing){
+			background(color(255));
+			transform.scale = zoom/100f;
+			noStroke();
+			if(!fixed){
+				
 				if(graph != null){
-					graph.layout();
-					
+					graph.draw();
 				}
-			}
-
-			if(menuEnabled && menu2 != null){
-				menu2.draw();
-				inputField.setLabel("");
-				menu2.hit(mouseX, mouseY);
-			}
-			else{
-				if(graph != null)
-					graph.hit(mouseX,mouseY);
+				if(!pause){
+					if(graph != null){
+						graph.layout();
+						
+					}
+				}
+	
+				if(menuEnabled && menu2 != null){
+					menu2.draw();
+					inputField.setLabel("");
+					menu2.hit(mouseX, mouseY);
+				}
+				else{
+					if(graph != null)
+						graph.hit(mouseX,mouseY);
+				}
 			}
 		}
 
@@ -363,6 +369,14 @@ public class GUI extends PApplet{
 			text(warning, displayWidth/2 - 200, displayHeight/2 - 40, 400, 80);
 			currentFrameWarning++;
 		}
+	}
+
+	public void startDrawing() {
+		this.startDrawing = true;
+	}
+	
+	public void stopDrawing(){
+		this.startDrawing = false;
 	}
 
 }

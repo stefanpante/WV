@@ -1,6 +1,9 @@
 package visualisation.graph;
 
 import java.sql.SQLException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import data.Publication;
 import data.PublicationFactory;
 import data.PublicationManager;
@@ -23,35 +26,11 @@ public class GraphFactory {
 		return instance;
 	}
 
-	public Graph fromDatabaseID(int id, int expansionDegree, GUI applet)
-			throws SQLException {
-		if(!Application.live) SQLConnector.initialize("jdbc:mysql://localhost/visualisation", "root",
-				"");
-		PublicationManager manager = new PublicationManager(applet);
+	public void fromDatabaseID(int id, int expansionDegree, GUI applet)
+		 {
+		ExecutorService executor = Executors.newCachedThreadPool();
+		executor.execute(new GraphLoaderThread(id, expansionDegree, applet));
 
-		Publication root;
-		try {
-			root = Application.live ? PublicationFactory.fromAcademicsID(id)
-					: PublicationFactory.fromDatabaseID(id);
-
-			manager.expand(root);
-
-			Graph graph = new Graph(manager, applet);
-			graph.setGraphLayout(new RegularForceBasedLayout());
-			for (Node n : graph.getNodes().values()) {
-				Publication p = (Publication) n.getSubject();
-				if (root.equals(p)) {
-					graph.setParentNode(n);
-					n.setExpanded(true);
-					// TODO: set parentnode to expanded
-				}
-			}
-			return graph;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
 	}
 
 }
