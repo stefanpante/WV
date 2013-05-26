@@ -94,6 +94,7 @@ public class GUI extends PApplet{
 		}
 		
 		if(search.hit(mouseX, mouseY)){
+			System.out.println("Clicked search");
 			String search = inputField.getText();
 			try {
 				this.search(search);

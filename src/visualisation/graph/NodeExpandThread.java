@@ -18,8 +18,7 @@ public class NodeExpandThread implements Runnable{
 
 	public void run() {
 		graph.getGUI().startSearchAnimation();
-		boolean success = manager.expand((Publication) node.getSubject(), graph, node);
-		if(!success) manager.collapse(node);
+		manager.expand((Publication) node.getSubject(), graph, node);
 		graph.getGUI().stopSearchAnimation();
 	}
 

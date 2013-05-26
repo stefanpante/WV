@@ -18,7 +18,7 @@ public class CitationFactory {
 		}
 	}
 	
-	public static HashSet<Publication> forwardCitationsFromAcademics(int id) throws Exception{
+	public static HashSet<Publication> forwardCitationsFromAcademics(int id){
 		String json = HTTP.loadURL("http://academic.research.microsoft.com/json.svc/search?AppId=406aea44-49a6-4753-ad34-3c4863221e5c&PublicationID="+id+"&ResultObjects=Publication&ReferenceType=Citation&StartIdx=1&EndIdx=100");
 		HashSet<Publication> result = JSONParser.extractPublications(json);
 		return result;
@@ -26,23 +26,35 @@ public class CitationFactory {
 
 
 	
-	public static HashSet<Publication> backwardCitationsFromAcademics(int id) throws Exception{
+	public static HashSet<Publication> backwardCitationsFromAcademics(int id){
 		String json = HTTP.loadURL("http://academic.research.microsoft.com/json.svc/search?AppId=406aea44-49a6-4753-ad34-3c4863221e5c&PublicationID="+id+"&ResultObjects=Publication&ReferenceType=Reference&StartIdx=1&EndIdx=100");
 		HashSet<Publication> result = JSONParser.extractPublications(json);
 		return result;
 	}
 	
-	public static HashSet<Publication> forwardCitationsFromDatabase(int databaseID) throws SQLException{
+	public static HashSet<Publication> forwardCitationsFromDatabase(int databaseID){
 		HashSet<Publication> result = new HashSet<Publication>();
-		ResultSet resultSet = SQLConnector.select("from_id", "citation", "to_id", ""+databaseID);
-		while(resultSet.next()) result.add(PublicationFactory.fromDatabaseID(resultSet.getInt("from_id")));
+		ResultSet resultSet;
+		try {
+			resultSet = SQLConnector.select("from_id", "citation", "to_id", ""+databaseID);
+			while(resultSet.next()) result.add(PublicationFactory.fromDatabaseID(resultSet.getInt("from_id")));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return result;
 	}
 	
-	public static HashSet<Publication> backwardCitationsFromDatabase(int databaseID) throws SQLException{
+	public static HashSet<Publication> backwardCitationsFromDatabase(int databaseID){
 		HashSet<Publication> result = new HashSet<Publication>();
-		ResultSet resultSet = SQLConnector.select("to_id", "citation", "from_id", ""+databaseID);
-		while(resultSet.next()) result.add(PublicationFactory.fromDatabaseID(resultSet.getInt("to_id")));
+		ResultSet resultSet;
+		try {
+			resultSet = SQLConnector.select("to_id", "citation", "from_id", ""+databaseID);
+			while(resultSet.next()) result.add(PublicationFactory.fromDatabaseID(resultSet.getInt("to_id")));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return result;
 	}
 

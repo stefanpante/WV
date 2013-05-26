@@ -34,7 +34,6 @@ public class GraphFactory {
 			root = Application.live ? PublicationFactory.fromAcademicsID(id)
 					: PublicationFactory.fromDatabaseID(id);
 
-			manager.addPublication(root);
 			manager.expand(root);
 
 			Graph graph = new Graph(manager, applet);
