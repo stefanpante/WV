@@ -39,6 +39,14 @@ public class Transform {
 		return new PVector(x,y);
 	}
 	
+	public PVector inverseTransform(PVector toTransform){
+		
+		float x = (toTransform.x - translationX - parent.displayWidth/2)/scale + parent.displayWidth/2; 
+		float y = (toTransform.y - translationY - parent.displayHeight/2)/scale + parent.displayHeight/2;
+		
+		return new PVector(x,y);
+	}
+	
 	
 
 }

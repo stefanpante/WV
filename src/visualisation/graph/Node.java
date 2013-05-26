@@ -45,6 +45,7 @@ public class Node implements GUIElement{
 	 * The color of the node
 	 */
 	private int color;
+	private int color2;
 	
 	/**
 	 * Determines if the position of the node can be altered.
@@ -66,6 +67,8 @@ public class Node implements GUIElement{
 	 */
 	private Pane pane;
 	
+	private boolean locked;
+	
 	/**
 	 * Creates a new Node with a subject. Sets all other parameters to default values
 	 * @param subject	the subject of this node.
@@ -76,8 +79,10 @@ public class Node implements GUIElement{
 		this.diameter = 100;
 		this.movable = true;
 		this.expanded = false;
+		this.locked = false;
 		this.position = new PVector();
 		this.pane = new Pane(this);
+		this.color2 = 0;
 	}
 	
 	/**
@@ -94,7 +99,7 @@ public class Node implements GUIElement{
 		setPosition(150+ random.nextInt(gui.displayWidth-300), 75+random.nextInt(gui.displayHeight -150 ));
 		double citationMultiplier = subject.getScore()> 0 ? Math.log(subject.getScore()) : 0;
 		setDiameter((int) (10 + 5*citationMultiplier*1.5));
-
+		this.color2 = gui.color(0,146,211);
 		this.manager = manager;
 	}
 	
@@ -176,12 +181,15 @@ public class Node implements GUIElement{
 	 * @see visualisation.guielements.GUIElement#draw()
 	 */
 	public void draw() {
+		if(justDragged){
+			this.setMovable(false);
+		}
 		gui.fill(color,85);
 		gui.noStroke();
 		
 		gui.ellipse(getTransformedPosition().x, getTransformedPosition().y, diameter, diameter);
 		
-		gui.fill(gui.color(0,146,211),100);
+		gui.fill(color2,100);
 		gui.noStroke();
 		gui.ellipse(getTransformedPosition().x, getTransformedPosition().y, diameter, diameter);
 			
@@ -190,6 +198,7 @@ public class Node implements GUIElement{
 		}
 	}
 
+	
 	public void fixPane(){
 		if(pane.hasFocus()){
 			pane.setFocus(false);
@@ -214,6 +223,35 @@ public class Node implements GUIElement{
 		pane.setFocus(false);
 		return false;
 		
+	}
+	
+	public boolean mousePressed(int mouseX, int mouseY){
+		if(this.hit(mouseX, mouseY)){
+			this.locked = true;
+			return true;
+		}
+		return false;
+	}
+	
+	public void mouseReleased(){
+		this.locked = false;
+	}
+	
+	boolean justDragged = false;
+	
+	public boolean mouseDragged(int mouseX, int mouseY){
+		if(locked){
+			setMovable(true);
+			PVector transformed = gui.getTransform().inverseTransform(new PVector(mouseX, mouseY));
+			this.setPosition(transformed.x, transformed.y);
+			this.justDragged = true;
+			this.setColor(gui.color(19,158,0, 255));
+			this.color2 = gui.color(19,158,0, 255);
+			return true;
+		}
+		
+		
+		return false;
 	}
 
 	public Pane getPane(){

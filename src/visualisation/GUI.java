@@ -72,15 +72,12 @@ public class GUI extends PApplet{
 		try {
 			graph = GraphFactory.getInstance().fromDatabaseID(id, 1, this);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		// Initializes the GUI
 		setupGUI();
 
-		// initializes the graph
-		initGraph();
 	}
 	
 	private ShapeButton play;
@@ -114,17 +111,6 @@ public class GUI extends PApplet{
 	SearchResultMenu menu;
 
 	/**
-	 * Initializes the graph.
-	 */
-	private void initGraph(){
-		// Gives the parentNode its default appearance
-		//initParentNode();
-
-		// Sets the default graphLayout for the graph
-		//graph.setGraphLayout(new CircularLayout(graph));
-	}
-
-	/**
 	 * Handles mouse events.
 	 */
 	public void mousePressed(){
@@ -141,7 +127,8 @@ public class GUI extends PApplet{
 				graph.mouseHit(mouseX, mouseY);
 			checkButtons();
 		}
-		if(!locked && (mouseX < displayWidth -150)){
+		boolean graphPressed = graph.mousePressed(mouseX, mouseY);
+		if(!graphPressed && !locked && (mouseX < displayWidth -150)){
 			xOffset = mouseX - transform.translationX;
 			yOffset = mouseY - transform.translationY;
 			locked = true;
@@ -182,9 +169,11 @@ public class GUI extends PApplet{
 
 	public void mouseReleased(){
 		locked = false;
+		graph.mouseReleased();
 	}
 
 	public void mouseDragged(){
+		graph.mouseDragged(mouseX, mouseY);
 		if(locked){
 			transform.translationX = (mouseX - xOffset);
 			transform.translationY = (mouseY - yOffset);
@@ -194,20 +183,6 @@ public class GUI extends PApplet{
 	private boolean locked = false;
 	private float xOffset;
 	private float yOffset;
-
-	/**
-	 * Initializes the parent node of the graph.
-	 */
-	private void initParentNode(){
-
-		// Sets the diameter of the parent node to 50 pixels, replace with static method?
-		//graph.getParentNode().setDiameter(50);
-
-		// Sets the color of the parent node to red.
-		graph.getParentNode().setColor(color(255,0,0));
-	}
-
-
 
 	public void mouseWheel(int delta){
 		delta *= 4;

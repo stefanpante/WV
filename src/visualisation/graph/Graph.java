@@ -211,6 +211,31 @@ public class Graph implements Drawable{
 			activePane.getGUIButton().action(mouseX, mouseY);
 			}
 	}
+	
+	public boolean mouseDragged(int mouseX, int mouseY){
+		for(Node node: getNodes().values()){
+			if(node.mouseDragged(mouseX, mouseY)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean mousePressed(int mouseX, int mouseY){
+		for(Node node: getNodes().values()){
+			if(node.mousePressed(mouseX, mouseY)){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public void mouseReleased(){
+		for(Node node: getNodes().values()){
+			node.mouseReleased();
+		}
+	}
 
 	/**
 	 * Returns the number of nodes in this graph.
