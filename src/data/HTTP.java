@@ -1,7 +1,9 @@
 package data;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
@@ -21,8 +23,10 @@ public class HTTP {
 		try {
 			_url = new URL(url);
 			InputStream i = _url.openStream();
-			Scanner scan = new Scanner(i);
-			final String totalText = scan.nextLine();
+			BufferedReader r = new BufferedReader(
+	                new InputStreamReader(i, "UTF-8"));
+			final String totalText = r.readLine();
+			System.out.println(totalText);
 			return totalText;
 		} catch (IOException e) {
 			gui.showWarning("Could not connect to Microsoft Academics Server. The server is experiencing downtime.");
