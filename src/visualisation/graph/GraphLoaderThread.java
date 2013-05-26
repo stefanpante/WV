@@ -20,7 +20,7 @@ public class GraphLoaderThread implements Runnable{
 	}
 
 	public void run() {
-		applet.startSearchAnimation();
+		applet.startInitialAnimation();
 		if (!Application.live)
 			SQLConnector.initialize("jdbc:mysql://localhost/visualisation",
 					"root", "");
@@ -43,7 +43,7 @@ public class GraphLoaderThread implements Runnable{
 			}
 		}
 		applet.setGraph(graph);
-		applet.stopSearchAnimation();
+		applet.stopInitialAnimation();
 		applet.startDrawing();
 		
 	}

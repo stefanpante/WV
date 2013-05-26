@@ -1,4 +1,5 @@
 package visualisation.graph;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import data.Publication;
@@ -77,12 +78,14 @@ public class Pane implements Drawable {
 		gui.textAlign(GUI.LEFT);
 		gui.stroke(0, 50);
 
+		// Header of the information pane
 		gui.fill(gui.color(0,146,211));
 		gui.rect(position.x+ X_OFFSET, position.y - height/2 -40, width, 40, CORNER_RADIUS, CORNER_RADIUS, 0, 0);
 		gui.textSize(20);
 		gui.fill(255);
 		gui.text("Description", position.x + X_OFFSET + 5, position.y - height/2 - 10);
 
+		// Body of the information pane.
 		gui.fill(255);
 		gui.rect(position.x + X_OFFSET, position.y - height/2, width, height, 0, 0, CORNER_RADIUS, CORNER_RADIUS);
 
@@ -90,10 +93,21 @@ public class Pane implements Drawable {
 		gui.fill(0);
 		HashMap<String, Field> fields = parentNode.getSubject().createFields();
 		float offset = 0;
-		for(Field field: fields.values()){
+		// manual drawing, ugly code
+		
+		gui.textSize(12);
+		
+		ArrayList<Field> items = new ArrayList<Field>();
+		items.add(fields.get(Publication.TITLE));
+		items.add(fields.get(Publication.AUTHORS));
+		//items.add(fields.get(Publication.CONFERENCE));
+		items.add(fields.get(Publication.CITED));
+		items.add(fields.get(Publication.YEAR));
+		
+		for(Field field: items){
 			offset += 20;
 			gui.textSize(12);
-			if(!field.getContent().equals("null")){
+			if( field != null && !field.getContent().equals("null")){
 				gui.fill(gui.color(0,146,211));
 				gui.text(field.getName(), position.x + X_OFFSET + 5, position.y - height/2 + offset, width - 10, 30);
 				offset += 20;
@@ -115,18 +129,27 @@ public class Pane implements Drawable {
 
 	public void calculateHeight(){
 		HashMap<String, Field> fields = parentNode.getSubject().createFields();
+		
+		ArrayList<Field> items = new ArrayList<Field>();
+		items.add(fields.get(Publication.TITLE));
+		items.add(fields.get(Publication.AUTHORS));
+		//items.add(fields.get(Publication.CONFERENCE));
+		items.add(fields.get(Publication.CITED));
+		items.add(fields.get(Publication.YEAR));
+		
 		height = 0;
-		for(Field field: fields.values()){
+		for(Field field: items){
 			height += 20;
 			gui.textSize(12);
-			if(!field.getContent().equals("null")){
+			System.out.println(field != null);
+			System.out.println(field.getName());
+			if(field != null && !field.getContent().equals("null")){
 				height+= 20;
 				gui.fill(gui.color(0));
 				float lines = gui.textWidth(trimInput(field.getContent())) / ( width -35);
 				if(lines < 1){
 					lines = 1;
 				}
-				String text = "";
 				height += 15*lines;
 			}
 		}
@@ -156,6 +179,9 @@ public class Pane implements Drawable {
 
 	public void setFocus(boolean focus){
 		this.focus = focus;
+		if(!focus){
+			this.expanded = false;
+		}
 	}
 
 	public boolean hit(int mouseX, int mouseY) {

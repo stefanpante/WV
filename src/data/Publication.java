@@ -113,12 +113,14 @@ public class Publication implements Subject {
 		Field title = new Field("Title", this.title);
 		Field cited = new Field("Citations", "" + this.cited);
 		Field authors = new Field("Authors", this.getAuthorsString());
+		Field conference = new Field("Conference", this.getConference());
 		Field year = new Field("Year", "" + this.year);
 		Field abstr = new Field("Abstract", "" + this.summary);
 		
 		HashMap<String, Field> result = new HashMap<String, Field>();
 		result.put(TITLE, title);
 		result.put(CITED, cited);
+		result.put(CONFERENCE, conference);
 		result.put(YEAR,year);
 		result.put(AUTHORS, authors);
 		result.put(ABSTRACT, abstr);

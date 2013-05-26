@@ -51,6 +51,7 @@ public class GUI extends PApplet{
 	public Transform transform;
 	
 	private PShape loadingAnimation;
+	private PShape loadingAnimation2;
 	
 	public boolean startDrawing;
 
@@ -62,6 +63,7 @@ public class GUI extends PApplet{
 	 */
 	public void setup(){
 		stopDrawing();
+		PFont standardFont = new PFont(this.getFont(), true);
 		HTTP.gui = this;
 
 		transform = new Transform(this);
@@ -75,6 +77,7 @@ public class GUI extends PApplet{
 		frameRate(60);
 
 		loadingAnimation = this.loadShape(getClass().getResource("/res/loading.svg").getPath());
+		loadingAnimation2 = this.loadShape(getClass().getResource("/res/loading2.svg").getPath());
 		isLoading = false;
 		
 		// Create a graph instance to display
@@ -83,6 +86,7 @@ public class GUI extends PApplet{
 		
 		// Initializes the GUI
 		setupGUI();
+		background(color(255));
 
 	}
 	
@@ -207,13 +211,14 @@ public class GUI extends PApplet{
 	 * Setups the gui for this application
 	 */
 	private void setupGUI(){
-
+		PFont standardFont = new PFont(this.getFont(), true);
 
 		addMouseWheelListener(new MouseWheelListener() { 
 			public void mouseWheelMoved(MouseWheelEvent mwe) { 
 				mouseWheel(mwe.getWheelRotation());
 			}}); 
 		inputController = new ControlP5(this);
+		inputController.setFont(standardFont);
 		int width = displayWidth/2;
 		inputField = inputController.addTextfield("search",  displayWidth/2 - width/2, 15, width, 30 );
 		CColor color = new CColor(color(0, 146, 211), color(255),color(0, 60, 255),color(0, 146, 211),color(0, 146, 211) );
@@ -278,12 +283,12 @@ public class GUI extends PApplet{
 	 */
 	@SuppressWarnings("deprecation")
 	public void draw(){
+		background(color(255));
+		transform.scale = zoom/100f;
+		noStroke();
+		showInitialLoadingAnimation();
 		if(startDrawing){
-			background(color(255));
-			transform.scale = zoom/100f;
-			noStroke();
 			if(!fixed){
-				
 				if(graph != null){
 					graph.draw();
 				}
@@ -372,11 +377,29 @@ public class GUI extends PApplet{
 	}
 
 	public void startDrawing() {
-		this.startDrawing = true;
+		this.startDrawing =true;
 	}
 	
 	public void stopDrawing(){
 		this.startDrawing = false;
+	}
+
+	private boolean initialLoading;
+	public void stopInitialAnimation() {
+		initialLoading = false;
+	}
+	
+	public void startInitialAnimation(){
+		initialLoading = true;
+	}
+	
+	public void showInitialLoadingAnimation(){
+		if(initialLoading){
+			fill(255);
+			stroke(color(0), 100);
+			loadingAnimation2.rotate((float) (TWO_PI/frameRate));
+			shape(loadingAnimation2, displayWidth/2 - 25, displayHeight/2 - 25, 100, 100);
+		}
 	}
 
 }
