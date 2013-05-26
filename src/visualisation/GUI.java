@@ -84,6 +84,7 @@ public class GUI extends PApplet{
 	
 	private ShapeButton play;
 	private ShapeButton search;
+	private ShapeButton exit;
 	
 	public void checkButtons(){
 		if(play.hit(mouseX, mouseY)){
@@ -100,11 +101,16 @@ public class GUI extends PApplet{
 				e.printStackTrace();
 			}
 		}
+		
+		if(exit.hit(mouseX, mouseY)){
+			this.exit();
+		}
 	}
 	
 	public void drawButtons(){
 		this.play.draw();
 		this.search.draw();
+		this.exit.draw();
 		
 	}
 
@@ -215,10 +221,11 @@ public class GUI extends PApplet{
 		PShape play = this.loadShape(getClass().getResource("/res/play.svg").getPath());
 		PShape pause = this.loadShape(getClass().getResource("/res/pause.svg").getPath());
 		PShape search = this.loadShape(getClass().getResource("/res/search.svg").getPath());
+		PShape exit = this.loadShape(getClass().getResource("/res/exit.svg").getPath());
 		
 		this.play = new ShapeButton(pause, play, new PVector(displayWidth/4 - 40, 15), this);
 		this.search = new ShapeButton(search,search, new PVector(3*displayWidth/4 + 15,  15), this);
-
+		this.exit = new ShapeButton(exit, exit, new PVector(displayWidth - 60, 15), this);
 
 		CColor col = new CColor(color(0, 146, 211), color(0, 60, 255),color(0, 146, 211),color(0, 146, 211),color(0, 146, 211) );
 		slider = inputController.addSlider("zoom");
@@ -234,12 +241,14 @@ public class GUI extends PApplet{
 
 
 	}
+	
 	Textfield inputField;
 	Slider slider;
 	float zoom = 100;
 	boolean menuEnabled = false;
 	SearchResultMenu menu2;
 	SearchThread trd;
+	
 	public void search(String search) throws Exception{
 		trd = new SearchThread(search, this);
 		trd.start();
