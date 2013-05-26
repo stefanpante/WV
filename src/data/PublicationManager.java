@@ -30,126 +30,82 @@ public class PublicationManager {
 		this.applet = applet;
 	}
 
-	private HashMap<Integer, Publication> openPublications = new HashMap<Integer, Publication>();
-	private HashSet<Publication> expandedPublications = new HashSet<Publication>();
 	private CopyOnWriteArrayList<Connection> connections = new CopyOnWriteArrayList<Connection>();
 	private ConcurrentHashMap<Integer, Node> nodes = new ConcurrentHashMap<Integer, Node>();
 
 	public boolean hasPublication(Publication publication) {
-		return openPublications.containsKey(publication.getID());
+		return getOpenPublications().contains(publication);
 	}
 
-	public void addPublication(Publication publication) {
-		if (!hasPublication(publication))
-			openPublications.put(publication.getID(), publication);
-		// for(Publication citation : publication.getCitations())
-		// addCitation(publication, citation);
+	public HashSet<Publication> getOpenPublications() {
+		HashSet<Publication> result = new HashSet<Publication>();
+		for (Node node : nodes.values()) {
+			Publication pub = (Publication) node.getSubject();
+			result.add(pub);
+		}
+		return result;
 	}
 
-	public boolean expand(Publication publication, Graph graph, Node node) {
-		ArrayList<Connection> expandedConnections = new ArrayList<Connection>();
-		if (expandedPublications.contains(publication)){
+	public HashSet<Node> getExpandedNodes() {
+		HashSet<Node> expandedNodes = new HashSet<Node>();
+		for (Node node : nodes.values()) {
+			if (node.getExpanded() == true) {
+				expandedNodes.add(node);
+			}
+		}
+		return expandedNodes;
+	}
+
+	public void expand(Publication publication, Graph graph, Node node) {
+		System.out.println("expanding");
+		if (getExpandedNodes().contains(node)) {
 			this.collapse(node);
 			System.out.println("This publication has already been expanded");
-			return false;
-		}else {
-
-			HashSet<Publication> citations;
-			try {
-				citations = Application.live ? CitationFactory
-						.forwardCitationsFromAcademics(publication.getID())
-						: CitationFactory
-								.forwardCitationsFromDatabase(publication
-										.getID());
-
-				citations.removeAll(expandedPublications);
-				for (Publication citation : citations) {
-					expandedConnections.add(addCitation(publication, citation,
-							false));
-				}
-				expandedPublications.add(publication);
-
-				citations = Application.live ? CitationFactory
-						.backwardCitationsFromAcademics(publication.getID())
-						: CitationFactory
-								.backwardCitationsFromDatabase(publication
-										.getID());
-				citations.removeAll(expandedPublications);
-				for (Publication citation : citations) {
-					expandedConnections.add(addCitation(publication, citation,
-							true));
-				}
-				//expandedPublications.add(publication);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+		} else {
+			ArrayList<Connection> expandedConnections = expand(publication);
+			graph.positionNodes(node, expandedConnections);
+			node.setExpanded(true);
 		}
-		graph.positionNodes(node, expandedConnections);
-		return true;
 	}
 
 	public ArrayList<Connection> expand(Publication publication) {
-		ArrayList<Connection> expandedConnections = new ArrayList<Connection>();
-		if (expandedPublications.contains(publication))
-			System.out.println("This publication has already been expanded");
-		else {
+		ArrayList<Connection> result = new ArrayList<Connection>();
+		HashSet<Publication> citedPublications;
+		HashSet<Publication> citingPublications;
+		citedPublications = Application.live ? CitationFactory
+				.forwardCitationsFromAcademics(publication.getID())
+				: CitationFactory.forwardCitationsFromDatabase(publication
+						.getID());
+		citingPublications = Application.live ? CitationFactory
+				.backwardCitationsFromAcademics(publication.getID())
+				: CitationFactory.backwardCitationsFromDatabase(publication
+						.getID());
 
-			HashSet<Publication> citations;
-			try {
-				citations = Application.live ? CitationFactory
-						.forwardCitationsFromAcademics(publication.getID())
-						: CitationFactory
-								.forwardCitationsFromDatabase(publication
-										.getID());
-
-				citations.removeAll(expandedPublications);
-				for (Publication citation : citations) {
-					expandedConnections.add(addCitation(publication, citation,
-							false));
-				}
-				expandedPublications.add(publication);
-
-				citations = Application.live ? CitationFactory
-						.backwardCitationsFromAcademics(publication.getID())
-						: CitationFactory
-								.backwardCitationsFromDatabase(publication
-										.getID());
-				citations.removeAll(expandedPublications);
-				for (Publication citation : citations) {
-					expandedConnections.add(addCitation(publication, citation,
-							true));
-				}
-				expandedPublications.add(publication);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+		citedPublications.removeAll(getOpenPublications());
+		citingPublications.removeAll(getOpenPublications());
+		for (Publication citation : citedPublications) {
+			result.add(addCitation(publication, citation, false));
 		}
-		return expandedConnections;
+		for (Publication citation : citingPublications) {
+			result.add(addCitation(publication, citation, true));
+		}
+		return result;
 	}
 
-	public ArrayList<Connection> collapse(Node node) {
-		ArrayList<Connection> collapsedConnections = new ArrayList<Connection>();
-
-		for (Connection connection : connections) {
-			if (connection.getNode1() == node) {
-				collapsedConnections.add(connection);
-				connections.remove(connection);
-				
-			}
+	public void collapse(Node node) {
+		System.out.println("collapse");
+		for (Connection connection : getConnectionsWith(node)) {
+			connections.remove(connection);
+			Node other = connection.getNode1().equals(node) ? connection.getNode2() : connection.getNode1();
+			this.nodes.remove(other.getSubject().getID());
 		}
 		applet.loop();
 		applet.setFixed(false);
-		return collapsedConnections;
 
 	}
 
 	private Connection addCitation(Publication from, Publication to,
 			boolean firstIsOriginal) {
-		addPublication(to);
 		Node firstNode;
 		if (nodes.containsKey(from.getID()))
 			firstNode = nodes.get(from.getID());
@@ -177,10 +133,6 @@ public class PublicationManager {
 
 	public ConcurrentHashMap<Integer, Node> getNodes() {
 		return nodes;
-	}
-
-	public Publication getPublication(int i) {
-		return openPublications.get(i);
 	}
 
 	public ArrayList<Connection> getConnectionsWith(Node node) {
