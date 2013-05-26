@@ -69,12 +69,12 @@ public class GUI extends PApplet{
 		
 		// Create a graph instance to display
 		int id = Application.live ? 777102 : 4;
-//		try {
-//			graph = GraphFactory.getInstance().fromDatabaseID(id, 1, this);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			graph = GraphFactory.getInstance().fromDatabaseID(id, 1, this);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		// Initializes the GUI
 		setupGUI();
