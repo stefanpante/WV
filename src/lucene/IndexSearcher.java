@@ -18,13 +18,13 @@ public class IndexSearcher extends PublicationSearcher {
 	public static void main(String[] args) throws ParseException, IOException, SQLException{
 		SQLConnector.initialize("jdbc:mysql://localhost/visu2", "root", "");
 		IndexSearcher searcher = new IndexSearcher();
-		SearchResult[] results = searcher.generalSearch("prolog bart demoen", 10);
+		ArrayList<SearchResult> results = searcher.generalSearch("prolog bart demoen", 10);
 		for(SearchResult result : results){
 			System.out.println(result.title+","+result.year+","+result.citations+","+result.databaseID);
 		}
 	}
 	
-	public SearchResult[] generalSearch(String query, int results) throws ParseException, IOException, SQLException{
+	public ArrayList<SearchResult> generalSearch(String query, int results) throws ParseException, IOException, SQLException{
 		int author = searchAuthor(query);
 		TopDocs rs;
 		if(author >= 0){
@@ -67,15 +67,14 @@ public class IndexSearcher extends PublicationSearcher {
 		return -1;
 	}
 
-	private static SearchResult[] extractSearchResults(TopDocs docs)
+	private static ArrayList<SearchResult> extractSearchResults(TopDocs docs)
 			throws IOException {
-		SearchResult[] result;
-		result = new SearchResult[docs.scoreDocs.length];
+		ArrayList<SearchResult> result = new ArrayList<SearchResult>();
 		for(int i=0;i<docs.scoreDocs.length;i++){
 			int docId = docs.scoreDocs[i].doc;
 			String[] data = IndexManager.getInstance().extractPublicationDataFromDocID(docId);
 			SearchResult searchResult = new SearchResult(data[0],data[3],data[2],data[1],new ArrayList<String>(),new String[0],Integer.parseInt(data[4]));
-			result[i] = searchResult;
+			result.add(searchResult);
 		}
 		return result;
 	}

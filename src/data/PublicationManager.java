@@ -96,7 +96,9 @@ public class PublicationManager {
 		System.out.println("collapse");
 		for (Connection connection : getConnectionsWith(node)) {
 			Node other = connection.getNode1().equals(node) ? connection.getNode2() : connection.getNode1();
-			if(other.getExpanded() == false){
+			
+			
+			if(!hasAnyOtherConnections(other, connection)){
 				this.nodes.remove(other.getSubject().getID());
 				connections.remove(connection);
 			}
@@ -105,6 +107,12 @@ public class PublicationManager {
 		applet.loop();
 		applet.setFixed(false);
 
+	}
+
+	private boolean hasAnyOtherConnections(Node other, Connection connection) {
+		ArrayList<Connection> openConnections = this.getConnectionsWith(other);
+		openConnections.remove(connection);
+		return openConnections.size() > 0;
 	}
 
 	private Connection addCitation(Publication from, Publication to,

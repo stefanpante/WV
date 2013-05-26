@@ -22,7 +22,7 @@ public class SearchResultMenu {
 		
 	}
 	
-	public SearchResultMenu(SearchResult[] searchResults, GUI gui){
+	public SearchResultMenu(ArrayList<SearchResult> searchResults, GUI gui){
 		this();
 		this.gui = gui;
 		for(SearchResult result: searchResults){
