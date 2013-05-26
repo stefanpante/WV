@@ -34,23 +34,11 @@ public class JSONParser {
 	    int cited = gson.fromJson(publication.get("CitationCount"), Integer.class);
 	    String conference = gson.fromJson(publication.get("conference"), String.class);
 	    String journal = gson.fromJson(publication.get("journal"), String.class);
-	   JsonArray pdfObject = publication.getAsJsonArray("FullVersionURL");
-	   String pdf = null;
-	   String first = null;
-	   for(JsonElement element : pdfObject){
-			pdf = element.getAsString();
-			if(first == null) first = pdf;
-			if(pdf.endsWith(".pdf")){
-				break;
-			}
-		}
-	   
-	   if(pdf == null || !pdf.endsWith(".pdf")) pdf = first;
-	   	
+	    String url = "http://academic.research.microsoft.com/Publication/"+id;
 	    
 	    JsonArray authorObject = publication.getAsJsonArray("Author");
 	    ArrayList<String> authors = extractAuthors(authorObject);
-		return new Publication(id, title, year, cited, abstr, authors, conference, journal, pdf);
+		return new Publication(id, title, year, cited, abstr, authors, conference, journal, url);
 	}
 
 	private static ArrayList<String> extractAuthors(JsonArray authorObject) {
