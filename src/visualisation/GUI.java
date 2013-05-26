@@ -90,6 +90,7 @@ public class GUI extends PApplet{
 		if(play.hit(mouseX, mouseY)){
 			if(pause) pause = false;
 			else pause = true;
+			play.setNormal(pause);
 		}
 		
 		if(search.hit(mouseX, mouseY)){
@@ -133,7 +134,8 @@ public class GUI extends PApplet{
 			this.processMenuPressed(id);
 		}
 		if (mouseEvent.getClickCount()==2){
-			graph.expand(mouseX, mouseY);
+			if(graph != null)
+				graph.expand(mouseX, mouseY);
 		}
 		if(mouseEvent.getClickCount() ==1){
 			if(graph != null)
