@@ -67,12 +67,12 @@ public class GUI extends PApplet{
 		isLoading = true;
 		// Create a graph instance to display
 		int id = Application.live ? 777102 : 4;
-		try {
-			graph = GraphFactory.getInstance().fromDatabaseID(id, 1, this);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			graph = GraphFactory.getInstance().fromDatabaseID(id, 1, this);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 
 
@@ -96,7 +96,7 @@ public class GUI extends PApplet{
 	 */
 	private void initGraph(){
 		// Gives the parentNode its default appearance
-		initParentNode();
+		//initParentNode();
 
 		// Sets the default graphLayout for the graph
 		//graph.setGraphLayout(new CircularLayout(graph));
@@ -114,7 +114,8 @@ public class GUI extends PApplet{
 			graph.expand(mouseX, mouseY);
 		}
 		if(mouseEvent.getClickCount() ==1){
-			graph.mouseHit(mouseX, mouseY);
+			if(graph != null)
+				graph.mouseHit(mouseX, mouseY);
 		}
 		if(!locked && (mouseX < displayWidth -150)){
 			xOffset = mouseX - transform.translationX;
@@ -266,10 +267,11 @@ public class GUI extends PApplet{
 		this.ellipse(displayWidth/2 + transform.translationX, displayHeight/2 +transform.translationY,50, 50 );
 		noStroke();
 		if(!fixed){
-			graph.draw();
 			if(!pause){
-				if(graph != null)
+				if(graph != null){
 					graph.layout();
+					graph.draw();
+				}
 			}
 
 			if(menuEnabled){
