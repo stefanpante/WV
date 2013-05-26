@@ -261,9 +261,7 @@ public class GUI extends PApplet{
 	@SuppressWarnings("deprecation")
 	public void draw(){
 		background(color(255));
-		fill(color(128,0,0),75);
 		transform.scale = zoom/100f;
-		this.ellipse(displayWidth/2 + transform.translationX, displayHeight/2 +transform.translationY,50, 50 );
 		noStroke();
 		if(!fixed){
 			
