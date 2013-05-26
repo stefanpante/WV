@@ -321,7 +321,7 @@ public class GUI extends PApplet{
 	private void showLoadingAnimation() {
 		if(isLoading){
 			loadingAnimation.rotate(TWO_PI/this.frameRate);
-			this.shape(loadingAnimation, 3*displayWidth/4 + 75,  30);
+			this.shape(loadingAnimation, mouseX + 30,  mouseY + 30);
 		}
 	}
 
