@@ -90,7 +90,7 @@ public class GUI extends PApplet{
 		if(play.hit(mouseX, mouseY)){
 			if(pause) pause = false;
 			else pause = true;
-			play.setNormal(pause);
+			play.toggle();
 		}
 		
 		if(search.hit(mouseX, mouseY)){
@@ -240,7 +240,7 @@ public class GUI extends PApplet{
 		PShape pause = this.loadShape(getClass().getResource("/res/pause.svg").getPath());
 		PShape search = this.loadShape(getClass().getResource("/res/search.svg").getPath());
 		
-		this.play = new ShapeButton(play, pause, new PVector(displayWidth/4 - 40, 15), this);
+		this.play = new ShapeButton(pause, play, new PVector(displayWidth/4 - 40, 15), this);
 		this.search = new ShapeButton(search,search, new PVector(3*displayWidth/4 + 15,  15), this);
 
 
@@ -314,7 +314,6 @@ public class GUI extends PApplet{
 		}
 
 		displayWarning();
-		isLoading = true;
 		drawButtons();
 		showLoadingAnimation();
 	}

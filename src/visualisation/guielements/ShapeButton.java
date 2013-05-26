@@ -62,6 +62,11 @@ public class ShapeButton implements GUIElement{
 	public void setNormal(boolean isNormal){
 		this.isNormal = isNormal;
 	}
+	
+	public void toggle(){
+		if(isNormal) isNormal = false;
+		else isNormal = true;
+	}
 
 	/**
 	 * returns the normal position ( a buttons position isn't transformed )
