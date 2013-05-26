@@ -123,26 +123,26 @@ public class Connection implements Drawable{
 		// draw the connection
 		//gui.line(pos1.x, pos1.y, pos2.x, pos2.y);
 		
-		//gui.line(x1, y1, x2, y2);
+		gui.noStroke();
+		gui.fill(color, 15 + alpha * 0.5f);
 		if(!firstIsOriginal){
-			float x3 = (float) (x2 + node1.getDiameter()/8 * Math.cos(corner + Math.PI/2));
-			float y3 = (float) (y2 + node1.getDiameter()/8 * Math.sin(corner + Math.PI/2));
-			x2 = (float) (x2 + node1.getDiameter()/8 * Math.cos(corner - Math.PI/2));
-			y2 = (float) (y2 + node1.getDiameter()/8 * Math.sin(corner - Math.PI/2));
-			gui.noStroke();
-			gui.fill(color, 15 + alpha * 0.5f);
+			float x3 = (float) (x2 + 3 * Math.cos(corner + Math.PI/2));
+			float y3 = (float) (y2 + 3 * Math.sin(corner + Math.PI/2));
+			x2 = (float) (x2 + 3 * Math.cos(corner - Math.PI/2));
+			y2 = (float) (y2 + 3 * Math.sin(corner - Math.PI/2));
+			
 			gui.triangle(x1, y1, x2, y2, x3, y3);
 		}
 		
 		else{
+			float x3 = (float) (x1 + 3 * Math.cos(corner + Math.PI/2));
+			float y3 = (float) (y1 + 3 * Math.sin(corner + Math.PI/2));
+			x1 = (float) (x1 + 3 * Math.cos(corner - Math.PI/2));
+			y1 = (float) (y1 + 3 * Math.sin(corner - Math.PI/2));
 
-			
-			gui.fill(gui.color(255));
-			//gui.triangle(x1, y1, x2, y2, x3, y3);
+			gui.triangle(x1, y1, x2, y2, x3, y3);
 			
 		}
-		
-	
 	}
 	
 	private float getAngle(Node node1, Node node2){
