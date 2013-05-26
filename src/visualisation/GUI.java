@@ -123,7 +123,7 @@ public class GUI extends PApplet{
 	 * Handles mouse events.
 	 */
 	public void mousePressed(){
-		if(menuEnabled){
+		if(menuEnabled && menu2 != null){
 			int id = menu2.mousePressed(mouseX, mouseY);
 			this.processMenuPressed(id);
 		}
@@ -289,7 +289,7 @@ public class GUI extends PApplet{
 				}
 			}
 
-			if(menuEnabled){
+			if(menuEnabled && menu2 != null){
 				menu2.draw();
 				inputField.setLabel("");
 				menu2.hit(mouseX, mouseY);

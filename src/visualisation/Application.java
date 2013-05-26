@@ -16,7 +16,7 @@ public class Application {
 	public static void main(String[] args) {
 		//GUI gui = new GUI();
 		
-		PApplet.main(new String[] {  "visualisation.GUI" });
+		PApplet.main(new String[] { "--present","visualisation.GUI" });
 	}
 
 }

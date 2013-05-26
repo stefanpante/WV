@@ -26,7 +26,6 @@ public class HTTP {
 			BufferedReader r = new BufferedReader(
 	                new InputStreamReader(i, "UTF-8"));
 			final String totalText = r.readLine();
-			System.out.println(totalText);
 			return totalText;
 		} catch (IOException e) {
 			gui.showWarning("Could not connect to Microsoft Academics Server. The server is experiencing downtime.");
