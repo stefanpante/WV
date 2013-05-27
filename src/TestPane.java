@@ -20,9 +20,9 @@ public class TestPane extends PApplet {
 	public void setup(){
 		size(700, 800);
 		this.showPublication = new URLButton("View publication", "Dummy text", this);
-		this.expand = new GUIButton("Expand", this);
-		this.showAbstract = new GUIButton("Show Abstract", this);
-		this.pin = new GUIButton("Pin", this);
+		this.expand = new GUIButton("Expand","Show Abstract", this);
+		this.showAbstract = new GUIButton("Show Abstract","Show Abstract", this);
+		this.pin = new GUIButton("Pin","Show Abstract", this);
 	}
 	
 	int width = 275;

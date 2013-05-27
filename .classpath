@@ -20,5 +20,13 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Program Files/Java/jre7/lib/javaws.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Stefan/Desktop/Processing/processing-2.0b8/java/lib/deploy.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Stefan/Desktop/Processing/processing-2.0b8/java/lib/javaws.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Stefan/Desktop/Processing/processing-2.0b8/java/lib/jce.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Stefan/Desktop/Processing/processing-2.0b8/java/lib/jsse.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Stefan/Desktop/Processing/processing-2.0b8/java/lib/management-agent.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Stefan/Desktop/Processing/processing-2.0b8/java/lib/plugin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Stefan/Desktop/Processing/processing-2.0b8/java/lib/resources.jar"/>
+	<classpathentry kind="lib" path="lib/javaws.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

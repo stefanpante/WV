@@ -338,6 +338,10 @@ public class Node implements GUIElement{
 	public float getDiameter(){
 		return this.diameter;
 	}
+	
+	public void resetColor(){
+		this.color2 = gui.color(0,146,211);
+	}
 
 
 

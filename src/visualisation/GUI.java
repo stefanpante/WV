@@ -13,6 +13,7 @@ import data.Publication;
 import data.PublicationManager;
 
 import processing.core.*;
+import res.Anchor;
 import visualisation.graph.Graph;
 import visualisation.graph.GraphFactory;
 import visualisation.graph.GraphLayout;
@@ -76,8 +77,10 @@ public class GUI extends PApplet{
 		// Sets the frameRate for the animation
 		frameRate(60);
 
-		loadingAnimation = this.loadShape(getClass().getResource("/res/loading.svg").getFile());
-		loadingAnimation2 = this.loadShape(getClass().getResource("/res/loading2.svg").getFile());
+		String url1 = Anchor.class.getResource("loading.svg").getPath();
+		String url2 = Anchor.class.getResource("loading2.svg").getPath();
+		loadingAnimation = this.loadShape(url1);
+		loadingAnimation2 = this.loadShape(url2);
 		isLoading = false;
 		
 		// Create a graph instance to display

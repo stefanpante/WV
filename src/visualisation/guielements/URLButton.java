@@ -10,7 +10,7 @@ public class URLButton extends GUIButton{
 
 	private String URL;
 	public URLButton(String term, String URL, PApplet gui) {
-		super(term, gui);
+		super(term,term, gui);
 		this.URL = URL;
 	}
 	

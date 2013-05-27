@@ -255,6 +255,13 @@ public class Pane implements Drawable {
 					showAbstract.toggleActive();
 					this.expanded =true;
 				}
+				
+				if(pin.hit(mouseX, mouseY)){
+					pin.rollover();
+					pin.toggleActive();
+					getParentNode().setMovable(true);
+					getParentNode().resetColor();
+				}
 			}
 		}
 	}
