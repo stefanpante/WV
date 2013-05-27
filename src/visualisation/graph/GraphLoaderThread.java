@@ -27,6 +27,7 @@ public class GraphLoaderThread implements Runnable{
 		PublicationManager manager = new PublicationManager(applet);
 
 		Publication root;
+		try{
 		root = Application.live ? PublicationFactory.fromAcademicsID(id)
 				: PublicationFactory.fromDatabaseID(id);
 
@@ -45,6 +46,11 @@ public class GraphLoaderThread implements Runnable{
 		applet.setGraph(graph);
 		applet.stopInitialAnimation();
 		applet.startDrawing();
+		} catch(Exception e){
+			applet.stopInitialAnimation();
+			applet.showWarning("Oops, something went wrong, cannot connect to the server!");
+			e.printStackTrace();
+		}
 		
 	}
 
