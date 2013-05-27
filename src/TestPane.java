@@ -5,13 +5,24 @@ import data.Publication;
 
 import processing.core.PApplet;
 import processing.core.PVector;
+import visualisation.guielements.GUIButton;
+import visualisation.guielements.URLButton;
 import visualisation.subject.Field;
 
 
 public class TestPane extends PApplet {
 
+	private URLButton showPublication;
+	private GUIButton expand;
+	private GUIButton showAbstract;
+	private GUIButton pin;
+	
 	public void setup(){
 		size(700, 800);
+		this.showPublication = new URLButton("View publication", "Dummy text", this);
+		this.expand = new GUIButton("Expand", this);
+		this.showAbstract = new GUIButton("Show Abstract", this);
+		this.pin = new GUIButton("Pin", this);
 	}
 	
 	int width = 275;
@@ -28,7 +39,7 @@ public class TestPane extends PApplet {
 
 		// Header of the information pane
 		int width = this.width;
-		expanded = true;
+		expanded = false;
 		if(expanded) width *= 2;
 		
 		fill(color(0,146,211));
@@ -74,6 +85,20 @@ public class TestPane extends PApplet {
 				offset += 15*lines;
 			}
 		}
+		
+		showPublication.setWidth(122);
+		showPublication.setPosition(position.x + X_OFFSET*2 +2, position.y - height/2 + offset + 20);
+		pin.setWidth(122);
+		pin.setPosition(position.x + X_OFFSET*2 +2 + 130, position.y - height/2 + offset + 20);
+		pin.draw();
+		showPublication.draw();
+		expand.setPosition(position.x + X_OFFSET*2 +2, position.y - height/2 + offset + 55);
+		expand.setWidth(122);
+		expand.draw();
+		showAbstract.setWidth(122);
+		showAbstract.setPosition(position.x + X_OFFSET*2 +130, position.y - height/2 + offset + 55);
+		showAbstract.draw();
+		
 		offset = 20;
 		if(expanded){
 			this.fill(this.color(0,146,211));

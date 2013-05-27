@@ -1,10 +1,12 @@
 package visualisation;
 
 import processing.core.PApplet;
+import javax.jnlp.*;
 
 public class Application {
 	
 	public static boolean live = true;
+	static BasicService basicService = null;
 
 	public Application() {
 		// TODO Auto-generated constructor stub
@@ -14,8 +16,7 @@ public class Application {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		//GUI gui = new GUI();
-		
+
 		PApplet.main(new String[] { "--present","visualisation.GUI" });
 	}
 

@@ -2,12 +2,14 @@ package visualisation.guielements;
 
 import java.io.IOException;
 
+import processing.core.PApplet;
+
 import visualisation.GUI;
 
 public class URLButton extends GUIButton{
 
 	private String URL;
-	public URLButton(String term, String URL, GUI gui) {
+	public URLButton(String term, String URL, PApplet gui) {
 		super(term, gui);
 		this.URL = URL;
 	}

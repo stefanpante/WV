@@ -3,6 +3,7 @@ package visualisation.guielements;
 import java.awt.Desktop;
 import java.io.IOException;
 
+import processing.core.PApplet;
 import processing.core.PVector;
 import visualisation.GUI;
 import visualisation.graph.Pane;
@@ -10,16 +11,25 @@ import visualisation.graph.Pane;
 public class GUIButton implements GUIElement{
 
 	private String term;
-	private GUI gui;
+	private String alternativeTerm;
+	private boolean activated;
+	private PApplet gui;
 	
 	private int width = 250;
 	private int height = 30;
 	private PVector position;
 	
-	public GUIButton(String term, GUI gui) {
+	public GUIButton(String term, String alternativeTerm, PApplet gui) {
 		this.term = term;
+		this.alternativeTerm = alternativeTerm;
 		this.gui = gui;
+		this.activated = false;
 		this.position = new PVector();
+	}
+	
+	public void toggleActive(){
+		if(activated) activated = false;
+		else activated = true;
 	}
 
 	public void draw() {
@@ -30,7 +40,12 @@ public class GUIButton implements GUIElement{
 		gui.noStroke();
 		gui.fill(gui.color(255));
 		gui.textSize(12);
-		gui.text(term, position.x, position.y, width, height);
+		if(!activated){
+			gui.text(term, position.x, position.y, width, height);
+		}
+		else{
+			gui.text(alternativeTerm, position.x, position.y, width, height);
+		}
 		
 	}
 
@@ -42,7 +57,12 @@ public class GUIButton implements GUIElement{
 		gui.noStroke();
 		gui.fill(gui.color(255));
 		gui.textSize(12);
-		gui.text(term, position.x, position.y, width, height);
+		if(!activated){
+			gui.text(term, position.x, position.y, width, height);
+		}
+		else{
+			gui.text(alternativeTerm, position.x, position.y, width, height);
+		}
 	}
 	
 	public boolean hittable() {
@@ -80,6 +100,11 @@ public class GUIButton implements GUIElement{
 	public PVector getTransformedPosition() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+		
 	}
 
 

@@ -25,6 +25,7 @@ public class Pane implements Drawable {
 	private URLButton showPublication;
 	private GUIButton expand;
 	private GUIButton showAbstract;
+	private GUIButton pin;
 
 	/**
 	 * Constructs a new Pane with a given parentNode
@@ -47,16 +48,18 @@ public class Pane implements Drawable {
 		this.position = parentNode.getPosition();
 		this.calculateHeight();
 		this.showPublication = new URLButton("View publication", this.buildSearchString(), gui);
-		this.expand = new GUIButton("Expand", applet);
-		this.showAbstract = new GUIButton("Show Abstract", applet);
+		this.expand = new GUIButton("Expand", "Collapse", applet);
+		this.showAbstract = new GUIButton("Show Abstract","Hide Abstract", applet);
+		this.pin = new GUIButton("Pin", "Unpin", applet);
 	}
 
 	public void setGUI(GUI applet){
 		this.gui = applet;
 		this.calculateHeight();
 		this.showPublication = new URLButton("View publication", this.buildSearchString(), gui);
-		this.expand = new GUIButton("Expand", applet);
-		this.showAbstract = new GUIButton("Show Abstract", applet);
+		this.expand = new GUIButton("Expand", "Collapse",  applet);
+		this.showAbstract = new GUIButton("Show Abstract","Hide Abstract",  applet);
+		this.pin = new GUIButton("Pin", "Unpin", applet);
 	}
 
 	/**
@@ -78,11 +81,10 @@ public class Pane implements Drawable {
 		gui.textAlign(GUI.LEFT);
 		gui.stroke(0, 50);
 
-		// Header of the information pane
 		int width = this.width;
-		expanded = true;
+		expanded = false;
 		if(expanded) width *= 2;
-		
+				
 		gui.fill(gui.color(0,146,211));
 		gui.rect(position.x+ X_OFFSET, position.y - height/2 -40, width, 40, CORNER_RADIUS, CORNER_RADIUS, 0, 0);
 		gui.textSize(20);
@@ -100,7 +102,7 @@ public class Pane implements Drawable {
 		// manual drawing, ugly code
 		
 		gui.textSize(12);
-		
+			
 		ArrayList<Field> items = new ArrayList<Field>();
 		items.add(fields.get(Publication.TITLE));
 		items.add(fields.get(Publication.AUTHORS));
@@ -126,8 +128,28 @@ public class Pane implements Drawable {
 				offset += 15*lines;
 			}
 		}
-		showPublication.setPosition(position.x + X_OFFSET*2 +2, position.y - height/2 + offset + 40);
+		
+		showPublication.setWidth(122);
+		showPublication.setPosition(position.x + X_OFFSET*2 +2, position.y - height/2 + offset + 20);
+		pin.setWidth(122);
+		pin.setPosition(position.x + X_OFFSET*2 +2 + 130, position.y - height/2 + offset + 20);
+		pin.draw();
 		showPublication.draw();
+		expand.setPosition(position.x + X_OFFSET*2 +2, position.y - height/2 + offset + 55);
+		expand.setWidth(122);
+		expand.draw();
+		showAbstract.setWidth(122);
+		showAbstract.setPosition(position.x + X_OFFSET*2 +130, position.y - height/2 + offset + 55);
+		showAbstract.draw();
+		
+		offset = 20;
+		if(expanded){
+			gui.fill(gui.color(0,146,211));
+			gui.text(fields.get(Publication.ABSTRACT).getName(), this.width + 10, position.y - height/2 + offset);
+			offset +=20;
+			gui.fill(gui.color(0));
+			gui.text(fields.get(Publication.ABSTRACT).getContent(), this.width + 10, position.y - height/2 + offset);
+		}
 
 	}
 
@@ -226,9 +248,12 @@ public class Pane implements Drawable {
 				}
 				if(expand.hit(mouseX, mouseY)){
 					this.gui.getGraph().expand(this.getParentNode());
+					this.expand.toggleActive();
 				}
 				if(showAbstract.hit(mouseX, mouseY)){
 					showAbstract.rollover();
+					showAbstract.toggleActive();
+					this.expanded =true;
 				}
 			}
 		}

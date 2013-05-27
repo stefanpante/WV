@@ -19,5 +19,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/Wetenschappelijke Vorming/lib/gson/gson-2.2.3-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jre7/lib/javaws.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -76,8 +76,8 @@ public class GUI extends PApplet{
 		// Sets the frameRate for the animation
 		frameRate(60);
 
-		loadingAnimation = this.loadShape(getClass().getResource("/res/loading.svg").getPath());
-		loadingAnimation2 = this.loadShape(getClass().getResource("/res/loading2.svg").getPath());
+		loadingAnimation = this.loadShape(getClass().getResource("/res/loading.svg").getFile());
+		loadingAnimation2 = this.loadShape(getClass().getResource("/res/loading2.svg").getFile());
 		isLoading = false;
 		
 		// Create a graph instance to display
