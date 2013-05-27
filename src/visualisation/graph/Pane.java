@@ -79,6 +79,10 @@ public class Pane implements Drawable {
 		gui.stroke(0, 50);
 
 		// Header of the information pane
+		int width = this.width;
+		expanded = true;
+		if(expanded) width *= 2;
+		
 		gui.fill(gui.color(0,146,211));
 		gui.rect(position.x+ X_OFFSET, position.y - height/2 -40, width, 40, CORNER_RADIUS, CORNER_RADIUS, 0, 0);
 		gui.textSize(20);
