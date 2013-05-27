@@ -364,13 +364,18 @@ public class GUI extends PApplet{
 	
 	public void displayWarning(){
 		if(currentFrameWarning < endFrameWarning){
-			fill(color(255));
-			stroke(0, 50);
-			rect( displayWidth/2 - 200, displayHeight/2 - 40,400,80);
-			textSize(15);
-			fill(color(0, 60, 255));
-			noStroke();
 			textAlign(CENTER, CENTER);
+			fill(color(0,146,211));
+			rect(displayWidth/2 - 200, displayHeight/2 - 75, 400, 35, 5, 5, 0, 0);
+			fill(color(255));
+			textSize(20);
+			text("Message", displayWidth/2 - 195, displayHeight/2 - 75, 400, 35);
+			stroke(0, 50);
+			rect( displayWidth/2 - 200, displayHeight/2 - 40,400,80, 0, 0 , 5, 5);
+			textSize(15);
+			fill(color(0, 146, 211));
+			noStroke();
+			
 			text(warning, displayWidth/2 - 200, displayHeight/2 - 40, 400, 80);
 			currentFrameWarning++;
 		}
