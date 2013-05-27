@@ -34,7 +34,7 @@ class SearchThread extends Thread{
 				gui.showWarning("No results found for this query.");
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			gui.showWarning("Search could not be completed!");
 			e.printStackTrace();
 		}
 		gui.stopSearchAnimation();
