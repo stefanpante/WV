@@ -286,7 +286,7 @@ public class Pane implements Drawable {
 				
 				if(bookmark.hit(mouseX, mouseY)){
 					pin.rollover();
-					if(!pin.getActive()){
+					if(!bookmark.getActive()){
 						bookMark();
 					}
 					else{
