@@ -26,10 +26,10 @@ public class GraphFactory {
 		return instance;
 	}
 
-	public void fromDatabaseID(int id, int expansionDegree, GUI applet)
+	public void fromSearchResult(Publication result, int expansionDegree, GUI applet)
 		 {
 		ExecutorService executor = Executors.newCachedThreadPool();
-		executor.execute(new GraphLoaderThread(id, expansionDegree, applet));
+		executor.execute(new GraphLoaderThread(result, expansionDegree, applet));
 
 	}
 

@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 import scraper.AcademicsScraper;
 import visualisation.Application;
 
@@ -63,6 +62,10 @@ public class PublicationFactory {
 			authorsList.add(author.getString(1));
 		}
 		return authorsList;
+	}
+
+	public static Publication fromSearchResult(Publication result) {
+		return result;
 	}
 
 }

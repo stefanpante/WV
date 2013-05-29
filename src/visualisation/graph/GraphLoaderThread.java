@@ -9,12 +9,12 @@ import data.SQLConnector;
 
 public class GraphLoaderThread implements Runnable{
 	
-	private int id;
+	private Publication result;
 	private int expansionDegree;
 	private GUI applet;
 	
-	public GraphLoaderThread(int id, int expansionDegree, GUI applet){
-		this.id = id;
+	public GraphLoaderThread(Publication result, int expansionDegree, GUI applet){
+		this.result = result;
 		this.expansionDegree = expansionDegree;
 		this.applet = applet;
 	}
@@ -28,8 +28,9 @@ public class GraphLoaderThread implements Runnable{
 
 		Publication root;
 		try{
-		root = Application.live ? PublicationFactory.fromAcademicsID(id)
-				: PublicationFactory.fromDatabaseID(id);
+	/*	root = Application.live ? PublicationFactory.fromAcademicsID(id)
+				: PublicationFactory.fromDatabaseID(id);*/
+		root = PublicationFactory.fromSearchResult(result);
 
 		manager.expand(root);
 

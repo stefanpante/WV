@@ -2,7 +2,8 @@ package visualisation.guielements;
 
 import java.util.ArrayList;
 
-import lucene.SearchResult;
+import data.Publication;
+
 
 import processing.core.PVector;
 import visualisation.GUI;
@@ -22,10 +23,10 @@ public class SearchResultMenu {
 		
 	}
 	
-	public SearchResultMenu(ArrayList<SearchResult> searchResults, GUI gui){
+	public SearchResultMenu(ArrayList<Publication> searchResults, GUI gui){
 		this();
 		this.gui = gui;
-		for(SearchResult result: searchResults){
+		for(Publication result: searchResults){
 			this.items.add(new SearchResultGUI(result, gui));
 		}
 		width = gui.displayWidth / 2 +1;
@@ -66,14 +67,14 @@ public class SearchResultMenu {
 		}
 	}
 
-	public int mousePressed(int mouseX, int mouseY) {
+	public Publication mousePressed(int mouseX, int mouseY) {
 		for(SearchResultGUI result: items){
 			if(result.hit(mouseX, mouseY)){
-				return result.getID();
+				return result.getSearchResult();
 			}
 		}
 		
-		return -1;
+		return null;
 	}
 
 }

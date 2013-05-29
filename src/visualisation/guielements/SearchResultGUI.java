@@ -1,31 +1,31 @@
 package visualisation.guielements;
 
+import data.Publication;
 import processing.core.PConstants;
 import processing.core.PVector;
 import visualisation.GUI;
-import lucene.SearchResult;
 
 public class SearchResultGUI implements Drawable{
 
 	private PVector position;
-	private SearchResult searchResult;
+	private Publication searchResult;
 	private int id; 
 	private GUI gui;
 	private float width;
 	private float height;
 	
-	public SearchResultGUI(SearchResult searchResult) {
+	public SearchResultGUI(Publication searchResult) {
 		this.searchResult = searchResult;
-		this.id = searchResult.getDatabaseID();
+		this.id = searchResult.getID();
 		this.position = new PVector();
 	}
 	
-	public SearchResultGUI(SearchResult searchResult, GUI gui){
+	public SearchResultGUI(Publication searchResult, GUI gui){
 		this(searchResult);
 		this.gui = gui;
 	}
 	
-	public SearchResultGUI(SearchResult searchResult, GUI gui, PVector position){
+	public SearchResultGUI(Publication searchResult, GUI gui, PVector position){
 		this(searchResult, gui);
 		this.position = position;
 	}
@@ -36,6 +36,10 @@ public class SearchResultGUI implements Drawable{
 	
 	public void setHeight(float height){
 		this.height = height;
+	}
+	
+	public Publication getSearchResult(){
+		return searchResult;
 	}
 
 	public void draw() {
@@ -48,7 +52,7 @@ public class SearchResultGUI implements Drawable{
 		gui.noStroke();
 		gui.textSize(12);
 		gui.textAlign(PConstants.CENTER, PConstants.CENTER);
-		String text = searchResult.getTitle() + System.getProperty("line.separator")
+		String text = searchResult.getSearchTerm() + System.getProperty("line.separator")
 				+ searchResult.getAuthors();
 		
 		gui.text(text, position.x, position.y, width, height);
@@ -65,7 +69,7 @@ public class SearchResultGUI implements Drawable{
 		gui.noStroke();
 		gui.textSize(12);
 		gui.textAlign(PConstants.CENTER, PConstants.CENTER);
-		String text = searchResult.getTitle()  + System.getProperty("line.separator")
+		String text = searchResult.getSearchTerm()  + System.getProperty("line.separator")
 				+ searchResult.getAuthors();
 		
 		gui.text(text, position.x, position.y, width, height);

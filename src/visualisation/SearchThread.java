@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 import visualisation.guielements.SearchResultMenu;
 import lucene.PublicationSearcher;
-import lucene.SearchResult;
 import data.AcademicsSearcher;
+import data.Publication;
+
 import org.apache.lucene.search.IndexSearcher;
 
 class SearchThread extends Thread{
@@ -25,7 +26,7 @@ class SearchThread extends Thread{
 		if(Application.live) searcher = new AcademicsSearcher();
 		//else searcher = new IndexSearcher();
 		try {
-			ArrayList<SearchResult> results = searcher.generalSearch(search, 10);
+			ArrayList<Publication> results = searcher.generalSearch(search, 10);
 			if(results.size() > 0){
 				gui.menuEnabled = true;
 				gui.menu2 = new SearchResultMenu(results, gui);

@@ -3,7 +3,6 @@ package data;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import lucene.SearchResult;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -13,7 +12,7 @@ import com.google.gson.JsonParser;
 
 public class JSONParser {
 	
-	public static SearchResult extractSearchResult(JsonObject publication){
+	public static Publication extractSearchResult(JsonObject publication){
 		Gson gson = new Gson();
 	    String title = gson.fromJson(publication.get("Title"), String.class);
 	    String abstr = gson.fromJson(publication.get("Abstract"), String.class);
@@ -22,7 +21,9 @@ public class JSONParser {
 	    JsonArray authorObject = publication.getAsJsonArray("Author");
 	    int id = gson.fromJson(publication.get("ID"), Integer.class);
 	    ArrayList<String> authors = extractAuthors(authorObject);
-	    return new SearchResult(title, abstr, cited, year, authors, null,id);
+	    //TODO
+	    return null;
+	    //return new Publication(title, abstr, cited, year, authors, null,id);
 	}
 
 	public static Publication extractPublication(JsonObject publication) {

@@ -19,10 +19,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.xml.parsers.ParserConfigurationException;
+
 
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.xml.sax.SAXException;
@@ -118,7 +120,9 @@ public class GUI extends PApplet{
 
 		// Create a graph instance to display
 		int id = Application.live ? 777102 : 4;
-		GraphFactory.getInstance().fromDatabaseID(id, 1, this);
+		Publication result = new Publication(id, "Test", 0, 0, "test", new ArrayList<String>(), "", "", "");
+
+		GraphFactory.getInstance().fromSearchResult(result, 1, this);
 		
 		// Initializes the GUI
 		try {
@@ -189,8 +193,8 @@ public class GUI extends PApplet{
 	 */
 	public void mousePressed(){
 		if(menuEnabled && menu2 != null){
-			int id = menu2.mousePressed(mouseX, mouseY);
-			this.processMenuPressed(id);
+			Publication result = menu2.mousePressed(mouseX, mouseY);
+			this.processMenuPressed(result);
 		}
 		if (mouseEvent.getClickCount()==2){
 			if(graph != null)
@@ -210,13 +214,9 @@ public class GUI extends PApplet{
 	}
 
 	@SuppressWarnings("deprecation")
-	private void processMenuPressed(int id){
-		if(id == -1){
-			inputField.setLabel("Search");
-
-		}
-		else{
-			GraphFactory.getInstance().fromDatabaseID(id, 1, this);
+	private void processMenuPressed(Publication result){
+		if(result != null){
+			GraphFactory.getInstance().fromSearchResult(result, 1, this);
 			/*if(newGraph.getNodes().size() > 0){
 					graph = newGraph;
 					this.graph.setGraphLayout(new RegularForceBasedLayout(graph));
