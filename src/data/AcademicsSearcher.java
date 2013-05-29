@@ -36,7 +36,6 @@ public class AcademicsSearcher extends PublicationSearcher {
 			Iterator<JsonElement> iterator = resultArray.iterator();
 			while (iterator.hasNext()) {
 				JsonElement next = iterator.next();
-				System.out.println(next);
 				JsonObject publication = next.getAsJsonObject();
 				Publication result = JSONParser
 						.extractSearchResult(publication);

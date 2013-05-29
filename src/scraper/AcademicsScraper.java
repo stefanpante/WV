@@ -73,7 +73,10 @@ public class AcademicsScraper {
 		if(listing.indexOf("class=\"year\">")>-1){
 			yearString = StringOperations.extractTextBetween(listing, "class=\"year\">", "</span>");
 			if(yearString.length()>=4){
+				try{
 				year = Integer.parseInt(yearString.substring(yearString.length()-4, yearString.length()));
+				}catch(NumberFormatException ignored){
+				}
 			}
 		}else if(listing.indexOf("Year\">")>-1){
 			yearString = StringOperations.extractTextBetween(listing, "Year\">", "</span>");

@@ -57,10 +57,8 @@ public class PublicationManager {
 	}
 
 	public void expand(Publication publication, Graph graph, Node node) {
-		System.out.println("expanding");
 		if (getExpandedNodes().contains(node)) {
 			this.collapse(node);
-			System.out.println("This publication has already been expanded");
 		} else {
 			ArrayList<Connection> expandedConnections = expand(publication);
 			graph.positionNodes(node, expandedConnections);
@@ -93,7 +91,6 @@ public class PublicationManager {
 	}
 
 	public void collapse(Node node) {
-		System.out.println("collapse");
 		for (Connection connection : getConnectionsWith(node)) {
 			Node other = connection.getNode1().equals(node) ? connection.getNode2() : connection.getNode1();
 			
