@@ -288,7 +288,7 @@ public class Pane implements Drawable {
 				
 				if(bookmark.hit(mouseX, mouseY)){
 					pin.rollover();
-					if(pin.getActive()){
+					if(!pin.getActive()){
 						bookMark();
 					}
 					else{
@@ -304,12 +304,12 @@ public class Pane implements Drawable {
 	
 	private void bookMark(){
 		Publication pub = (Publication) this.getParentNode().getSubject();
-		LogWriter.writeLine("+ " + pub.getID());
+		LogWriter.writeLine("+ " + pub.getID() + "\n");
 	}
 	
 	private void unBookMark(){
 		Publication pub = (Publication) this.getParentNode().getSubject();
-		LogWriter.writeLine("- " + pub.getID());
+		LogWriter.writeLine("- " + pub.getID()+ "\n");
 		
 	}
 
