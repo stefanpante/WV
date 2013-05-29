@@ -120,13 +120,13 @@ public class Pane implements Drawable {
 				gui.text(field.getName(), position.x + X_OFFSET + 5, position.y - height/2 + offset, width - 10, 30);
 				offset += 20;
 				gui.fill(gui.color(0));
-				float lines = gui.textWidth(trimInput(field.getContent())) / ( width -25);
+				float lines = (float) Math.ceil(gui.textWidth(trimInput(field.getContent())) / ( this.width -25));
 				if(lines < 1){
 					lines = 1;
 				}
 				String text = "";
 				text += field.getContent();
-				gui.text(trimInput(text) , position.x + X_OFFSET + 5, position.y - height/2 + offset, width - 10, 30*lines);
+				gui.text(text , position.x + X_OFFSET + 5, position.y - height/2 + offset, this.width - 10, 30*lines);
 				offset += 15*lines;
 			}
 		}
@@ -147,11 +147,14 @@ public class Pane implements Drawable {
 		bookmark.draw();
 		offset = 20;
 		if(expanded){
+			float lines = gui.textWidth(trimInput(fields.get(Publication.ABSTRACT).getContent())) / ( width -25);
 			gui.fill(gui.color(0,146,211));
-			gui.text(fields.get(Publication.ABSTRACT).getName(), this.width + 10, position.y - height/2 + offset);
+			gui.textAlign(gui.LEFT);
+			gui.text(fields.get(Publication.ABSTRACT).getName(), position.x + this.width + 10, position.y - height/2 + offset);
 			offset +=20;
 			gui.fill(gui.color(0));
-			gui.text(fields.get(Publication.ABSTRACT).getContent(), this.width + 10, position.y - height/2 + offset);
+			gui.textAlign(gui.LEFT);
+			gui.text(fields.get(Publication.ABSTRACT).getContent() + "...", position.x + this.width + 10, position.y - height/2 + offset, this.width, 30 * lines);
 		}
 
 	}
@@ -188,11 +191,11 @@ public class Pane implements Drawable {
 	}
 
 	public String trimInput(String input){
-		if(input.length() <= 200){
+		if(input.length() <= 600){
 			return input;
 		}
 
-		String output = input.substring(0, 197);
+		String output = input.substring(0, 597);
 		output += "...";
 
 		return output;
@@ -240,9 +243,9 @@ public class Pane implements Drawable {
 		return false;
 	}
 
-	public void mousePressed(int mouseX, int mouseY){
+	public boolean mousePressed(int mouseX, int mouseY){
 		if(!focus){
-			return;
+			return false;
 		}
 
 		PVector position = gui.getTransform().transform(this.position);
@@ -251,24 +254,36 @@ public class Pane implements Drawable {
 			if(mouseY >= (position.y -height/2) && mouseY <= (position.y + height/2)){
 				if(showPublication.hit(mouseX, mouseY)){
 					showPublication.action(mouseX, mouseY);
+					return true;
 				}
 				if(expand.hit(mouseX, mouseY)){
-					System.out.println("Node expanded");
 					this.gui.getGraph().expand(this.getParentNode());
 					this.expand.toggleActive();
+					return true;
 				}
 				if(showAbstract.hit(mouseX, mouseY)){
-					System.out.println("Abstract showed");
 					showAbstract.rollover();
+					if(!showAbstract.getActive())
+						this.expanded =true;
+					else this.expanded = false;
 					showAbstract.toggleActive();
-					this.expanded =true;
+					
+					return true;
 				}
 
 				if(pin.hit(mouseX, mouseY)){
 					pin.rollover();
 					pin.toggleActive();
-					getParentNode().setMovable(true);
-					getParentNode().resetColor();
+					if(!pin.getActive()){
+						getParentNode().setMovable(true);
+						getParentNode().resetColor();
+					}
+					else {
+						getParentNode().setMovable(false);
+						getParentNode().dragColor();
+					}
+					
+					return true;
 				}
 				
 				if(bookmark.hit(mouseX, mouseY)){
@@ -280,9 +295,11 @@ public class Pane implements Drawable {
 						unBookMark();
 					}
 					bookmark.toggleActive();
+					return true;
 				}
 			}
 		}
+		return false;
 	}
 	
 	private void bookMark(){
@@ -310,7 +327,7 @@ public class Pane implements Drawable {
 	public void setPosition(double d, double e){
 		float x = (float) d;
 		float y = (float) e;
-		if(Math.abs(this.position.x - x) > 40f || Math.abs(this.position.y - y) > 40f){
+		if(Math.abs(this.position.x - x) > 10f || Math.abs(this.position.y - y) > 10f){
 			this.position.x = x;
 			this.position.y = y;
 		}

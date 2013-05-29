@@ -235,6 +235,7 @@ public class Node implements GUIElement{
 	
 	public void mouseReleased(){
 		this.locked = false;
+		this.justDragged = false;
 	}
 	
 	boolean justDragged = false;
@@ -245,9 +246,9 @@ public class Node implements GUIElement{
 			PVector transformed = gui.getTransform().inverseTransform(new PVector(mouseX, mouseY));
 			this.setPosition(transformed.x, transformed.y);
 			this.justDragged = true;
-			this.setColor(gui.color(19,158,0, 255));
 			this.color2 = gui.color(19,158,0, 255);
 			this.pane.setPosition(new PVector(transformed.x, transformed.y));
+			this.pane.getPin().setActive(true);
 			return true;
 		}
 		
@@ -341,7 +342,13 @@ public class Node implements GUIElement{
 	}
 	
 	public void resetColor(){
+		this.color = 0;
 		this.color2 = gui.color(0,146,211);
+	}
+	
+	public void dragColor(){
+		this.color = 0;
+		this.color2 = gui.color(19,158,0, 255);
 	}
 
 

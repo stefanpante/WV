@@ -88,13 +88,6 @@ public class AcademicsScraper {
 			String journalInter = StringOperations.extractTextBetween(listing, "Journal: </span>", "a>");
 			journal =  StringOperations.extractTextBetween(journalInter, "\">", "</");
 		}
-		System.out.println(title);
-		System.out.println(year);
-		System.out.println(citations);
-		System.out.println(abstr);
-		System.out.println(authors);
-		System.out.println(conference);
-		System.out.println(journal);
 		int id = Integer.parseInt(StringOperations.extractTextBetween(listing, "href=\"Publication/", "/"));
 		String pdf = "http://academic.research.microsoft.com/Publication/"+id;
 

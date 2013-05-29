@@ -16,7 +16,6 @@ public class AcademicsSearcher extends PublicationSearcher{
 	
 	public static void main(String[] args) throws Exception{
 		AcademicsSearcher searcher = new AcademicsSearcher();
-		System.out.println(searcher.generalSearch("kobe", 10));
 	}
 
 	@Override
@@ -30,7 +29,6 @@ public class AcademicsSearcher extends PublicationSearcher{
 		ArrayList<SearchResult> searchResults = new ArrayList<SearchResult>();
 		while(iterator.hasNext()){
 			JsonElement next = iterator.next();
-			System.out.println(next);
 			JsonObject publication = next.getAsJsonObject();
 			SearchResult result = JSONParser.extractSearchResult(publication);
 			searchResults.add(result);

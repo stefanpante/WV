@@ -213,6 +213,10 @@ public class Graph implements Drawable {
 	}
 
 	public boolean mousePressed(int mouseX, int mouseY) {
+		if(activePane != null){
+			if(activePane.mousePressed(mouseX, mouseY))
+				return true;
+		}
 		for (Node node : getNodes().values()) {
 			if (node.mousePressed(mouseX, mouseY)) {
 				return true;
