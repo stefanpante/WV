@@ -11,6 +11,7 @@ import controlP5.CColor;
 import controlP5.ControlP5;
 import controlP5.Slider;
 import controlP5.Textfield;
+import data.AcademicsSearcher;
 import data.HTTP;
 import data.Publication;
 import data.PublicationManager;
@@ -26,6 +27,7 @@ import org.xml.sax.SAXException;
 
 import processing.core.*;
 import processing.data.XML;
+import scraper.AcademicsScraper;
 import visualisation.graph.Graph;
 import visualisation.graph.GraphFactory;
 import visualisation.graph.GraphLayout;
@@ -114,9 +116,10 @@ public class GUI extends PApplet{
 
 		// Create a graph instance to display
 		int id = Application.live ? 777102 : 4;
-		Publication result = new Publication(id, "Test", 0, 0, "test", new ArrayList<String>(), "", "", "");
+		AcademicsScraper scraper = new AcademicsScraper();
+		Publication pub = scraper.scrapeByQuery("The ARIADNE knowledge pool system").get(0);
 
-		GraphFactory.getInstance().fromSearchResult(result, 1, this);
+		GraphFactory.getInstance().fromSearchResult(pub, 1, this);
 		
 		// Initializes the GUI
 		try {
