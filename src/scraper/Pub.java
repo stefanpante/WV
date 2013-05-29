@@ -1,6 +1,7 @@
 package scraper;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import data.Author;
 
@@ -105,7 +106,7 @@ public class Pub implements Subject{
 		return h;
 	}
 	
-	public ArrayList<Field> createFields(){
+	public HashMap<String, Field> createFields(){
 		ArrayList<Field> fields = new ArrayList<Field>();
 		
 		Field titl = new Field("Title", title);
@@ -118,7 +119,7 @@ public class Pub implements Subject{
 		fields.add(pd);
 		
 		
-		return fields;
+		return null;
 		
 	}
 	/**

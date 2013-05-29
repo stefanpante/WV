@@ -6,6 +6,7 @@ import javax.jnlp.*;
 public class Application {
 	
 	public static boolean live = true;
+	public static boolean api = false;
 	static BasicService basicService = null;
 
 

@@ -25,7 +25,12 @@ public class HTTP {
 			InputStream i = _url.openStream();
 			BufferedReader r = new BufferedReader(
 	                new InputStreamReader(i, "UTF-8"));
-			final String totalText = r.readLine();
+			String totalText = "";
+			String line = null;  
+			while ((line = r.readLine()) != null)  
+			{  
+			   totalText += line;
+			} 
 			return totalText;
 		} catch (IOException e) {
 			gui.showWarning("Could not connect to Microsoft Academics Server. The server is experiencing downtime.");

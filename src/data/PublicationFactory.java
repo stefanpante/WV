@@ -4,7 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import scraper.AcademicsScraper;
 import scraper.Scraper;
+import visualisation.Application;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -19,6 +21,7 @@ public class PublicationFactory {
 	}
 
 	public static Publication fromAcademicsID(int id) {
+		if (Application.api) {
 		String json = HTTP
 				.loadURL("http://academic.research.microsoft.com/json.svc/search?AppId=406aea44-49a6-4753-ad34-3c4863221e5c&PublicationID="
 						+ id
@@ -26,6 +29,10 @@ public class PublicationFactory {
 		JsonArray resultArray = JSONParser.extractPublicationArray(json);
 		JsonObject publication = resultArray.get(0).getAsJsonObject();
 		return JSONParser.extractPublication(publication);
+		}else{
+			AcademicsScraper scraper = new AcademicsScraper();
+			return scraper.scrapeById(id);
+		}
 	}
 
 	public static Publication fromDatabaseID(int id){

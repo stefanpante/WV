@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="lib/controlP5.jar"/>
 	<classpathentry kind="lib" path="lib/core.jar"/>
 	<classpathentry kind="lib" path="lib/jsoup-1.7.2.jar"/>
@@ -19,14 +19,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/Wetenschappelijke Vorming/lib/gson/gson-2.2.3-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Program Files/Java/jre7/lib/javaws.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Stefan/Desktop/Processing/processing-2.0b8/java/lib/deploy.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Stefan/Desktop/Processing/processing-2.0b8/java/lib/javaws.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Stefan/Desktop/Processing/processing-2.0b8/java/lib/jce.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Stefan/Desktop/Processing/processing-2.0b8/java/lib/jsse.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Stefan/Desktop/Processing/processing-2.0b8/java/lib/management-agent.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Stefan/Desktop/Processing/processing-2.0b8/java/lib/plugin.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Stefan/Desktop/Processing/processing-2.0b8/java/lib/resources.jar"/>
 	<classpathentry kind="lib" path="lib/javaws.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -106,7 +106,7 @@ public class Publication implements Subject {
 			result += author +", ";
 		}
 		
-		return result.substring(0, result.length() - 3);
+		return result.substring(0, result.length());
 	}
 	
 	public HashMap<String, Field> createFields() {
