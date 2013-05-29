@@ -3,6 +3,8 @@ package scraper;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import org.jsoup.Jsoup;
+
 import data.HTTP;
 import data.Publication;
 
@@ -98,7 +100,7 @@ public class AcademicsScraper {
 		string = string.replaceAll("</b>", "");
 		string = string.replaceAll("<b>", "");
 		string = string.replaceAll("<", "");
-		string = HtmlManipulator.replaceHtmlEntities(string);
+		string = Jsoup.parse(string).text();
 		return string;
 	}
 
