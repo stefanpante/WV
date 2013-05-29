@@ -10,7 +10,7 @@ import java.nio.charset.Charset;
 
 public class LogWriter {
 	
-	public static final String FILE = "data/dblog.txt";
+	public static final String FILE = "data/selectedPapers.txt";
 ;
 	private static OutputStreamWriter fw = null;
 	

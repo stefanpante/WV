@@ -4,7 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import scraper.Scraper;
+import visualisation.Application;
+
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -17,10 +18,10 @@ public class PublicationFactory {
 		Publication pub = fromAcademicsID(777102);
 		System.out.println(pub.createFields().get(0).getContent());
 	}
-
+	
 	public static Publication fromAcademicsID(int id) {
 		String json = HTTP
-				.loadURL("http://academic.research.microsoft.com/json.svc/search?AppId=406aea44-49a6-4753-ad34-3c4863221e5c&PublicationID="
+				.loadURL("http://academic.research.microsoft.com/json.svc/search?AppId=" +Application.APP_ID+"&PublicationID="
 						+ id
 						+ "&ResultObjects=Publication&PublicationContent=AllInfo&StartIdx=1&EndIdx=1");
 		JsonArray resultArray = JSONParser.extractPublicationArray(json);

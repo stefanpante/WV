@@ -4,7 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 
-import scraper.Scraper;
+import visualisation.Application;
+
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -19,7 +20,7 @@ public class CitationFactory {
 	}
 	
 	public static HashSet<Publication> forwardCitationsFromAcademics(int id){
-		String json = HTTP.loadURL("http://academic.research.microsoft.com/json.svc/search?AppId=406aea44-49a6-4753-ad34-3c4863221e5c&PublicationID="+id+"&ResultObjects=Publication&ReferenceType=Citation&StartIdx=1&EndIdx=100");
+		String json = HTTP.loadURL("http://academic.research.microsoft.com/json.svc/search?AppId="+ Application.APP_ID+"&PublicationID="+id+"&ResultObjects=Publication&ReferenceType=Citation&StartIdx=1&EndIdx=100");
 		HashSet<Publication> result = JSONParser.extractPublications(json);
 		return result;
 	}
@@ -27,7 +28,7 @@ public class CitationFactory {
 
 	
 	public static HashSet<Publication> backwardCitationsFromAcademics(int id){
-		String json = HTTP.loadURL("http://academic.research.microsoft.com/json.svc/search?AppId=406aea44-49a6-4753-ad34-3c4863221e5c&PublicationID="+id+"&ResultObjects=Publication&ReferenceType=Reference&StartIdx=1&EndIdx=100");
+		String json = HTTP.loadURL("http://academic.research.microsoft.com/json.svc/search?AppId="+ Application.APP_ID+"&PublicationID="+id+"&ResultObjects=Publication&ReferenceType=Reference&StartIdx=1&EndIdx=100");
 		HashSet<Publication> result = JSONParser.extractPublications(json);
 		return result;
 	}

@@ -30,6 +30,8 @@ public class Graph implements Drawable {
 	 * considered the root of the graph.
 	 */
 	private Node parentNode;
+	
+	private ArrayList<Node> selectedNodes; 
 
 	/**
 	 * The graphlayout of this graph. Determines how the graph is structured
@@ -174,7 +176,7 @@ public class Graph implements Drawable {
 	public void expand(int mouseX, int mouseY) {
 		for (Node node : getNodes().values()) {
 			if (node.hit(mouseX, mouseY)) {
-
+				
 				ExecutorService executor = Executors.newCachedThreadPool();
 				executor.execute(new NodeExpandThread(manager, node, this));
 				break;

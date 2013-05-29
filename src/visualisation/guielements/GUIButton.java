@@ -106,6 +106,10 @@ public class GUIButton implements GUIElement{
 		this.width = width;
 		
 	}
+	
+	public boolean getActive(){
+		return this.activated;
+	}
 
 
 
