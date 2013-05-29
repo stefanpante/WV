@@ -76,7 +76,6 @@ public class GUIButton implements GUIElement{
 				return true;
 			}
 		}
-		
 		return false;
 	}
 

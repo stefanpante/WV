@@ -63,6 +63,7 @@ public class Pane implements Drawable {
 		this.expand = new GUIButton("Expand", "Collapse",  applet);
 		this.showAbstract = new GUIButton("Show Abstract","Hide Abstract",  applet);
 		this.pin = new GUIButton("Pin", "Unpin", applet);
+		this.bookmark = new GUIButton("Bookmark paper", "Unbookmark paper", applet);
 	}
 
 	/**
@@ -71,7 +72,6 @@ public class Pane implements Drawable {
 	public void toggleFocus(){
 		if(focus) {
 			focus = false;
-			expanded = false;
 		}
 		else focus = true;
 	}
@@ -208,9 +208,6 @@ public class Pane implements Drawable {
 
 	public void setFocus(boolean focus){
 		this.focus = focus;
-		if(!focus){
-			this.expanded = false;
-		}
 	}
 
 	public boolean hit(int mouseX, int mouseY) {
@@ -256,10 +253,12 @@ public class Pane implements Drawable {
 					showPublication.action(mouseX, mouseY);
 				}
 				if(expand.hit(mouseX, mouseY)){
+					System.out.println("Node expanded");
 					this.gui.getGraph().expand(this.getParentNode());
 					this.expand.toggleActive();
 				}
 				if(showAbstract.hit(mouseX, mouseY)){
+					System.out.println("Abstract showed");
 					showAbstract.rollover();
 					showAbstract.toggleActive();
 					this.expanded =true;
