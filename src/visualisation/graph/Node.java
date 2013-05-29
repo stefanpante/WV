@@ -247,6 +247,7 @@ public class Node implements GUIElement{
 			this.justDragged = true;
 			this.setColor(gui.color(19,158,0, 255));
 			this.color2 = gui.color(19,158,0, 255);
+			this.pane.setPosition(new PVector(transformed.x, transformed.y));
 			return true;
 		}
 		

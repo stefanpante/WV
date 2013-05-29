@@ -35,7 +35,7 @@ public class Pane implements Drawable {
 	 */
 	public Pane(Node parentNode){
 		this.parentNode = parentNode;
-		this.position = parentNode.getPosition();
+		this.position = new PVector(parentNode.getPosition().x, parentNode.getPosition().y);
 		this.expanded = false;
 	}
 
@@ -315,6 +315,10 @@ public class Pane implements Drawable {
 			this.position.y = y;
 		}
 
+	}
+	
+	public void setPosition(PVector pos){
+		this.position = pos;
 	}
 
 	public URLButton getShowPublicationsButton(){
