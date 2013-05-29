@@ -3,10 +3,10 @@ package visualisation;
 import java.util.ArrayList;
 
 import visualisation.guielements.SearchResultMenu;
-import lucene.IndexSearcher;
 import lucene.PublicationSearcher;
 import lucene.SearchResult;
 import data.AcademicsSearcher;
+import org.apache.lucene.search.IndexSearcher;
 
 class SearchThread extends Thread{
 	
@@ -21,9 +21,9 @@ class SearchThread extends Thread{
 	@Override
 	public void run() {
 		gui.startSearchAnimation();
-		PublicationSearcher searcher;
+		PublicationSearcher searcher = null;
 		if(Application.live) searcher = new AcademicsSearcher();
-		else searcher = new IndexSearcher();
+		//else searcher = new IndexSearcher();
 		try {
 			ArrayList<SearchResult> results = searcher.generalSearch(search, 10);
 			if(results.size() > 0){

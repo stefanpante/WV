@@ -8,6 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
+import visualisation.Application;
 import visualisation.GUI;
 
 public class HTTP {
@@ -15,7 +16,7 @@ public class HTTP {
 	public static GUI gui;
 	
 	public static void main(String[] args) throws IOException{
-		System.out.println(loadURL("http://academic.research.microsoft.com/json.svc/search?AppId=406aea44-49a6-4753-ad34-3c4863221e5c&PublicationID=777102&ResultObjects=Publication&ReferenceType=Reference&StartIdx=1&EndIdx=100"));
+		System.out.println(loadURL("http://academic.research.microsoft.com/json.svc/search?AppId=" +Application.APP_ID+"&PublicationID=777102&ResultObjects=Publication&ReferenceType=Reference&StartIdx=1&EndIdx=100"));
 	}
 
 	public static String loadURL(String url){
@@ -34,7 +35,7 @@ public class HTTP {
 			return totalText;
 		} catch (IOException e) {
 			gui.showWarning("Could not connect to Microsoft Academics Server. The server is experiencing downtime.");
-			throw new ServerConnectionException("Could not connect to Microsoft Academics Server. The server is experiencing downtime.");
+			throw new ServerConnectionException("C"+ Application.APP_ID+"" +Application.APP_ID+"" +Application.APP_ID+"ould not connect to Microsoft Academics Server. The server is experiencing downtime.");
 		}
 	}
 

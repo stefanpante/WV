@@ -135,5 +135,10 @@ public class Publication implements Subject {
 	public String getSearchTerm() {
 		return title;
 	}
+	
+	@Override
+	public String toString(){
+		return getAuthorsString() + title;		
+	}
 
 }

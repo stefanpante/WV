@@ -2,6 +2,9 @@ package visualisation;
 
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.sql.SQLException;
 import controlP5.Bang;
 import controlP5.CColor;
@@ -11,9 +14,22 @@ import controlP5.Textfield;
 import data.HTTP;
 import data.Publication;
 import data.PublicationManager;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.XMLReaderFactory;
 
 import processing.core.*;
-import res.Anchor;
+import processing.data.XML;
 import visualisation.graph.Graph;
 import visualisation.graph.GraphFactory;
 import visualisation.graph.GraphLayout;
@@ -50,11 +66,12 @@ public class GUI extends PApplet{
 	 * Used for panning and zooming.
 	 */
 	public Transform transform;
-	
+
 	private PShape loadingAnimation;
 	private PShape loadingAnimation2;
-	
+
 	public boolean startDrawing;
+	private ClassLoader classLoader;
 
 
 	/**
@@ -76,34 +93,71 @@ public class GUI extends PApplet{
 
 		// Sets the frameRate for the animation
 		frameRate(60);
-
-		String url1 = Anchor.class.getResource("loading.svg").getPath();
-		String url2 = Anchor.class.getResource("loading2.svg").getPath();
-		loadingAnimation = this.loadShape(url1);
-		loadingAnimation2 = this.loadShape(url2);
+		try {
+			XML xml = readXMLOnline("loading.svg");
+			loadingAnimation = new PShapeSVG(xml);
+			XML xml2 = readXMLOnline("loading2.svg");
+			loadingAnimation2 = new PShapeSVG(xml2);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		isLoading = false;
-		
+
 		// Create a graph instance to display
 		int id = Application.live ? 777102 : 4;
-			GraphFactory.getInstance().fromDatabaseID(id, 1, this);
+		GraphFactory.getInstance().fromDatabaseID(id, 1, this);
 		
 		// Initializes the GUI
-		setupGUI();
+		try {
+			setupGUI();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		background(color(255));
 
 	}
 	
+	private String webbase = "http://heart-worx.be/wv/";
+	private XML readXMLOnline(String imageName) throws URISyntaxException, IOException, ParserConfigurationException, SAXException{
+		URL url = new URL(webbase + imageName);
+		
+		return new XML(createReader(url.openStream()));
+	}
+
 	private ShapeButton play;
 	private ShapeButton search;
 	private ShapeButton exit;
-	
+
 	public void checkButtons(){
 		if(play.hit(mouseX, mouseY)){
 			if(pause) pause = false;
 			else pause = true;
 			play.toggle();
 		}
-		
+
 		if(search.hit(mouseX, mouseY)){
 			System.out.println("Clicked search");
 			String search = inputField.getText();
@@ -113,17 +167,17 @@ public class GUI extends PApplet{
 				e.printStackTrace();
 			}
 		}
-		
+
 		if(exit.hit(mouseX, mouseY)){
 			this.exit();
 		}
 	}
-	
+
 	public void drawButtons(){
 		this.play.draw();
 		this.search.draw();
 		this.exit.draw();
-		
+
 	}
 
 
@@ -162,8 +216,8 @@ public class GUI extends PApplet{
 
 		}
 		else{
-				GraphFactory.getInstance().fromDatabaseID(id, 1, this);
-				/*if(newGraph.getNodes().size() > 0){
+			GraphFactory.getInstance().fromDatabaseID(id, 1, this);
+			/*if(newGraph.getNodes().size() > 0){
 					graph = newGraph;
 					this.graph.setGraphLayout(new RegularForceBasedLayout(graph));
 					this.resetTransform();
@@ -174,7 +228,7 @@ public class GUI extends PApplet{
 		}
 		menuEnabled = false;
 	}
-	
+
 	public void setGraph(Graph graph){
 		this.graph = graph;
 	}
@@ -212,8 +266,12 @@ public class GUI extends PApplet{
 
 	/**
 	 * Setups the gui for this application
+	 * @throws SAXException 
+	 * @throws ParserConfigurationException 
+	 * @throws IOException 
+	 * @throws URISyntaxException 
 	 */
-	private void setupGUI(){
+	private void setupGUI() throws URISyntaxException, IOException, ParserConfigurationException, SAXException{
 		PFont standardFont = new PFont(this.getFont(), true);
 
 		addMouseWheelListener(new MouseWheelListener() { 
@@ -224,18 +282,23 @@ public class GUI extends PApplet{
 		inputController.setFont(standardFont);
 		int width = displayWidth/2;
 		inputField = inputController.addTextfield("search",  displayWidth/2 - width/2, 15, width, 30 );
-		CColor color = new CColor(color(0, 146, 211), color(255),color(0, 60, 255),color(0, 146, 211),color(0, 146, 211) );
-
+		CColor color = new CColor(color(0, 146, 211), color(255),color(0, 60, 255),color(0, 146, 211),color(0));
 		inputField.setColor(color);
 		inputField.setColorCursor(color(0));
 		inputField.registerTooltip("Type here to search for a paper");
+		inputField.setLabel("");
 
 
-		PShape play = this.loadShape(getClass().getResource("/res/play.svg").getPath());
-		PShape pause = this.loadShape(getClass().getResource("/res/pause.svg").getPath());
-		PShape search = this.loadShape(getClass().getResource("/res/search.svg").getPath());
-		PShape exit = this.loadShape(getClass().getResource("/res/exit.svg").getPath());
+		XML xml = readXMLOnline("play.svg");
+		XML xml2 = readXMLOnline("pause.svg");
+		XML xml3 = readXMLOnline("search.svg");
+		XML xml4 = readXMLOnline("exit.svg");
 		
+		PShape play = new PShapeSVG(xml);
+		PShape pause = new PShapeSVG(xml2);
+		PShape search = new PShapeSVG(xml3);
+		PShape exit = new PShapeSVG(xml4);
+
 		this.play = new ShapeButton(pause, play, new PVector(displayWidth/4 - 40, 15), this);
 		this.search = new ShapeButton(search,search, new PVector(3*displayWidth/4 + 15,  15), this);
 		this.exit = new ShapeButton(exit, exit, new PVector(displayWidth - 60, 15), this);
@@ -251,10 +314,11 @@ public class GUI extends PApplet{
 		slider.setRange(5f, 200f);
 		slider.registerTooltip("Use this slider to zoom in or out");
 		slider.getValueLabel().setColor(this.color(255));
+		slider.setLabel("");
 
 
 	}
-	
+
 	public Graph getGraph(){
 		return this.graph;
 	}
@@ -264,18 +328,18 @@ public class GUI extends PApplet{
 	boolean menuEnabled = false;
 	SearchResultMenu menu2;
 	SearchThread trd;
-	
+
 	public void search(String search) throws Exception{
 		trd = new SearchThread(search, this);
 		trd.start();
 	}
-	
+
 	private boolean isLoading = false;
-	
+
 	public void startSearchAnimation(){
 		isLoading = true;
 	}
-	
+
 	public void stopSearchAnimation(){
 		isLoading = false;
 	}
@@ -298,10 +362,10 @@ public class GUI extends PApplet{
 				if(!pause){
 					if(graph != null){
 						graph.layout();
-						
+
 					}
 				}
-	
+
 				if(menuEnabled && menu2 != null){
 					menu2.draw();
 					inputField.setLabel("");
@@ -358,13 +422,13 @@ public class GUI extends PApplet{
 	private String warning;
 	private int currentFrameWarning = 180;
 	private int endFrameWarning = 180;
-	
-	
+
+
 	public void showWarning(String message){
 		this.warning = message;
 		this.currentFrameWarning = 0;
 	}
-	
+
 	public void displayWarning(){
 		if(currentFrameWarning < endFrameWarning){
 			textAlign(CENTER, CENTER);
@@ -378,7 +442,7 @@ public class GUI extends PApplet{
 			textSize(15);
 			fill(color(0, 146, 211));
 			noStroke();
-			
+
 			text(warning, displayWidth/2 - 200, displayHeight/2 - 40, 400, 80);
 			currentFrameWarning++;
 		}
@@ -387,7 +451,7 @@ public class GUI extends PApplet{
 	public void startDrawing() {
 		this.startDrawing =true;
 	}
-	
+
 	public void stopDrawing(){
 		this.startDrawing = false;
 	}
@@ -396,11 +460,11 @@ public class GUI extends PApplet{
 	public void stopInitialAnimation() {
 		initialLoading = false;
 	}
-	
+
 	public void startInitialAnimation(){
 		initialLoading = true;
 	}
-	
+
 	public void showInitialLoadingAnimation(){
 		if(initialLoading){
 			fill(255);

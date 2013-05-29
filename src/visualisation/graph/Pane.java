@@ -2,6 +2,7 @@ package visualisation.graph;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import data.LogWriter;
 import data.Publication;
 import processing.core.PVector;
 import visualisation.GUI;
@@ -26,6 +27,7 @@ public class Pane implements Drawable {
 	private GUIButton expand;
 	private GUIButton showAbstract;
 	private GUIButton pin;
+	private GUIButton bookmark;
 
 	/**
 	 * Constructs a new Pane with a given parentNode
@@ -51,6 +53,7 @@ public class Pane implements Drawable {
 		this.expand = new GUIButton("Expand", "Collapse", applet);
 		this.showAbstract = new GUIButton("Show Abstract","Hide Abstract", applet);
 		this.pin = new GUIButton("Pin", "Unpin", applet);
+		this.bookmark = new GUIButton("Bookmark paper", "Unbookmark paper", applet);
 	}
 
 	public void setGUI(GUI applet){
@@ -82,9 +85,8 @@ public class Pane implements Drawable {
 		gui.stroke(0, 50);
 
 		int width = this.width;
-		expanded = false;
 		if(expanded) width *= 2;
-				
+
 		gui.fill(gui.color(0,146,211));
 		gui.rect(position.x+ X_OFFSET, position.y - height/2 -40, width, 40, CORNER_RADIUS, CORNER_RADIUS, 0, 0);
 		gui.textSize(20);
@@ -100,16 +102,16 @@ public class Pane implements Drawable {
 		HashMap<String, Field> fields = parentNode.getSubject().createFields();
 		float offset = 0;
 		// manual drawing, ugly code
-		
+
 		gui.textSize(12);
-			
+
 		ArrayList<Field> items = new ArrayList<Field>();
 		items.add(fields.get(Publication.TITLE));
 		items.add(fields.get(Publication.AUTHORS));
 		//items.add(fields.get(Publication.CONFERENCE));
 		items.add(fields.get(Publication.CITED));
 		items.add(fields.get(Publication.YEAR));
-		
+
 		for(Field field: items){
 			offset += 20;
 			gui.textSize(12);
@@ -128,7 +130,7 @@ public class Pane implements Drawable {
 				offset += 15*lines;
 			}
 		}
-		
+
 		showPublication.setWidth(122);
 		showPublication.setPosition(position.x + X_OFFSET*2 +2, position.y - height/2 + offset + 20);
 		pin.setWidth(122);
@@ -141,7 +143,8 @@ public class Pane implements Drawable {
 		showAbstract.setWidth(122);
 		showAbstract.setPosition(position.x + X_OFFSET*2 +130, position.y - height/2 + offset + 55);
 		showAbstract.draw();
-		
+		bookmark.setPosition(position.x + X_OFFSET*2 +2, position.y - height/2 + offset + 95);
+		bookmark.draw();
 		offset = 20;
 		if(expanded){
 			gui.fill(gui.color(0,146,211));
@@ -155,14 +158,14 @@ public class Pane implements Drawable {
 
 	public void calculateHeight(){
 		HashMap<String, Field> fields = parentNode.getSubject().createFields();
-		
+
 		ArrayList<Field> items = new ArrayList<Field>();
 		items.add(fields.get(Publication.TITLE));
 		items.add(fields.get(Publication.AUTHORS));
 		//items.add(fields.get(Publication.CONFERENCE));
 		items.add(fields.get(Publication.CITED));
 		items.add(fields.get(Publication.YEAR));
-		
+
 		height = 0;
 		for(Field field: items){
 			height += 20;
@@ -181,7 +184,7 @@ public class Pane implements Drawable {
 		}
 
 		// 40 + 50 pixels for the button
-		height +=82;
+		height +=150;
 	}
 
 	public String trimInput(String input){
@@ -227,6 +230,12 @@ public class Pane implements Drawable {
 				if(showAbstract.hit(mouseX, mouseY)){
 					showAbstract.rollover();
 				}
+				if(pin.hit(mouseX, mouseY)){
+					pin.rollover();
+				}
+				if(bookmark.hit(mouseX, mouseY)){
+					bookmark.rollover();
+				}
 				return true;
 			}
 		}
@@ -255,40 +264,72 @@ public class Pane implements Drawable {
 					showAbstract.toggleActive();
 					this.expanded =true;
 				}
-				
+
 				if(pin.hit(mouseX, mouseY)){
 					pin.rollover();
 					pin.toggleActive();
 					getParentNode().setMovable(true);
 					getParentNode().resetColor();
 				}
+				
+				if(bookmark.hit(mouseX, mouseY)){
+					pin.rollover();
+					if(pin.getActive()){
+						bookMark();
+					}
+					else{
+						unBookMark();
+					}
+					bookmark.toggleActive();
+				}
 			}
 		}
 	}
-
-
-public Node getParentNode(){
-	return parentNode;
-}
-
-private String buildSearchString(){
-	Publication pub = (Publication) parentNode.getSubject();
-	String searchString = pub.getPdf();		
-	return searchString;
-}
-
-public void setPosition(double d, double e){
-	float x = (float) d;
-	float y = (float) e;
-	if(Math.abs(this.position.x - x) > 40f || Math.abs(this.position.y - y) > 40f){
-		this.position.x = x;
-		this.position.y = y;
+	
+	private void bookMark(){
+		Publication pub = (Publication) this.getParentNode().getSubject();
+		LogWriter.writeLine("+ " + pub.getID());
+	}
+	
+	private void unBookMark(){
+		Publication pub = (Publication) this.getParentNode().getSubject();
+		LogWriter.writeLine("- " + pub.getID());
+		
 	}
 
-}
 
-public URLButton getShowPublicationsButton(){
-	return this.showPublication;
-}
+	public Node getParentNode(){
+		return parentNode;
+	}
+
+	private String buildSearchString(){
+		Publication pub = (Publication) parentNode.getSubject();
+		String searchString = pub.getPdf();		
+		return searchString;
+	}
+
+	public void setPosition(double d, double e){
+		float x = (float) d;
+		float y = (float) e;
+		if(Math.abs(this.position.x - x) > 40f || Math.abs(this.position.y - y) > 40f){
+			this.position.x = x;
+			this.position.y = y;
+		}
+
+	}
+
+	public URLButton getShowPublicationsButton(){
+		return this.showPublication;
+	}
+
+	public GUIButton getPin(){
+		return this.pin;
+	}
+	
+	public GUIButton getExpandButton(){
+		return this.expand;
+	}
+	
+
 
 }

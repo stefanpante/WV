@@ -6,8 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.owasp.esapi.ESAPI;
-import org.owasp.esapi.codecs.MySQLCodec;
+
 
 import com.mysql.jdbc.Statement;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;

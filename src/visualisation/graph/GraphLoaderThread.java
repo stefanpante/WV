@@ -48,7 +48,7 @@ public class GraphLoaderThread implements Runnable{
 		applet.startDrawing();
 		} catch(Exception e){
 			applet.stopInitialAnimation();
-			applet.showWarning("Oops, something went wrong, cannot connect to the server!");
+			applet.showWarning("Oops, something went wrong,  \n It seems that the Microsoft servers are not responding!");
 			e.printStackTrace();
 		}
 		

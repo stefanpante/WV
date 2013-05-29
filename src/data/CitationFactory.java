@@ -5,8 +5,8 @@ import java.sql.SQLException;
 import java.util.HashSet;
 
 import scraper.AcademicsScraper;
-import scraper.Scraper;
 import visualisation.Application;
+
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -19,14 +19,10 @@ public class CitationFactory {
 			System.out.println(pub.createFields().get(0).getContent());
 		}
 	}
-
 	public static HashSet<Publication> forwardCitationsFromAcademics(int id) {
 		HashSet<Publication> result;
 		if (Application.api) {
-			String json = HTTP
-					.loadURL("http://academic.research.microsoft.com/json.svc/search?AppId=406aea44-49a6-4753-ad34-3c4863221e5c&PublicationID="
-							+ id
-							+ "&ResultObjects=Publication&ReferenceType=Citation&StartIdx=1&EndIdx=100");
+			String json = HTTP.loadURL("http://academic.research.microsoft.com/json.svc/search?AppId="+ Application.APP_ID+"&PublicationID="+id+"&ResultObjects=Publication&ReferenceType=Citation&StartIdx=1&EndIdx=100");
 			result = JSONParser.extractPublications(json);
 		} else {
 			AcademicsScraper scraper = new AcademicsScraper();
@@ -35,18 +31,17 @@ public class CitationFactory {
 		return result;
 	}
 
+
 	public static HashSet<Publication> backwardCitationsFromAcademics(int id) {
 		HashSet<Publication> result;
 		if (Application.api) {
-			String json = HTTP
-					.loadURL("http://academic.research.microsoft.com/json.svc/search?AppId=406aea44-49a6-4753-ad34-3c4863221e5c&PublicationID="
-							+ id
-							+ "&ResultObjects=Publication&ReferenceType=Reference&StartIdx=1&EndIdx=100");
+			String json = HTTP.loadURL("http://academic.research.microsoft.com/json.svc/search?AppId="+ Application.APP_ID+"&PublicationID="+id+"&ResultObjects=Publication&ReferenceType=Reference&StartIdx=1&EndIdx=100");
 			result = JSONParser.extractPublications(json);
 		} else {
 			AcademicsScraper scraper = new AcademicsScraper();
 			result = scraper.scrapeBackwardCitations(id);
 		}
+
 		return result;
 	}
 
