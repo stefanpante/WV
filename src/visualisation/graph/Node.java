@@ -184,6 +184,11 @@ public class Node implements GUIElement{
 		if(justDragged){
 			this.setMovable(false);
 		}
+		
+		if(movable){
+			resetColor();
+			pane.getPin().setActive(false);
+		}
 		gui.fill(color,85);
 		gui.noStroke();
 		
@@ -223,6 +228,14 @@ public class Node implements GUIElement{
 		pane.setFocus(false);
 		return false;
 		
+	}
+	
+	public boolean hit2(int mouseX, int mouseY){
+		if(this.getTransformedPosition().dist(new PVector(mouseX,mouseY)) <= diameter/2){
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public boolean mousePressed(int mouseX, int mouseY){

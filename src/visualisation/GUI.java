@@ -206,7 +206,6 @@ public class GUI extends PApplet{
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	private void processMenuPressed(Publication result){
 		if(result != null){
 			GraphFactory.getInstance().fromSearchResult(result, 1, this);

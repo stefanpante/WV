@@ -48,7 +48,7 @@ public class SearchResultGUI implements Drawable{
 		gui.stroke(gui.color(0, 146, 211) );
 		gui.rect(position.x, position.y, width, height);
 		
-		gui.fill(gui.color(0, 146, 211));
+		gui.fill(gui.color(0));
 		gui.noStroke();
 		gui.textSize(12);
 		gui.textAlign(PConstants.CENTER, PConstants.CENTER);
