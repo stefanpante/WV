@@ -173,8 +173,6 @@ public class Pane implements Drawable {
 		for(Field field: items){
 			height += 20;
 			gui.textSize(12);
-			System.out.println(field != null);
-			System.out.println(field.getName());
 			if(field != null && !field.getContent().equals("null")){
 				height+= 20;
 				gui.fill(gui.color(0));
