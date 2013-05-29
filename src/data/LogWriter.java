@@ -9,29 +9,26 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 
 public class LogWriter {
-	
-	public static final String FILE = "data/selectedPapers.txt";
-;
+
+	public static final String FILE = "selectedPapers.txt";
+
 	private static OutputStreamWriter fw = null;
-	
+
 	public static void writeLine(String line){
-		if(fw == null){
-			try { 
-				//file = new File(FILE);
-				//if (!file.exists()) file.createNewFile();
-				//fw = new FileWriter(file.getAbsoluteFile());
-				//bw = new BufferedWriter(fw);
-				fw = new OutputStreamWriter(new FileOutputStream(FILE, true),Charset.forName("UTF-8").newEncoder());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		try {
-			fw.write(line);
+		try { 
+			//file = new File(FILE);
+			//if (!file.exists()) file.createNewFile();
+			//fw = new FileWriter(file.getAbsoluteFile());
+			//bw = new BufferedWriter(fw);
+			fw = new OutputStreamWriter(new FileOutputStream(FILE, true),Charset.forName("UTF-8").newEncoder());
+			fw.append(line);
+			fw.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+
 }
+
+

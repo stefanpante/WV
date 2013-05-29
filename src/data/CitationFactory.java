@@ -16,7 +16,6 @@ public class CitationFactory {
 	public static void main(String[] args) throws Exception {
 		HashSet<Publication> citations = backwardCitationsFromAcademics(777102);
 		for (Publication pub : citations) {
-			System.out.println(pub.createFields().get(0).getContent());
 		}
 	}
 	public static HashSet<Publication> forwardCitationsFromAcademics(int id) {

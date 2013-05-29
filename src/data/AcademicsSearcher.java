@@ -16,7 +16,6 @@ public class AcademicsSearcher extends PublicationSearcher {
 
 	public static void main(String[] args) throws Exception {
 		AcademicsSearcher searcher = new AcademicsSearcher();
-		System.out.println(searcher.generalSearch("kobe", 10));
 	}
 
 	@Override

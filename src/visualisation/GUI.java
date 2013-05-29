@@ -5,8 +5,8 @@ import java.awt.event.MouseWheelListener;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.sql.SQLException;
-import controlP5.Bang;
+import java.util.ArrayList;
+
 import controlP5.CColor;
 import controlP5.ControlP5;
 import controlP5.Slider;
@@ -14,21 +14,15 @@ import controlP5.Textfield;
 import data.HTTP;
 import data.Publication;
 import data.PublicationManager;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.XMLReaderFactory;
+
 
 import processing.core.*;
 import processing.data.XML;
@@ -163,7 +157,6 @@ public class GUI extends PApplet{
 		}
 
 		if(search.hit(mouseX, mouseY)){
-			System.out.println("Clicked search");
 			String search = inputField.getText();
 			try {
 				this.search(search);

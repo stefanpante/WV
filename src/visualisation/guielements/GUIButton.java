@@ -110,6 +110,11 @@ public class GUIButton implements GUIElement{
 		return this.activated;
 	}
 
+	public void setActive(boolean b) {
+		this.activated = b;
+		
+	}
+
 
 
 }
