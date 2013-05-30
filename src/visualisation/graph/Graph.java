@@ -174,7 +174,7 @@ public class Graph implements Drawable {
 	public void expand(int mouseX, int mouseY) {
 		for (Node node : getNodes().values()) {
 			if (node.hit2(mouseX, mouseY)) {
-				
+				node.getPane().getExpandButton().toggleActive();
 				ExecutorService executor = Executors.newCachedThreadPool();
 				executor.execute(new NodeExpandThread(manager, node, this));
 				break;
@@ -184,6 +184,7 @@ public class Graph implements Drawable {
 	}
 	
 	public void expand(Node node){
+		node.getPane().getExpandButton().toggleActive();
 		ExecutorService executor = Executors.newCachedThreadPool();
 		executor.execute(new NodeExpandThread(manager, node, this));		
 	}
