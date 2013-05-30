@@ -4,8 +4,6 @@ import visualisation.Application;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
-import data.net.AcademicsScraper;
 import data.net.HTTP;
 import data.net.JSONParser;
 
