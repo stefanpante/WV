@@ -7,7 +7,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import data.PublicationManager;
+import data.publication.PublicationManager;
 
 import visualisation.GUI;
 import visualisation.guielements.Drawable;

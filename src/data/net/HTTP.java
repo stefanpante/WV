@@ -1,12 +1,10 @@
-package data;
+package data.net;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Scanner;
 
 import visualisation.Application;
 import visualisation.GUI;
@@ -35,7 +33,7 @@ public class HTTP {
 			return totalText;
 		} catch (IOException e) {
 			gui.showWarning("Could not connect to Microsoft Academics Server. The server is experiencing downtime.");
-			throw new ServerConnectionException("C"+ Application.APP_ID+"" +Application.APP_ID+"" +Application.APP_ID+"ould not connect to Microsoft Academics Server. The server is experiencing downtime.");
+			return "";
 		}
 	}
 

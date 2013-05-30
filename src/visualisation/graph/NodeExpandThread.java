@@ -1,8 +1,8 @@
 package visualisation.graph;
 
 
-import data.Publication;
-import data.PublicationManager;
+import data.publication.Publication;
+import data.publication.PublicationManager;
 
 public class NodeExpandThread implements Runnable{
 	

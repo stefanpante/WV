@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-import data.PublicationManager;
+import data.publication.PublicationManager;
 
 import processing.core.PApplet;
 import processing.core.PVector;

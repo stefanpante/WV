@@ -1,23 +1,15 @@
-package data;
+package data.publication;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashSet;
 
-import scraper.AcademicsScraper;
+import data.net.AcademicsScraper;
+import data.net.HTTP;
+import data.net.JSONParser;
+
 import visualisation.Application;
-
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 
 public class CitationFactory {
 
-	public static void main(String[] args) throws Exception {
-		HashSet<Publication> citations = backwardCitationsFromAcademics(777102);
-		for (Publication pub : citations) {
-		}
-	}
 	public static HashSet<Publication> forwardCitationsFromAcademics(int id) {
 		HashSet<Publication> result;
 		if (Application.api) {

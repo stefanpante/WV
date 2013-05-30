@@ -1,7 +1,5 @@
-package data;
+package data.publication;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 

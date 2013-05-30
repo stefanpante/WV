@@ -2,7 +2,7 @@ package visualisation.guielements;
 
 import java.util.ArrayList;
 
-import data.Publication;
+import data.publication.Publication;
 
 
 import processing.core.PVector;

@@ -1,8 +1,7 @@
-package data;
+package data.publication;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 import visualisation.subject.Field;
 import visualisation.subject.Subject;

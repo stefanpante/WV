@@ -1,4 +1,4 @@
-package data;
+package data.net;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,21 +10,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import data.publication.Publication;
+
 public class JSONParser {
-	
-	public static Publication extractSearchResult(JsonObject publication){
-		Gson gson = new Gson();
-	    String title = gson.fromJson(publication.get("Title"), String.class);
-	    String abstr = gson.fromJson(publication.get("Abstract"), String.class);
-	    String year = gson.fromJson(publication.get("Year"), String.class);
-	    String cited = gson.fromJson(publication.get("CitationCount"), String.class);
-	    JsonArray authorObject = publication.getAsJsonArray("Author");
-	    int id = gson.fromJson(publication.get("ID"), Integer.class);
-	    ArrayList<String> authors = extractAuthors(authorObject);
-	    //TODO
-	    return null;
-	    //return new Publication(title, abstr, cited, year, authors, null,id);
-	}
 
 	public static Publication extractPublication(JsonObject publication) {
 		Gson gson = new Gson();

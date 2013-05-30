@@ -3,9 +3,9 @@ package visualisation;
 import java.util.ArrayList;
 
 import visualisation.guielements.SearchResultMenu;
-import data.AcademicsSearcher;
-import data.Publication;
-import data.PublicationSearcher;
+import data.net.AcademicsSearcher;
+import data.publication.Publication;
+import data.publication.PublicationSearcher;
 
 
 

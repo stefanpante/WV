@@ -1,16 +1,13 @@
-package data;
+package data.publication;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
-import scraper.AcademicsScraper;
 import visualisation.Application;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+
+import data.net.AcademicsScraper;
+import data.net.HTTP;
+import data.net.JSONParser;
 
 public class PublicationFactory {
 
