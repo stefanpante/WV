@@ -79,13 +79,17 @@ public class PublicationManager {
 				: CitationFactory.backwardCitationsFromDatabase(publication
 						.getID());
 
-		citedPublications.removeAll(getOpenPublications());
-		citingPublications.removeAll(getOpenPublications());
+		//citedPublications.removeAll(getOpenPublications());
+		//citingPublications.removeAll(getOpenPublications());
 		for (Publication citation : citedPublications) {
-			result.add(addCitation(publication, citation, false));
+			Connection c = addCitation(publication, citation, false);
+			//if(!connections.contains(c))
+				result.add(c);
 		}
 		for (Publication citation : citingPublications) {
-			result.add(addCitation(publication, citation, true));
+			Connection c = addCitation(publication, citation, true);
+			//if(!connections.contains(c))
+				result.add(c);
 		}
 		return result;
 	}
