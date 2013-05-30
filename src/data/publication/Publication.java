@@ -101,10 +101,7 @@ public class Publication implements Subject {
 
 	private String getAuthorsString(){
 		String result = "";
-		for(String author: authors){
-			result += author +", ";
-		}
-		for(int i = 0; i < authors.size() - 1; i++){
+		for(int i = 0; i < authors.size(); i++){
 			result += authors.get(i);
 			if(i != authors.size() -1)
 				result += ", " ;
