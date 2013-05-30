@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import data.LogWriter;
 import data.Publication;
+import processing.core.PConstants;
 import processing.core.PVector;
 import visualisation.GUI;
 import visualisation.guielements.Drawable;
@@ -147,14 +148,15 @@ public class Pane implements Drawable {
 		bookmark.draw();
 		offset = 20;
 		if(expanded){
-			float lines = gui.textWidth(trimInput(fields.get(Publication.ABSTRACT).getContent())) / ( width -25);
+			float lines = (float) Math.ceil(gui.textWidth(fields.get(Publication.ABSTRACT).getContent()) / ( width -25));
 			gui.fill(gui.color(0,146,211));
-			gui.textAlign(gui.LEFT);
+			gui.textAlign(PConstants.LEFT);
 			gui.text(fields.get(Publication.ABSTRACT).getName(), position.x + this.width + 10, position.y - height/2 + offset);
 			offset +=20;
 			gui.fill(gui.color(0));
-			gui.textAlign(gui.LEFT);
-			gui.text(fields.get(Publication.ABSTRACT).getContent() + "...", position.x + this.width + 10, position.y - height/2 + offset, this.width, 30 * lines);
+			gui.textAlign(PConstants.LEFT);
+			String abstractString = fields.get(Publication.ABSTRACT).getContent() + "...";
+			gui.text(abstractString, position.x + this.width + 10, position.y - height/2 + offset, this.width - 5, height - 30);
 		}
 
 	}
@@ -215,7 +217,7 @@ public class Pane implements Drawable {
 		if(!this.focus){
 			return false;
 		}
-
+		int width = expanded ? this.width*2 : this.width;
 		PVector position = gui.getTransform().transform(this.position);
 		if(mouseX >= position.x && mouseX <= position.x + X_OFFSET + width ){
 			if(mouseY >= (position.y -height/2) && mouseY <= (position.y + height/2)){
