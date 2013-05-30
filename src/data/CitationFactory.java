@@ -43,39 +43,4 @@ public class CitationFactory {
 
 		return result;
 	}
-
-	public static HashSet<Publication> forwardCitationsFromDatabase(
-			int databaseID) {
-		HashSet<Publication> result = new HashSet<Publication>();
-		ResultSet resultSet;
-		try {
-			resultSet = SQLConnector.select("from_id", "citation", "to_id", ""
-					+ databaseID);
-			while (resultSet.next())
-				result.add(PublicationFactory.fromDatabaseID(resultSet
-						.getInt("from_id")));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return result;
-	}
-
-	public static HashSet<Publication> backwardCitationsFromDatabase(
-			int databaseID) {
-		HashSet<Publication> result = new HashSet<Publication>();
-		ResultSet resultSet;
-		try {
-			resultSet = SQLConnector.select("to_id", "citation", "from_id", ""
-					+ databaseID);
-			while (resultSet.next())
-				result.add(PublicationFactory.fromDatabaseID(resultSet
-						.getInt("to_id")));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return result;
-	}
-
 }

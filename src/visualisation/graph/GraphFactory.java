@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 import data.Publication;
 import data.PublicationFactory;
 import data.PublicationManager;
-import data.SQLConnector;
+
 
 import visualisation.Application;
 import visualisation.GUI;

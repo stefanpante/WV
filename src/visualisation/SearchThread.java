@@ -3,11 +3,11 @@ package visualisation;
 import java.util.ArrayList;
 
 import visualisation.guielements.SearchResultMenu;
-import lucene.PublicationSearcher;
 import data.AcademicsSearcher;
 import data.Publication;
+import data.PublicationSearcher;
 
-import org.apache.lucene.search.IndexSearcher;
+
 
 class SearchThread extends Thread{
 	

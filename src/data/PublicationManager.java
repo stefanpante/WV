@@ -70,14 +70,9 @@ public class PublicationManager {
 		ArrayList<Connection> result = new ArrayList<Connection>();
 		HashSet<Publication> citedPublications;
 		HashSet<Publication> citingPublications;
-		citedPublications = Application.live ? CitationFactory
-				.forwardCitationsFromAcademics(publication.getID())
-				: CitationFactory.forwardCitationsFromDatabase(publication
-						.getID());
-		citingPublications = Application.live ? CitationFactory
-				.backwardCitationsFromAcademics(publication.getID())
-				: CitationFactory.backwardCitationsFromDatabase(publication
-						.getID());
+		citedPublications = CitationFactory.forwardCitationsFromAcademics(publication.getID());
+		citingPublications = CitationFactory.backwardCitationsFromAcademics(publication.getID());
+				
 
 		//citedPublications.removeAll(getOpenPublications());
 		//citingPublications.removeAll(getOpenPublications());

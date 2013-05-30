@@ -5,7 +5,6 @@ import visualisation.GUI;
 import data.Publication;
 import data.PublicationFactory;
 import data.PublicationManager;
-import data.SQLConnector;
 
 public class GraphLoaderThread implements Runnable{
 	
@@ -21,9 +20,6 @@ public class GraphLoaderThread implements Runnable{
 
 	public void run() {
 		applet.startInitialAnimation();
-		if (!Application.live)
-			SQLConnector.initialize("jdbc:mysql://localhost/visualisation",
-					"root", "");
 		PublicationManager manager = new PublicationManager(applet);
 
 		Publication root;
