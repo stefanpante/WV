@@ -109,7 +109,8 @@ public class RegularForceBasedLayout extends GraphLayout {
 		}
 		
 		// Resets the parent node's position to the center of the screen.
-		graph.getParentNode().setPosition(graph.getGUI().displayWidth/2, graph.getGUI().displayHeight/2);
+		if(graph.getParentNode() != null)
+			graph.getParentNode().setPosition(graph.getGUI().displayWidth/2, graph.getGUI().displayHeight/2);
 
 	}
 

@@ -130,6 +130,7 @@ public class Graph implements Drawable {
 	 * @param node
 	 */
 	public void setParentNode(Node node) {
+		System.out.println(node );
 		this.parentNode = node;
 	}
 
@@ -161,7 +162,8 @@ public class Graph implements Drawable {
 		for (Node node : manager.getNodes().values()) {
 			node.draw();
 		}
-		parentNode.rollover();
+		if(parentNode != null)
+			parentNode.rollover();
 	}
 
 	/**

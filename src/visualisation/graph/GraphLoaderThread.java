@@ -31,7 +31,7 @@ public class GraphLoaderThread implements Runnable{
 	/*	root = Application.live ? PublicationFactory.fromAcademicsID(id)
 				: PublicationFactory.fromDatabaseID(id);*/
 		root = PublicationFactory.fromSearchResult(result);
-
+		System.out.println(root);
 		manager.expand(root);
 
 		Graph graph = new Graph(manager, applet);
