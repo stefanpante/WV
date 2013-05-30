@@ -61,6 +61,8 @@ public class AcademicsScraper {
 		
 		String abstractString = StringOperations.extractTextBetween(listing, "<div class=\"abstract\">", "</div>");
 		String abstr =  StringOperations.extractTextBetween(abstractString, "\">", "</a");
+		abstr = removeTags(abstr);
+		
 		String conference = "";
 		if(listing.indexOf("Conference:")>-1){
 			String conferenceString = StringOperations.extractTextBetween(listing, "<div class=\"conference\">", "</div>");
@@ -102,6 +104,8 @@ public class AcademicsScraper {
 	private String removeTags(String string) {
 		string = string.replaceAll("</b>", "");
 		string = string.replaceAll("<b>", "");
+		string = string.replaceAll("<span>", "");
+		string = string.replaceAll("</span>", "");
 		string = string.replaceAll("<", "");
 		string = Jsoup.parse(string).text();
 		return string;
