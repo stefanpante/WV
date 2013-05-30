@@ -11,6 +11,7 @@ import controlP5.CColor;
 import controlP5.ControlP5;
 import controlP5.Slider;
 import controlP5.Textfield;
+import data.AcademicsScraper;
 import data.AcademicsSearcher;
 import data.HTTP;
 import data.Publication;
@@ -27,7 +28,6 @@ import org.xml.sax.SAXException;
 
 import processing.core.*;
 import processing.data.XML;
-import scraper.AcademicsScraper;
 import visualisation.graph.Graph;
 import visualisation.graph.GraphFactory;
 import visualisation.graph.GraphLayout;

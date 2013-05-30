@@ -35,7 +35,7 @@ public class HTTP {
 			return totalText;
 		} catch (IOException e) {
 			gui.showWarning("Could not connect to Microsoft Academics Server. The server is experiencing downtime.");
-			throw new ServerConnectionException("C"+ Application.APP_ID+"" +Application.APP_ID+"" +Application.APP_ID+"ould not connect to Microsoft Academics Server. The server is experiencing downtime.");
+			return "";
 		}
 	}
 

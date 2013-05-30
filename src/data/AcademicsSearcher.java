@@ -3,7 +3,6 @@ package data;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import scraper.AcademicsScraper;
 import visualisation.Application;
 
 import com.google.gson.JsonArray;
@@ -12,10 +11,6 @@ import com.google.gson.JsonObject;
 
 
 public class AcademicsSearcher extends PublicationSearcher {
-
-	public static void main(String[] args) throws Exception {
-		AcademicsSearcher searcher = new AcademicsSearcher();
-	}
 
 	@Override
 	public ArrayList<Publication> generalSearch(String query, int results) {
@@ -37,7 +32,7 @@ public class AcademicsSearcher extends PublicationSearcher {
 				JsonElement next = iterator.next();
 				JsonObject publication = next.getAsJsonObject();
 				Publication result = JSONParser
-						.extractSearchResult(publication);
+						.extractPublication(publication);
 				searchResults.add(result);
 			}
 		} else {

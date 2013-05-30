@@ -1,12 +1,11 @@
-package scraper;
+package data;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 
 import org.jsoup.Jsoup;
 
-import data.HTTP;
-import data.Publication;
+
 
 public class AcademicsScraper {
 	
