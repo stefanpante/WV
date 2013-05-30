@@ -1,15 +1,11 @@
 package data;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import processing.core.PApplet;
 
-import visualisation.Application;
 import visualisation.GUI;
 import visualisation.graph.Connection;
 import visualisation.graph.Graph;
