@@ -118,7 +118,7 @@ public class GUI extends PApplet {
 			try {
 				pub = PublicationFactory.fromAcademicsAPI(777102);
 			} catch (IllegalStateException ignore) {
-				warning += "\n Switching to scraping mode";
+				currentFrameWarning = endFrameWarning;
 				Application.api = false;
 			}
 		}
