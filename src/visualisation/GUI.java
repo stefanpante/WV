@@ -18,6 +18,7 @@ import data.publication.Publication;
 import data.publication.PublicationManager;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -151,6 +152,11 @@ public class GUI extends PApplet{
 		URL url = new URL(webbase + imageName);
 		
 		return new XML(createReader(url.openStream()));
+	}
+	
+	private XML readXMLLocal(String imageName) throws IOException, ParserConfigurationException, SAXException{
+		InputStream s = this.getClass().getResourceAsStream(imageName);
+		return new XML(createReader(s));
 	}
 
 	private ShapeButton play;

@@ -104,8 +104,13 @@ public class Publication implements Subject {
 		for(String author: authors){
 			result += author +", ";
 		}
+		for(int i = 0; i < authors.size() - 1; i++){
+			result += authors.get(i);
+			if(i != authors.size() -1)
+				result += ", " ;
+		}
 		
-		return result.substring(0, result.length());
+		return result;
 	}
 	
 	public HashMap<String, Field> createFields() {
