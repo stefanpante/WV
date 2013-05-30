@@ -2,11 +2,9 @@
 package visualisation.graph;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
-import processing.core.PApplet;
 import processing.core.PVector;
 
 public class RegularForceBasedLayout extends GraphLayout {

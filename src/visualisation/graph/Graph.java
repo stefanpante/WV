@@ -3,7 +3,6 @@ package visualisation.graph;
 import java.util.ArrayList;
 
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -30,8 +29,6 @@ public class Graph implements Drawable {
 	 * considered the root of the graph.
 	 */
 	private Node parentNode;
-	
-	private ArrayList<Node> selectedNodes; 
 
 	/**
 	 * The graphlayout of this graph. Determines how the graph is structured
@@ -250,27 +247,4 @@ public class Graph implements Drawable {
 		return manager.getNodes();
 	}
 
-	/**
-	 * A toggle function to fix or unfix the nodes in the graph.
-	 */
-	public void fix() {
-		if (fix) {
-			fix = false;
-			unfix();
-		}
-
-		else {
-			fix = true;
-		}
-	}
-
-	/**
-	 * Sets all the nodes to movable.
-	 */
-	private void unfix() {
-		for (Node node : manager.getNodes().values()) {
-			node.setMovable(true);
-		}
-
-	}
 }

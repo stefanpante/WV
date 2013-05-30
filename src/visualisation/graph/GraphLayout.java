@@ -32,14 +32,6 @@ public abstract class GraphLayout {
 	public abstract void layout();
 
 	/**
-	 * returns the graph associated with this layout.
-	 * @return
-	 */
-	public Graph getGraph(){
-		return this.graph;
-	}
-
-	/**
 	 * Sets the graph of this layout.
 	 * @param graph
 	 */

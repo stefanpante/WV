@@ -1,8 +1,5 @@
 package visualisation.guielements;
 
-import java.awt.Desktop;
-import java.io.IOException;
-
 import processing.core.PApplet;
 import processing.core.PVector;
 import visualisation.GUI;
@@ -79,6 +76,7 @@ public class GUIButton implements GUIElement{
 		return false;
 	}
 
+	@Override
 	public boolean isVisible() {
 		return true;
 	}
@@ -87,15 +85,18 @@ public class GUIButton implements GUIElement{
 		this.position.x = x;
 		this.position.y = y;
 	}
+	
+	@Override
 	public int getColor() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+	@Override
 	public PVector getPosition() {
 		return position;
 	}
 
+	@Override
 	public PVector getTransformedPosition() {
 		// TODO Auto-generated method stub
 		return null;

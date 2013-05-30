@@ -1,15 +1,9 @@
 	
 package visualisation.graph;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
-
 import data.publication.PublicationManager;
-
-import processing.core.PApplet;
 import processing.core.PVector;
-import processing.opengl.PShader;
 import visualisation.GUI;
 import visualisation.guielements.GUIElement;
 import visualisation.subject.Subject;
@@ -112,13 +106,6 @@ public class Node implements GUIElement{
 		this.movable = movable;
 	}
 
-	/**
-	 * sets the subject of this node. 
-	 * @param sub
-	 */
-	public void setSubject(Subject sub){
-		this.sub = sub;
-	}
 	
 	/**
 	 * returns the subject of this node.
@@ -151,19 +138,6 @@ public class Node implements GUIElement{
 	 */
 	public ArrayList<Connection> getConnections(){
 		return manager.getConnectionsWith(this);
-	}
-	
-	/**
-	 * Returns if this node is connected to another node.
-	 */
-	public boolean isConnectedTo(Node other){
-		for(Connection conn: getConnections()){
-			if(conn.getOther(this) == other){
-				return true;
-			}
-		}
-		
-		return false;
 	}
 
 	/**
@@ -200,16 +174,6 @@ public class Node implements GUIElement{
 			
 		if(pane.hasFocus()){
 			pane.draw();
-		}
-	}
-
-	
-	public void fixPane(){
-		if(pane.hasFocus()){
-			pane.setFocus(false);
-		}
-		else{
-			pane.setFocus(true);
 		}
 	}
 
@@ -293,21 +257,6 @@ public class Node implements GUIElement{
 	public PVector getPosition(){
 		return position;
 	}
-	
-	/**
-	 * sets the color of this node.
-	 * @param color
-	 */
-	public void setColor(int color){
-		this.color = color;
-	}
-
-	/**
-	 * returns whether the node is hittable, always true.
-	 */
-	public boolean hittable() {
-		return true;
-	}
 
 	public void setPosition(double  d, double  e) {
 		if(movable){
@@ -328,28 +277,6 @@ public class Node implements GUIElement{
 		this.diameter = diameter;
 	}
 	
-	/**
-	 * returns the color of the node.
-	 */
-	public int getColor() {
-		return color;
-	}
-
-	/**
-	 * returns whether the node is visible
-	 */
-	public boolean isVisible() {
-		return true;
-	}
-	
-	/**
-	 * Sets the gui for the node. the gui is needed to draw on the screen.
-	 * @param gui
-	 */
-	public void setGUI(GUI gui){
-		this.gui =gui;
-	}
-	
 	public float getDiameter(){
 		return this.diameter;
 	}
@@ -362,6 +289,21 @@ public class Node implements GUIElement{
 	public void dragColor(){
 		this.color = 0;
 		this.color2 = gui.color(19,158,0, 255);
+	}
+
+	@Override
+	public boolean hittable() {
+		return true;
+	}
+
+	@Override
+	public boolean isVisible() {
+		return true;
+	}
+
+	@Override
+	public int getColor() {
+		return 0;
 	}
 
 

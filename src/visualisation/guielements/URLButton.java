@@ -4,8 +4,6 @@ import java.io.IOException;
 
 import processing.core.PApplet;
 
-import visualisation.GUI;
-
 public class URLButton extends GUIButton{
 
 	private String URL;

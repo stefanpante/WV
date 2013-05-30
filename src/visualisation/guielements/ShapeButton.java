@@ -46,10 +46,6 @@ public class ShapeButton implements GUIElement{
 		}
 		return false;
 	}
-
-	public void setVisibility(boolean visibility){
-		this.visibility = visibility;
-	}
 	
 	public boolean isVisible() {
 		return visibility;
@@ -57,10 +53,6 @@ public class ShapeButton implements GUIElement{
 
 	public int getColor() {
 		return 0;
-	}
-	
-	public void setNormal(boolean isNormal){
-		this.isNormal = isNormal;
 	}
 	
 	public void toggle(){

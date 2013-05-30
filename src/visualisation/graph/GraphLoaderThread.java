@@ -1,20 +1,16 @@
 package visualisation.graph;
 
-import visualisation.Application;
 import visualisation.GUI;
 import data.publication.Publication;
-import data.publication.PublicationFactory;
 import data.publication.PublicationManager;
 
 public class GraphLoaderThread implements Runnable {
 
 	private Publication result;
-	private int expansionDegree;
 	private GUI applet;
 
 	public GraphLoaderThread(Publication result, int expansionDegree, GUI applet) {
 		this.result = result;
-		this.expansionDegree = expansionDegree;
 		this.applet = applet;
 	}
 
@@ -32,7 +28,6 @@ public class GraphLoaderThread implements Runnable {
 			if (root.equals(p)) {
 				graph.setParentNode(n);
 				n.setExpanded(true);
-				// TODO: set parentnode to expanded
 			}
 		}
 		applet.setGraph(graph);

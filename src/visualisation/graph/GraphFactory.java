@@ -1,15 +1,10 @@
 package visualisation.graph;
 
-import java.sql.SQLException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import data.publication.Publication;
-import data.publication.PublicationFactory;
-import data.publication.PublicationManager;
 
-
-import visualisation.Application;
 import visualisation.GUI;
 
 public class GraphFactory {

@@ -12,7 +12,6 @@ public class SearchResultMenu {
 
 	private PVector startPosition; 
 	private ArrayList<SearchResultGUI> items;
-	private GUI gui;
 	private float width;
 	private float height = 50;
 	
@@ -25,7 +24,6 @@ public class SearchResultMenu {
 	
 	public SearchResultMenu(ArrayList<Publication> searchResults, GUI gui){
 		this();
-		this.gui = gui;
 		for(Publication result: searchResults){
 			this.items.add(new SearchResultGUI(result, gui));
 		}

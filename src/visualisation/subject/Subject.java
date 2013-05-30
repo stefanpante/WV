@@ -1,6 +1,5 @@
 package visualisation.subject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 

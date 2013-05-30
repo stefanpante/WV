@@ -19,7 +19,7 @@ public class Pane implements Drawable {
 	private GUI gui;
 	private Node parentNode;
 	private PVector position;
-	public static final int width = 275;
+	public final int width = 275;
 	private boolean expanded;
 	public int height;
 	private boolean focus = false;
@@ -68,15 +68,6 @@ public class Pane implements Drawable {
 		this.bookmark = new GUIButton("Bookmark paper", "Unbookmark paper", applet);
 	}
 
-	/**
-	 * turns off the focus if it is on and vice versa.
-	 */
-	public void toggleFocus(){
-		if(focus) {
-			focus = false;
-		}
-		else focus = true;
-	}
 
 	/**
 	 * Draws the pane onto the screen
@@ -149,7 +140,6 @@ public class Pane implements Drawable {
 		bookmark.draw();
 		offset = 20;
 		if(expanded){
-			float lines = (float) Math.ceil(gui.textWidth(fields.get(Publication.ABSTRACT).getContent()) / ( width -25));
 			gui.fill(gui.color(0,146,211));
 			gui.textAlign(PConstants.LEFT);
 			gui.text(fields.get(Publication.ABSTRACT).getName(), position.x + this.width + 10, position.y - height/2 + offset);
@@ -201,10 +191,7 @@ public class Pane implements Drawable {
 
 		return output;
 	}
-	public String shortText(){
-		Field field = parentNode.getSubject().getDescription();
-		return field.getContent();
-	}
+
 
 	public boolean hasFocus(){
 		return focus;

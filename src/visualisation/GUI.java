@@ -5,14 +5,12 @@ import java.awt.event.MouseWheelListener;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
 
 import controlP5.CColor;
 import controlP5.ControlP5;
 import controlP5.Slider;
 import controlP5.Textfield;
 import data.net.AcademicsScraper;
-import data.net.AcademicsSearcher;
 import data.net.HTTP;
 import data.publication.Publication;
 import data.publication.PublicationFactory;
@@ -29,9 +27,7 @@ import processing.core.*;
 import processing.data.XML;
 import visualisation.graph.Graph;
 import visualisation.graph.GraphFactory;
-import visualisation.graph.GraphLayout;
 import visualisation.graph.Node;
-import visualisation.graph.RegularForceBasedLayout;
 import visualisation.guielements.SearchResultMenu;
 import visualisation.guielements.ShapeButton;
 
@@ -54,12 +50,6 @@ public class GUI extends PApplet {
 	private boolean pause = false;
 
 	/**
-	 * The default GraphLayout
-	 */
-
-	private GraphLayout graphLayout = new RegularForceBasedLayout();
-
-	/**
 	 * Used for panning and zooming.
 	 */
 	public Transform transform;
@@ -68,14 +58,12 @@ public class GUI extends PApplet {
 	private PShape loadingAnimation2;
 
 	public boolean startDrawing;
-	private ClassLoader classLoader;
 
 	/**
 	 * Setup sets up the program for running. -inits GUI inits GRAPH
 	 */
 	public void setup() {
 		stopDrawing();
-		PFont standardFont = new PFont(this.getFont(), true);
 		HTTP.gui = this;
 
 		transform = new Transform(this);
@@ -159,6 +147,7 @@ public class GUI extends PApplet {
 		return new XML(createReader(url.openStream()));
 	}
 
+	@SuppressWarnings("unused")
 	private XML readXMLLocal(String imageName) throws IOException,
 			ParserConfigurationException, SAXException {
 		InputStream s = this.getClass().getResourceAsStream(imageName);
@@ -244,13 +233,6 @@ public class GUI extends PApplet {
 		this.graph = graph;
 	}
 
-	private void resetTransform() {
-		this.transform.translationX = 0;
-		this.transform.translationY = 0;
-		this.transform.scale = 1f;
-		slider.setValue(100);
-	}
-
 	public void mouseReleased() {
 		locked = false;
 		graph.mouseReleased();
@@ -283,6 +265,7 @@ public class GUI extends PApplet {
 	 * @throws IOException
 	 * @throws URISyntaxException
 	 */
+	@SuppressWarnings("deprecation")
 	private void setupGUI() throws URISyntaxException, IOException,
 			ParserConfigurationException, SAXException {
 		PFont standardFont = new PFont(this.getFont(), true);

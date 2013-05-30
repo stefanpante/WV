@@ -6,7 +6,6 @@ import processing.core.PApplet;
 import processing.core.PVector;
 import visualisation.GUI;
 import visualisation.guielements.Drawable;
-import visualisation.guielements.GUIElement;
 
 /**
  * Connection represents the connection between two nodes inside a graph ( can be used for any other type of connection)
@@ -72,19 +71,6 @@ public class Connection implements Drawable{
 	public float getDistance(){
 
 		return node1.getPosition().dist(node2.getPosition());
-	}
-	
-	/**
-	 * Calculates the angle between the connection and the x - axis of the coordinatespace.
-	 * @return
-	 */
-	public float getAngle(){
-		float x1 = node1.getPosition().x;
-		float x2 = node2.getPosition().x;
-		float y1 = node1.getPosition().y;
-		float y2 = node1.getPosition().y;
-		
-		return (float) (Math.atan((x2-x1)/(y2-y1)));
 	}
 	
 	/**
@@ -157,21 +143,6 @@ public class Connection implements Drawable{
 		
 		return (float) Math.atan2(diffY, diffX);
 
-	}
-	
-
-	/**
-	 * Setter for the gui. the specified gui will be used to draw.
-	 * @param gui	the gui to be used.
-	 */
-	public void setGUI(GUI gui){
-		this.gui = gui;
-	}
-	
-
-
-	public int getColor() {
-		return color;
 	}
 
 	/**
