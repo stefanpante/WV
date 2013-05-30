@@ -115,9 +115,13 @@ public class GUI extends PApplet{
 		isLoading = false;
 
 		// Create a graph instance to display
-		int id = Application.live ? 777102 : 4;
-		AcademicsScraper scraper = new AcademicsScraper();
-		Publication pub = scraper.scrapeByQuery("The ARIADNE knowledge pool system").get(0);
+		// DEFAULT ID: The ARIADNE knowledge pool system
+		if(Application.api){
+			
+		}else{
+			AcademicsScraper scraper = new AcademicsScraper();
+			Publication pub = scraper.scrapeByQuery("The ARIADNE knowledge pool system").get(0);
+		}
 
 		GraphFactory.getInstance().fromSearchResult(pub, 1, this);
 		

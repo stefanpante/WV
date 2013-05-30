@@ -16,13 +16,11 @@ public class AcademicsScraper {
 		AcademicsScraper scraper = new AcademicsScraper();
 		Publication original = scraper.scrapeById(777102);
 		System.out.println(original.getSearchTerm());
-		/*HashSet<Publication> citations = scraper.scrapeForwardCitations(777102);
+		HashSet<Publication> citations = scraper.scrapeForwardCitations(777102);
 		System.out.println("Found "+citations.size()+" publications");
 		for(Publication pub : citations){
 			System.out.println(pub.getSearchTerm());
-		}*/
-		
-		
+		}
 	}
 	
 	public Publication scrapeByTitle(String title){
@@ -62,7 +60,7 @@ public class AcademicsScraper {
 		ArrayList<String> authors = parseAuthors(authorString);
 		
 		String abstractString = StringOperations.extractTextBetween(listing, "<div class=\"abstract\">", "</div>");
-		String abstr =  StringOperations.extractTextBetween(abstractString, "\">", "</");
+		String abstr =  StringOperations.extractTextBetween(abstractString, "\">", "</a");
 		String conference = "";
 		if(listing.indexOf("Conference:")>-1){
 			String conferenceString = StringOperations.extractTextBetween(listing, "<div class=\"conference\">", "</div>");
