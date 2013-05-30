@@ -12,30 +12,21 @@ import data.net.JSONParser;
 public class PublicationFactory {
 
 	public static void main(String[] args) throws Exception {
-		Publication pub = fromAcademicsID(777102);
+		Publication pub = fromAcademicsAPI(777102);
 		System.out.println(pub.createFields().get(0).getContent());
 	}
 
-	public static Publication fromAcademicsID(int id) {
-		if (Application.api) {
-			String json = HTTP
-					.loadURL("http://academic.research.microsoft.com/json.svc/search?AppId="
-							+ Application.APP_ID
-							+ "&PublicationID="
-							+ id
-							+ "&ResultObjects=Publication&PublicationContent=AllInfo&StartIdx=1&EndIdx=1");
-			JsonArray resultArray = JSONParser.extractPublicationArray(json);
-			JsonObject publication = resultArray.get(0).getAsJsonObject();
-			return JSONParser.extractPublication(publication);
-		} else {
-			AcademicsScraper scraper = new AcademicsScraper();
-			return scraper.scrapeById(id);
-		}
-	}
+	public static Publication fromAcademicsAPI(int id) {
+		String json = HTTP
+				.loadURL("http://academic.research.microsoft.com/json.svc/search?AppId="
+						+ Application.APP_ID
+						+ "&PublicationID="
+						+ id
+						+ "&ResultObjects=Publication&PublicationContent=AllInfo&StartIdx=1&EndIdx=1");
+		JsonArray resultArray = JSONParser.extractPublicationArray(json);
+		JsonObject publication = resultArray.get(0).getAsJsonObject();
+		return JSONParser.extractPublication(publication);
 
-
-	public static Publication fromSearchResult(Publication result) {
-		return result;
 	}
 
 }

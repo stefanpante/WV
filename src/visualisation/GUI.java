@@ -116,11 +116,12 @@ public class GUI extends PApplet{
 
 		// Create a graph instance to display
 		// DEFAULT ID: The ARIADNE knowledge pool system
+		Publication pub;
 		if(Application.api){
-			
+			pub = new Publication(777102, "", 0, 0, "", null, "", "", "");
 		}else{
 			AcademicsScraper scraper = new AcademicsScraper();
-			Publication pub = scraper.scrapeByQuery("The ARIADNE knowledge pool system").get(0);
+			pub = scraper.scrapeByQuery("The ARIADNE knowledge pool system").get(0);
 		}
 
 		GraphFactory.getInstance().fromSearchResult(pub, 1, this);

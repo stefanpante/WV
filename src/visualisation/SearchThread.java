@@ -22,9 +22,7 @@ class SearchThread extends Thread{
 	@Override
 	public void run() {
 		gui.startSearchAnimation();
-		PublicationSearcher searcher = null;
-		if(Application.live) searcher = new AcademicsSearcher();
-		//else searcher = new IndexSearcher();
+		PublicationSearcher searcher = new AcademicsSearcher();
 		try {
 			ArrayList<Publication> results = searcher.generalSearch(search, 10);
 			if(results.size() > 0){

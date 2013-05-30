@@ -6,13 +6,13 @@ import data.publication.Publication;
 import data.publication.PublicationFactory;
 import data.publication.PublicationManager;
 
-public class GraphLoaderThread implements Runnable{
-	
+public class GraphLoaderThread implements Runnable {
+
 	private Publication result;
 	private int expansionDegree;
 	private GUI applet;
-	
-	public GraphLoaderThread(Publication result, int expansionDegree, GUI applet){
+
+	public GraphLoaderThread(Publication result, int expansionDegree, GUI applet) {
 		this.result = result;
 		this.expansionDegree = expansionDegree;
 		this.applet = applet;
@@ -22,11 +22,10 @@ public class GraphLoaderThread implements Runnable{
 		applet.startInitialAnimation();
 		PublicationManager manager = new PublicationManager(applet);
 
-		Publication root;
-		try{
-	/*	root = Application.live ? PublicationFactory.fromAcademicsID(id)
-				: PublicationFactory.fromDatabaseID(id);*/
-		root = PublicationFactory.fromSearchResult(result);
+		Publication root = result;
+		if (Application.api) {
+			root = PublicationFactory.fromAcademicsAPI(result.getID());
+		}
 		System.out.println(root);
 		manager.expand(root);
 
@@ -43,12 +42,7 @@ public class GraphLoaderThread implements Runnable{
 		applet.setGraph(graph);
 		applet.stopInitialAnimation();
 		applet.startDrawing();
-		} catch(Exception e){
-			applet.stopInitialAnimation();
-			applet.showWarning("Oops, something went wrong,  \n It seems that the Microsoft servers are not responding!");
-			e.printStackTrace();
-		}
-		
+
 	}
 
 }
