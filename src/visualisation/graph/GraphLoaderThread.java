@@ -23,9 +23,14 @@ public class GraphLoaderThread implements Runnable {
 		PublicationManager manager = new PublicationManager(applet);
 
 		Publication root = result;
-		if (Application.api) {
-			root = PublicationFactory.fromAcademicsAPI(result.getID());
-		}
+		/*if (Application.api) {
+			try{
+				root = PublicationFactory.fromAcademicsAPI(result.getID());
+			}catch(Exception ignore){
+				Application.api = false;
+				
+			}
+		}*/
 		System.out.println(root);
 		manager.expand(root);
 
