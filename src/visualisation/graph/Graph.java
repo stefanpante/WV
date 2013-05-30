@@ -130,7 +130,6 @@ public class Graph implements Drawable {
 	 * @param node
 	 */
 	public void setParentNode(Node node) {
-		System.out.println(node );
 		this.parentNode = node;
 	}
 

@@ -140,8 +140,6 @@ public class RegularForceBasedLayout extends GraphLayout {
 			float newX = (float) (x + springlength * Math.cos(initcorner)+ random.nextInt(30)) ;
 			float newY = (float) (y + springlength * Math.sin(initcorner)+ random.nextInt(30));
 			Node other = conns.get(i).getOther(node);
-			System.out.println(newX+","+newY);
-
 			other.setPosition(newX , newY);
 			initcorner += corner;
 		}
