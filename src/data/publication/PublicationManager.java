@@ -1,9 +1,10 @@
-package data;
+package data.publication;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+
 
 
 import visualisation.GUI;

@@ -1,4 +1,4 @@
-package data;
+package data.net;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,6 +9,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import data.publication.Publication;
 
 public class JSONParser {
 

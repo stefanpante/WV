@@ -1,6 +1,6 @@
 package visualisation.guielements;
 
-import data.Publication;
+import data.publication.Publication;
 import processing.core.PConstants;
 import processing.core.PVector;
 import visualisation.GUI;

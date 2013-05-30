@@ -2,9 +2,9 @@ package visualisation.graph;
 
 import visualisation.Application;
 import visualisation.GUI;
-import data.Publication;
-import data.PublicationFactory;
-import data.PublicationManager;
+import data.publication.Publication;
+import data.publication.PublicationFactory;
+import data.publication.PublicationManager;
 
 public class GraphLoaderThread implements Runnable{
 	

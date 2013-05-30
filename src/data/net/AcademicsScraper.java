@@ -1,9 +1,12 @@
-package data;
+package data.net;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 
 import org.jsoup.Jsoup;
+
+import data.publication.Publication;
+import data.util.StringOperations;
 
 
 

@@ -1,4 +1,4 @@
-package data;
+package data.net;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,6 +8,9 @@ import visualisation.Application;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import data.publication.Publication;
+import data.publication.PublicationSearcher;
 
 
 public class AcademicsSearcher extends PublicationSearcher {

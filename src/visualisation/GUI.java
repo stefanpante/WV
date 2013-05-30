@@ -11,11 +11,11 @@ import controlP5.CColor;
 import controlP5.ControlP5;
 import controlP5.Slider;
 import controlP5.Textfield;
-import data.AcademicsScraper;
-import data.AcademicsSearcher;
-import data.HTTP;
-import data.Publication;
-import data.PublicationManager;
+import data.net.AcademicsScraper;
+import data.net.AcademicsSearcher;
+import data.net.HTTP;
+import data.publication.Publication;
+import data.publication.PublicationManager;
 
 import java.io.IOException;
 

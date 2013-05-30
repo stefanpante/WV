@@ -1,6 +1,10 @@
-package data;
+package data.publication;
 
 import java.util.HashSet;
+
+import data.net.AcademicsScraper;
+import data.net.HTTP;
+import data.net.JSONParser;
 
 import visualisation.Application;
 

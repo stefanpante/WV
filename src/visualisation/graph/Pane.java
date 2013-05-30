@@ -2,8 +2,8 @@ package visualisation.graph;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import data.LogWriter;
-import data.Publication;
+import data.publication.Publication;
+import data.util.LogWriter;
 import processing.core.PVector;
 import visualisation.GUI;
 import visualisation.guielements.Drawable;
